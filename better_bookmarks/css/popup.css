@@ -5,6 +5,9 @@ a {
 a:hover, .nobull:hover {
     background-color: lightgrey;
 }
+ul li a {
+    display: block;
+}
 .li-space {
     margin: 15px 0;
 }
