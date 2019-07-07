@@ -4,8 +4,13 @@
     "description": "Uses machine learning to automatically sort your bookmarks.",
     "manifest_version": 2,
     "permissions": [
-        "bookmarks"
+        "bookmarks",
+        "contextMenus"
     ],
+    "background": {
+        "scripts": ["js/background.js"],
+        "persistent": false
+    },
     "browser_action": {
         "default_title": "Better Bookmarks",
         "default_popup": "views/popup.html"
