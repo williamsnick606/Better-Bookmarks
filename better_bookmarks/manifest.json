@@ -1,0 +1,13 @@
+{
+    "name": "Better Bookmarks",
+    "version": "0.01",
+    "description": "Uses machine learning to automatically sort your bookmarks.",
+    "manifest_version": 2,
+    "permissions": [
+        "bookmarks"
+    ],
+    "browser_action": {
+        "default_title": "Better Bookmarks",
+        "default_popup": "views/popup.html"
+    }
+}

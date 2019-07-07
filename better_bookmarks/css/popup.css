@@ -1,0 +1,9 @@
+.li-space {
+    margin: 15px 0;
+}
+.nobull {
+    list-style-type: none;
+}
+#folders {
+    border-top: 3px solid grey;
+}
