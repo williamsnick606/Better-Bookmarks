@@ -25,10 +25,7 @@ function addFoldersToPopup() {
     *
     */
     function walkChildren(bs) {
-        if (bs == undefined) {
-            return;
-        }
-        if (bs.length == 0) {
+        if (bs == undefined || bs.length == 0) {
             return;
         }
         for (let i = 0; i < bs.length; i++) {
