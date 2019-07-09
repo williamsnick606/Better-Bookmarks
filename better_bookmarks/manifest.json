@@ -8,7 +8,9 @@
         "contextMenus"
     ],
     "background": {
-        "scripts": ["js/background.js"],
+        "scripts": ["js/background.js",
+                    "js/bookmark_listener.js"
+                   ],
         "persistent": false
     },
     "browser_action": {
