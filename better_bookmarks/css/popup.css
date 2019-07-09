@@ -10,7 +10,7 @@ li a {
     color: inherit;
     text-decoration: none;
 }
-a:hover, .nobull:hover {
+a:hover {
     background-color: lightgrey;
 }
 #folders {
