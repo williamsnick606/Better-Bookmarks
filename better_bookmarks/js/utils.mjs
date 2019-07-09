@@ -1,7 +1,7 @@
 /*
  * file        : utils.mjs
- * description : This file contains a function for adding bookmark
- *               folders to the extension's popup menu.
+ * description : This file is a JavaScript module intended to
+ *               contain utility functions.
  *
  */
 
