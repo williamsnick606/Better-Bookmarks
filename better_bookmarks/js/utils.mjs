@@ -31,7 +31,7 @@ export function addFoldersToPopup() {
         for (let i = 0; i < bs.length; i++) {
             let bmark = bs[i];
             let cs    = bmark.children;
-            if (bmark.url == undefined && bmark.id != 0) {
+            if (bmark.id != 0 && bmark.url == undefined) {
                 text += "<li id=" + bmark.id +
                        "><a href=\"#\">";
                 // Chrome allows untitled folders, so
