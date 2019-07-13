@@ -4,6 +4,6 @@
  *               folders to the extension's popup menu.
  *
  */
-import {addFoldersToPopup} from './utils.mjs';
+import {addBookmarkContent} from './utils.mjs';
 
-addFoldersToPopup();
+addBookmarkContent();
