@@ -5,7 +5,8 @@
     "manifest_version": 2,
     "permissions": [
         "bookmarks",
-        "contextMenus"
+        "contextMenus",
+        "activeTab"
     ],
     "background": {
         "scripts": ["js/background.js"],
@@ -17,7 +18,7 @@
         "default_popup": "views/popup.html"
     },
     "options_ui": {
-		"page": "views/options.html",
-		"open_in_tab": false
+        "page": "views/options.html",
+        "open_in_tab": false
   }
 }
