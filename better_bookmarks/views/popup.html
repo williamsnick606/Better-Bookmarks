@@ -2,33 +2,15 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="../css/popup.css">
+        <link rel="stylesheet" type="text/css" href="../css/options.css">
     </head>
     <body>
-        <!--Added some styling just to test it out !-->
-        <style>
-            .button {
-                background-color: #555555; /* Green */
-                border: none;
-                border-radius: 4px;
-                color: white;
-                padding: 10px 10px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 12px;
-                cursor: pointer;
-            }
-            .button:hover {
-                box-shadow: 0 5px 5px 0 rgba(0,0,0,0.2), 0 5px 5px 0 rgba(0,0,0,0.19);
-            }
-        </style>
-        <!--Added some styling just to test it out !-->
         <div id="searchBarDiv">
             <input type="text" name="searchBar" placeholder="Search Bookmarks">
         </div>
         <!-- made a button for adding bookmarks !-->
-        <div id="addNew"  >
-            <button class="button" id="newBookmark">Bookmark this page</button>
+        <div id="addNew">
+            <button id="addbtn" class="button">Bookmark this page</button>
             <script src="../js/getTitleUrlDesc.js"></script>
         </div>
         <!-- made a button for adding bookmarks !-->
@@ -41,6 +23,7 @@
         </div>
         <div id="folders">
             <script type="module" src="../js/add_bookmarks.mjs"></script>
+            <script src="../js/options.js"></script>
         </div>
     </body>
 </html>
