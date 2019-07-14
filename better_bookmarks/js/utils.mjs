@@ -101,18 +101,46 @@ export function addBookmarkContent() {
  *
  * ==== Still in progress. ====
  *
+ * @return undefined
+ *
  */
 export function validateForm() {
     var val = document.forms["searchForm"]["searchBar"].value;
     alert(val);
 }
 
+/*
+ * Toggles, i.e., shows, the bookmark titles/folders,
+ * that reside in a clicked on folder matching the
+ * given ID in the popup menu.
+ *
+ * @param folderID : the ID of the folder that was just
+ *                   clicked.
+ * @return undefined
+ *
+ */
 function toggleBookmarks(folderId) {
     document.getElementById("folderDropdown" + folderId)
             .classList
             .toggle("show");
+    // I need to add "display: none;" to the style
+    // for the folders that weren't clicked.
 }
 
+/*
+ * Attached on click listerners to the bookmark
+ * folders in the popupmenu and adds a listener
+ * for clicks outside a folder.
+ *
+ * If a folder is clicked, then show its contents,
+ * and if a click happens outside a folder, stop
+ * showing the folder.
+ *
+ * @param folders : the folders to attach an onclick
+ *                  listener to.
+ * @return undefined
+ *
+ */
 function attachFolderListeners(folders) {
     for (let i = 0; i < folders.length; i++) {
         const folder = folders[i];
