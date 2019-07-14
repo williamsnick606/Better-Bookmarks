@@ -35,7 +35,7 @@ export function addBookmarkContent() {
                 // Create new folder dropdown.
                 folderText += "<div id=\"folder" +
                               node.id + "\" class=\"dropdown\">" +
-                              "<a name=\"" +
+                              "<a id=\"" + node.id + "\" name=\"" +
                               node.title +
                               "\" class=\"dropbtn\" " +
                               "href=\"#\">";
@@ -60,7 +60,7 @@ export function addBookmarkContent() {
                     // Create a new bookmark "list."
                     if (bmarkText.length == 0) {
                         bmarkText += "<div id=\"folderDropdown" +
-                                     node.id + "\" " +
+                                     node.parentId + "\" " +
                                      "class=\"dropdown-content\">";
                     }
                 }
@@ -87,6 +87,10 @@ export function addBookmarkContent() {
         bmarkText  = "";
         walkChildren(bs);
         search.insertAdjacentHTML("afterend", folderText);
+
+    // Attach the listeners for dropdown functionality.
+    const folders = document.getElementsByClassName("dropbtn");
+    attachFolderListeners(folders);
     });
 }
 
@@ -103,18 +107,29 @@ export function validateForm() {
     alert(val);
 }
 
-function toggleBookmarks() {
-    document.getElmentById("folderDropdown")
+function toggleBookmarks(folderId) {
+    document.getElementById("folderDropdown" + folderId)
             .classList
             .toggle("show");
 }
 
-export function addBookmarksToPopup() {
-    const folderList = document.getElementById("folderList");
-    alert(folderList);
-    const folders    = folderList.childNodes;
+function attachFolderListeners(folders) {
     for (let i = 0; i < folders.length; i++) {
-        var folder = folders[i];
-        folder.onclick = toggleBookmarks;
+        const folder = folders[i];
+        folder.addEventListener("click", () => {
+            toggleBookmarks(folder.id); 
+        });
     }
+
+    window.addEventListener("click", function(event) {
+        if (!event.target.matches(".dropbtn")) {
+            var ddContent = document.getElementsByClassName("dropdown-content");
+            for (let i = 0; i < ddContent.length; i++) {
+                var openDropdown = ddContent[i];
+                if (openDropdown.classList.contains("show")) {
+                    openDropdown.classList.remove("show");
+                }
+            }
+        }
+    });
 }
