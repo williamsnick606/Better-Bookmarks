@@ -19,10 +19,6 @@ div a {
     color: inherit;
     text-decoration: none;
 }
-/*a:hover, a:focus {
-    background-color: lightgrey;
-}
-*/
 #folders {
     border-top: 3px solid grey;
 }
