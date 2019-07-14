@@ -1,0 +1,18 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+}
+li a {
+    display: block;
+    padding: 8px 16px;
+    color: inherit;
+    text-decoration: none;
+}
+a:hover, .nobull:hover {
+    background-color: lightgrey;
+}
+#folders {
+    border-top: 3px solid grey;
+}
