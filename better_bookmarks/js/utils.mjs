@@ -14,6 +14,7 @@
  */
 export function addBookmarkContent() {
     var folderDiv, dropdownDiv, bmarkContent;
+    const folderDivs = [];
     /*
     * Walks the bookmark tree adding
     * list tags for each folder it finds
@@ -33,6 +34,9 @@ export function addBookmarkContent() {
             // Folder case.
             if (node.id != 0 && node.url == undefined) {
                 // Create a folder div.
+                if (folderDiv) {
+                    folderDivs.push(folderDiv);
+                }
                 folderDiv    = document.createElement("div");
                 folderDiv.id = "folder" + node.id;
                 
@@ -62,7 +66,7 @@ export function addBookmarkContent() {
                 // we've already created a dropdown div.
                 if (!dropdownDiv) {
                     // Create a new bookmark "list."
-                    dropdownDiv = document.createElement("div");
+                    dropdownDiv    = document.createElement("div");
                     dropdownDiv.id = "folderDropdown" +
                                      node.parentId;
                     dropdownDiv.classList
@@ -85,11 +89,19 @@ export function addBookmarkContent() {
             walkChildren(node.children);
         }
         // Close out the folder divs and dropdowns.
+
+        // Need to figure out how to get folders in dropdowns
+        // and when a folder should go into a dropdown.
         if (dropdownDiv) {
             folderDiv.appendChild(dropdownDiv);
             dropdownDiv = undefined;
         }
         if (folderDiv) {
+            while (folderDivs.length > 0) {
+                const parentDiv = folderDivs.pop();
+                parentDiv.appendChild(folderDiv);
+                folderDiv = parentDiv;
+            }
             bmarkContent.appendChild(folderDiv);
             folderDiv = undefined;
         }
