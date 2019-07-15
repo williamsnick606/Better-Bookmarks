@@ -1,9 +1,9 @@
-function getTitleUrlDesc(){
+function getTitleDesc(){
     var code = 'var meta = document.querySelector("meta[name=\'Description\']") || document.querySelector("meta[name=\'description\']");' + 
                'if (meta) meta = meta.getAttribute("content");' +
                '({' +
-               '    title: document.title,' +
-               '    url: document.URL,' +
+               '    title: document.title || "",' +
+               '    url: document.URL || "",' +
                '    description: meta || ""' +
                '});';
     chrome.tabs.executeScript({
@@ -15,7 +15,7 @@ function getTitleUrlDesc(){
             return;
         }
         var result = results[0];
-        alert("Title: " + result.title + "\nURL: " + result.url + "\nDescription: " + result.description);
+		return result.description;
     });
 }
-getTitleUrlDesc();
+getTitleDesc();
