@@ -74,6 +74,12 @@ export function addBookmarkContent() {
                 bmark.id        = "bookmark" + node.id;
                 bmark.href      = "#";
                 bmark.innerHTML = node.title;
+                // Add an on-click event listener for
+                // launching a clicked-on bookmark in
+                // a new tab.
+                bmark.addEventListener("click", () => {
+                    chrome.tabs.create({ url: node.url });
+                });
                 dropdownDiv.appendChild(bmark);
             }
             walkChildren(node.children);
