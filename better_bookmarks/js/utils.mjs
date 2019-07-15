@@ -5,7 +5,6 @@
  *
  */
 
-
 /*
  * Walks the bookmark tree and adds the folders
  * to the popup menu.
