@@ -2,44 +2,53 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="../css/popup.css">
+        <link rel="stylesheet" type="text/css" href="../css/modal.css">
+        <script type="module" src="../js/add_content.mjs"></script>
     </head>
     <body>
-        <!--Added some styling just to test it out !-->
-        <style>
-            .button {
-                background-color: #555555; /* Green */
-                border: none;
-                border-radius: 4px;
-                color: white;
-                padding: 10px 10px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 12px;
-                cursor: pointer;
-            }
-            .button:hover {
-                box-shadow: 0 5px 5px 0 rgba(0,0,0,0.2), 0 5px 5px 0 rgba(0,0,0,0.19);
-            }
-        </style>
-        <!--Added some styling just to test it out !-->
-        <div id="searchBarDiv">
-            <input type="text" name="searchBar" placeholder="Search Bookmarks">
+        <div id="search">
+            <form name="searchForm">
+                <input type="text" name="searchBar" placeholder="Search Bookmarks">
+                <input id="submit-btn" type="submit" value="Search">
+            </form>
         </div>
         <!-- made a button for adding bookmarks !-->
-        <div id="addNew"  >
-            <button class="button">Bookmark this page</button>
+        <button id="myBtn" class="button1">Bookmark this page</button>
+        
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>New Bookmark</h2>
+                </div>
+                <div class="Modal-body">
+                    <div>Name <input class="input1" id="newName"></div>
+                    <div>Folder
+                        <select class="select1">
+                            <option value="Arts">Arts</option>
+                            <option value="Business">Business</option>
+                            <option value="Computers">Computers</option>
+                            <option value="Games">Games</option>
+                            <option value="Health">Health</option>
+                            <option value="Home">Home</option>
+                            <option value="News">News</option>
+                            <option value="Recreation">Recreation</option>
+                            <option value="Reference">Reference</option>
+                            <option value="Science">Science</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Society">Society</option>
+                            <option value="Sports">Sports</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="button2">Create</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- made a button for adding bookmarks !-->
-        <div id="optionsList">
-            <ul id="options">
-                <li id="showAll" class="nobull">
-                    <a href="#">Show All BookMarks</a>
-                </li>
-            </ul>
-        </div>
-        <div id="folders">
-            <script type="module" src="../js/add_bookmarks.mjs"></script>
-        </div>
+        <div id="bookmarkContent" class="flex-container"></div>
     </body>
+    <script type="module" src="../js/validate.mjs"></script>
+    <script type="module" src="../js/modal.js"></script>
 </html>

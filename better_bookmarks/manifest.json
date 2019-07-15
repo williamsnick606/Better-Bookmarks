@@ -5,11 +5,12 @@
     "manifest_version": 2,
     "permissions": [
         "bookmarks",
-        "contextMenus"
+        "contextMenus",
+        "activeTab"
     ],
 
     "background": {
-        "scripts": ["js/background.js"],
+        "scripts": ["js/background.js", "js/tf.min.js"],
         "persistent": false
     },
 
@@ -23,5 +24,4 @@
 		"page": "views/options.html",
 		"open_in_tab": false
   }
-
 }
