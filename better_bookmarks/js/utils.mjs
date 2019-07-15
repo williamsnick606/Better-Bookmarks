@@ -5,6 +5,7 @@
  *
  */
 
+
 /*
  * Walks the bookmark tree and adds the folders
  * to the popup menu.
@@ -13,7 +14,7 @@
  *
  */
 export function addBookmarkContent() {
-    var folderText, bmarkText, search;
+    var folderDiv, dropdownDiv, bmarkContent;
     /*
     * Walks the bookmark tree adding
     * list tags for each folder it finds
@@ -32,64 +33,72 @@ export function addBookmarkContent() {
             let node = bs[i];
             // Folder case.
             if (node.id != 0 && node.url == undefined) {
-                // Create new folder dropdown.
-                folderText += "<div id=\"folder" +
-                              node.id + "\" class=\"dropdown\">" +
-                              "<a id=\"" + node.id + "\" name=\"" +
-                              node.title +
-                              "\" class=\"dropbtn\" " +
-                              "href=\"#\">";
+                // Create a folder div.
+                folderDiv    = document.createElement("div");
+                folderDiv.id = "folder" + node.id;
+                
+                // Add a clickable link, i.e., an "actual"
+                // folder.
+                var folder  = document.createElement("a");
+                folder.id   = node.id;
+                folder.name = node.title;
+                folder.href = "#";
+                folder.classList.toggle("accordion");
+
                 // Chrome allows untitled folders, so
                 // check for them.
                 if (node.title.length > 0) {
-                    folderText += node.title + "</a>";
+                    folder.innerHTML = node.title;
                 }
                 // Untitled bookmark folder.
                 else {
-                    folderText += "untitled</a>";
+                    folder.innerHTML = "untitled";
                 }
+                folderDiv.appendChild(folder);
             }
             // Bookmark case.
             if (node.url != undefined && node.id != 0) {
-                // Only create a bookmark dropdown if
-                // the parent folder isn't the root,
-                // i.e., a parentId of zero.
-                if (node.parentId != undefined &&
-                    node.parentId != 0) {
-                    
+                // Since the above check weeds out the
+                // root node, we only need to check if
+                // we've already created a dropdown div.
+                if (!dropdownDiv) {
                     // Create a new bookmark "list."
-                    if (bmarkText.length == 0) {
-                        bmarkText += "<div id=\"folderDropdown" +
-                                     node.parentId + "\" " +
-                                     "class=\"dropdown-content\">";
-                    }
+                    dropdownDiv = document.createElement("div");
+                    dropdownDiv.id = "folderDropdown" +
+                                     node.parentId;
+                    dropdownDiv.classList
+                               .toggle("panel");
+                    
                 }
-                // Create a new bookmark entry.
-                bmarkText += "<a id=\"bookmark" + node.id +
-                             "\" href=\"#\">" + node.title +
-                             "</a>";
+                // Add a bookmark entry to the dropdown.
+                const bmark     = document.createElement("a");
+                bmark.id        = "bookmark" + node.id;
+                bmark.href      = "#";
+                bmark.innerHTML = node.title;
+                dropdownDiv.appendChild(bmark);
             }
             walkChildren(node.children);
         }
-        // Close out the bookmark list and folder dropdown,
-        // then reset it.
-        if (bmarkText != 0) {
-            folderText += bmarkText + "</div></div>";
-            bmarkText   = "";
+        // Close out the folder divs and dropdowns.
+        if (dropdownDiv) {
+            folderDiv.appendChild(dropdownDiv);
+            dropdownDiv = undefined;
+        }
+        if (folderDiv) {
+            bmarkContent.appendChild(folderDiv);
+            folderDiv = undefined;
         }
     }
-    // Get the search bar div so we can place our
-    // folder dropdowns after it.
-    search = document.getElementById("search");
+    // Get the bookmarkContent div so we can place our
+    // folder dropdowns in it.
+    bmarkContent = document.getElementById("bookmarkContent");
     // Create the necessary HTML and add it to the DOM.
     chrome.bookmarks.getTree(function(bs) {
-        folderText = "";
-        bmarkText  = "";
         walkChildren(bs);
-        search.insertAdjacentHTML("afterend", folderText);
 
     // Attach the listeners for dropdown functionality.
-    const folders = document.getElementsByClassName("dropbtn");
+    //const folders = document.getElementsByClassName("dropbtn");
+    const folders = document.getElementsByClassName("accordion");
     attachFolderListeners(folders);
     });
 }
@@ -111,30 +120,35 @@ export function validateForm() {
 
 /*
  * Toggles, i.e., shows, the bookmark titles/folders,
- * that reside in a clicked on folder matching the
+ * that reside in a clicked on folder matching a
  * given ID in the popup menu.
  *
+ * @param folder   : the folder element whose contents
+ *                   need to be displayed.
  * @param folderID : the ID of the folder that was just
  *                   clicked.
  * @return undefined
  *
  */
-function toggleBookmarks(folderId) {
-    document.getElementById("folderDropdown" + folderId)
-            .classList
-            .toggle("show");
-    // I need to add "display: none;" to the style
-    // for the folders that weren't clicked.
+function toggleBookmarks(folder, folderId) {
+    const dropdown = document.getElementById("folderDropdown" +
+                                             folderId);
+    if (dropdown) {
+        dropdown.classList.toggle("active");
+
+        var panel = folder.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        }
+        else {
+            panel.style.display = "block";
+        }
+    }
 }
 
 /*
- * Attached on click listerners to the bookmark
- * folders in the popupmenu and adds a listener
- * for clicks outside a folder.
- *
- * If a folder is clicked, then show its contents,
- * and if a click happens outside a folder, stop
- * showing the folder.
+ * Attaches on-click listerners to the bookmark
+ * folders in the popupmenu.
  *
  * @param folders : the folders to attach an onclick
  *                  listener to.
@@ -145,19 +159,7 @@ function attachFolderListeners(folders) {
     for (let i = 0; i < folders.length; i++) {
         const folder = folders[i];
         folder.addEventListener("click", () => {
-            toggleBookmarks(folder.id); 
+            toggleBookmarks(folder, folder.id); 
         });
     }
-
-    window.addEventListener("click", function(event) {
-        if (!event.target.matches(".dropbtn")) {
-            var ddContent = document.getElementsByClassName("dropdown-content");
-            for (let i = 0; i < ddContent.length; i++) {
-                var openDropdown = ddContent[i];
-                if (openDropdown.classList.contains("show")) {
-                    openDropdown.classList.remove("show");
-                }
-            }
-        }
-    });
 }
