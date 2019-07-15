@@ -2,7 +2,8 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="../css/popup.css">
-    <script type="module" src="../js/add_content.mjs"></script>
+        <link rel="stylesheet" type="text/css" href="../css/options.css">
+        <script type="module" src="../js/add_content.mjs"></script>
     </head>
     <body>
         <div id="search">
@@ -10,8 +11,14 @@
                 <input type="text" name="searchBar" placeholder="Search Bookmarks">
                 <input id="submit-btn" type="submit" value="Search">
             </form>
+        <!-- made a button for adding bookmarks !-->
+        <div id="addNew">
+            <button id="addbtn" class="button">Bookmark this page</button>
+            <script src="../js/getTitleDesc.js"></script>
         </div>
+        <!-- made a button for adding bookmarks !-->
         <div id="bookmarkContent" class="flex-container"></div>
     </body>
+    <script src="../js/options.js"></script>
     <script type="module" src="../js/validate.mjs"></script>
 </html>
