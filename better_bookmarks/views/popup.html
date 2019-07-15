@@ -3,27 +3,22 @@
     <head>
         <link rel="stylesheet" type="text/css" href="../css/popup.css">
         <link rel="stylesheet" type="text/css" href="../css/options.css">
+        <script type="module" src="../js/add_content.mjs"></script>
     </head>
     <body>
-        <div id="searchBarDiv">
-            <input type="text" name="searchBar" placeholder="Search Bookmarks">
-        </div>
+        <div id="search">
+            <form name="searchForm">
+                <input type="text" name="searchBar" placeholder="Search Bookmarks">
+                <input id="submit-btn" type="submit" value="Search">
+            </form>
         <!-- made a button for adding bookmarks !-->
         <div id="addNew">
             <button id="addbtn" class="button">Bookmark this page</button>
             <script src="../js/getTitleDesc.js"></script>
         </div>
         <!-- made a button for adding bookmarks !-->
-        <div id="optionsList">
-            <ul id="options">
-                <li id="showAll" class="nobull">
-                    <a href="#">Show All BookMarks</a>
-                </li>
-            </ul>
-        </div>
-        <div id="folders">
-            <script type="module" src="../js/add_bookmarks.mjs"></script>
-            <script src="../js/options.js"></script>
-        </div>
+        <div id="bookmarkContent" class="flex-container"></div>
     </body>
+    <script src="../js/options.js"></script>
+    <script type="module" src="../js/validate.mjs"></script>
 </html>
