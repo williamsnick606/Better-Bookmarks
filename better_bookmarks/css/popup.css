@@ -55,3 +55,20 @@ div {
 #bookmarkContent {
     border-top: 3px solid grey;
 }
+
+.button1 {
+    background-color: #555555;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 5px 36px;
+}
+.button1:hover {
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,0.2),
+                0 5px 5px 0 rgba(0,0,0,0.19);
+}
