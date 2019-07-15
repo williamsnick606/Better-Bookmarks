@@ -1,18 +1,57 @@
-ul {
-    list-style-type: none;
+/*
+ * file        : popup.css
+ * description : This file contains the main CSS rules for the
+ *               popup extension whose HTML code is in popup.html.
+ *               
+ * NOTES:
+ *   * Block items occur on their own lines and extend
+ *     to the full left and right widths available.
+ *
+ */
+form {
+    margin: 5px;
+}
+div {
     margin: 0;
     padding: 0;
-    width: 200px;
 }
-li a {
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.accordion {
+    background-color: inherit;
+    cursor: pointer;
+    padding: 12px;
+    width: 250px;
     display: block;
-    padding: 8px 16px;
+    text-align: left;
     color: inherit;
     text-decoration: none;
+    outline: none;
+    border: none;
+    transition: 0.4s;
 }
-a:hover, .nobull:hover {
+.active, .accordion:hover {
     background-color: lightgrey;
 }
-#folders {
+.panel {
+    display: none;
+    padding: 0 18px;
+    background-color: inherit;
+    overflow: auto;
+}
+.panel a {
+    display: block;
+    padding: 10px;
+    font-size: 11px;
+    text-decoration: none;
+    color: inherit;
+}
+.panel a:hover {
+    background-color: lightgrey;
+}
+#bookmarkContent {
     border-top: 3px solid grey;
 }
