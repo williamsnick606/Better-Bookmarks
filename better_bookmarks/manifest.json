@@ -9,7 +9,9 @@
         "activeTab"
     ],
     "background": {
-        "scripts": ["js/background.js", "js/tf.min.js"],
+        "scripts": ["js/background.js",
+                    "js/bookmark_listener.js"
+                   ],
         "persistent": false
     },
     "browser_action": {
