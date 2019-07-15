@@ -9,7 +9,7 @@
         "activeTab"
     ],
     "background": {
-        "scripts": ["js/background.js"],
+        "scripts": ["js/background.js", "js/tf.min.js"],
         "persistent": false
     },
     "browser_action": {
