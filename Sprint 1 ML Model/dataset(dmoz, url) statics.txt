@@ -1,0 +1,31 @@
+dmoz dataset
+statics (total: 1195851)
+{'Arts': 193914,
+ 'Business': 204910,
+ 'Computers': 93204,
+ 'Games': 36454,
+ 'Health': 50388,
+ 'Home': 22241,
+ 'News': 7488,
+ 'Recreation': 83618,
+ 'Reference': 47428,
+ 'Science': 96766,
+ 'Shopping': 78184,
+ 'Society': 195880,
+ 'Sports': 85376}
+
+url dataset
+statics (initial dataset: 1562978 / "Kids", "Adult" removed dataset: 1481471)
+{'Arts': 253840,
+ 'Business': 240177,
+ 'Computers': 117962,
+ 'Games': 56477,
+ 'Health': 60097,
+ 'Home': 28269,
+ 'News': 8989,
+ 'Recreation': 106586,
+ 'Reference': 58247,
+ 'Science': 110286,
+ 'Shopping': 95270,
+ 'Society': 243943,
+ 'Sports': 101328}
