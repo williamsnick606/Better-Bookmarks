@@ -18,7 +18,6 @@ for (let i = 0; i < metas.length; i++) {
         var description = meta.content;
     }
 }
-alert(description);
 if(description === undefined){
     chrome.storage.sync.set({title: title.innerHTML, desc: ""}, function () {});
 }
