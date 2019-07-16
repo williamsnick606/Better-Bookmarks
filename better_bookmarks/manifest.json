@@ -10,8 +10,7 @@
     ],
     "background": {
         "scripts": ["js/background.js",
-                    "js/bookmark_listener.js",
-                    "js/tf.min.js"
+                    "js/bookmark_listener.js"
                    ],
         "persistent": false
     },
