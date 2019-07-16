@@ -82,9 +82,11 @@ export function addBookmarkContent() {
                                        });
                 folderDiv.appendChild(folder);
                 if (dropdownDiv) {
+                    /*
                     alert("appending folderDiv with id " +
                           folderDiv.id + " to dropdownDiv " +
                           "with id " + dropdownDiv.id);
+                          */
                     dropdownDiv.appendChild(folderDiv);
                     dropdownDivs.push(dropdownDiv);
                     dropdownDiv = undefined;
@@ -110,8 +112,8 @@ export function addBookmarkContent() {
                 // root node, we only need to check if
                 // we've already created a dropdown div.
                 if (node.parentId != 0 && !dropdownDiv) {
-                    alert("Created dropdown for folderId " +
-                          node.parentId);
+                    //alert("Created dropdown for folderId " +
+                          //node.parentId);
                     // Create a new bookmark "list."
                     dropdownDiv = createTag({ tag: "div"
                                             , attrs: { id: "folderDropdown" +
@@ -135,12 +137,12 @@ export function addBookmarkContent() {
                 // If a dropdown was created, then append
                 // the bookmark to that.
                 if (dropdownDiv) {
-                    alert("appending bookmark with id " +
-                          node.id);
+                    //alert("appending bookmark with id " +
+                          //node.id);
                     dropdownDiv.appendChild(bmark);
-                    alert("appending dropdownDiv with id " +
-                          dropdownDiv.id + " to folderDiv with id " +
-                          folderDiv.id);
+                    //alert("appending dropdownDiv with id " +
+                          //dropdownDiv.id + " to folderDiv with id " +
+                          //folderDiv.id);
                     folderDiv.appendChild(dropdownDiv);
                 }
                 // Otherwise, add the bookmark to the
