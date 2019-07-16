@@ -1,8 +1,0 @@
-Python scripts for data preparation of dmoz.csv and url.csv.
-
-Link to dataset:
-https://www.kaggle.com/shawon10/url-classification-dataset-dmoz/downloads/url-classification-dataset-dmoz.zip/2
-
-NOTE: I renamed 'URL Classification.csv' to 'url.csv' on my local machine.
-      Also, 'dmoz.csv' and 'url.csv' are too big to be uploaded to git. If you want
-      to run a script(s) download the source data and desired script(s) to run locally.
