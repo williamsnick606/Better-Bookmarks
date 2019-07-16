@@ -6,6 +6,36 @@
  */
 
 /*
+ * Returns a new HTML tag.
+ *
+ * @param data : an object consisting of a tag,
+ *               array of classes, and an object
+ *               of attribute keys and their values.
+ * @return a new HTML tag object.
+ *
+ */
+export function createTag(data) {
+    const tag     = data.tag;
+    const classes = data.classes;
+    const attrs   = data.attrs;
+    // Create a new new div tag.
+    const elem    = document.createElement(tag);
+    if (classes) {
+        let classVal;
+        for (classVal of classes) {
+            elem.classList.toggle(classVal);
+        }
+    }
+    if (attrs) {
+        let key;
+        for (key in attrs) {
+            elem[key] = attrs[key];
+        }
+    }
+    return elem;
+}
+
+/*
  * Walks the bookmark tree and adds the folders
  * to the popup menu.
  *
@@ -14,7 +44,8 @@
  */
 export function addBookmarkContent() {
     var folderDiv, dropdownDiv, bmarkContent;
-    const folderDivs = [];
+    const folderDivs   = [];
+    const dropdownDivs = [];
     /*
     * Walks the bookmark tree adding
     * list tags for each folder it finds
@@ -37,16 +68,21 @@ export function addBookmarkContent() {
                 if (folderDiv) {
                     folderDivs.push(folderDiv);
                 }
-                folderDiv    = document.createElement("div");
-                folderDiv.id = "folder" + node.id;
-                
+                folderDiv = createTag({ tag: 'div'
+                                      , attrs: { id: 'folder' +
+                                                     node.id
+                                               }
+                                      });
+                                      
                 // Add a clickable link, i.e., an "actual"
                 // folder.
-                var folder  = document.createElement("a");
-                folder.id   = node.id;
-                folder.name = node.title;
-                folder.href = "#";
-                folder.classList.toggle("accordion");
+                var folder = createTag({ tag: "a"
+                                       , attrs: { id: node.id
+                                                , name: node.title
+                                                , href: '#'
+                                                }
+                                       , classes: ['accordion']
+                                       });
 
                 // Chrome allows untitled folders, so
                 // check for them.
@@ -66,18 +102,19 @@ export function addBookmarkContent() {
                 // we've already created a dropdown div.
                 if (!dropdownDiv) {
                     // Create a new bookmark "list."
-                    dropdownDiv    = document.createElement("div");
-                    dropdownDiv.id = "folderDropdown" +
-                                     node.parentId;
-                    dropdownDiv.classList
-                               .toggle("panel");
-                    
+                    dropdownDiv = createTag({ tag: "div"
+                                            , id: "folderDropdown" +
+                                                   node.parentId
+                                            , classes: ["panel"]
+                                            });
                 }
                 // Add a bookmark entry to the dropdown.
-                const bmark     = document.createElement("a");
-                bmark.id        = "bookmark" + node.id;
-                bmark.href      = "#";
-                bmark.innerHTML = node.title;
+                const bmark = createTag({ tag: "a"
+                                        , id: "bookmark" + node.id
+                                        , attrs: { href: "#"
+                                                 , innerHTML: node.title
+                                                 }
+                                        });
                 // Add an on-click event listener for
                 // launching a clicked-on bookmark in
                 // a new tab.
@@ -92,18 +129,25 @@ export function addBookmarkContent() {
 
         // Need to figure out how to get folders in dropdowns
         // and when a folder should go into a dropdown.
-        if (dropdownDiv) {
-            folderDiv.appendChild(dropdownDiv);
-            dropdownDiv = undefined;
-        }
         if (folderDiv) {
+            if (dropdownDiv) {
+                folderDiv.appendChild(dropdownDiv);
+            }
             while (folderDivs.length > 0) {
                 const parentDiv = folderDivs.pop();
                 parentDiv.appendChild(folderDiv);
-                folderDiv = parentDiv;
+                folderDiv       = parentDiv;
             }
             bmarkContent.appendChild(folderDiv);
             folderDiv = undefined;
+        }
+        if (dropdownDiv) {
+            while (dropdownDivs.length > 0) {
+                const parentDropdown = dropdownDivs.pop();
+                parentDropdown.appendChild(dropdownDiv);
+                dropdownDiv          = parentDropdown;
+            }
+            dropdownDiv = undefined;
         }
     }
     // Get the bookmarkContent div so we can place our
