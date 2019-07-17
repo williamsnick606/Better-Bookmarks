@@ -19,8 +19,8 @@ var usableU;
 
 chrome.storage.sync.get(["title", "url"], function(result) {
     usableT = result.title;
-	usableU = result.url;
-	autofiller(usableT, usableU);
+    usableU = result.url;
+    autofiller(usableT, usableU);
 });
 
 // All the modal functionality has to be a callback function from the chrome.tabs.query
