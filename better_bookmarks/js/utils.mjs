@@ -238,13 +238,15 @@ export function addBookmarkContent() {
     // folder dropdowns in it.
     bmarkContent = document.getElementById("bookmarkContent");
     // Create the necessary HTML and add it to the DOM.
+    console.log("-----STARTING BOOKMARK WALK-----");
     chrome.bookmarks.getTree(function(bs) {
         walkChildren(bs);
 
-    // Attach the listeners for dropdown functionality.
-    //const folders = document.getElementsByClassName("dropbtn");
-    const folders = document.getElementsByClassName("accordion");
-    attachFolderListeners(folders);
+        // Attach the listeners for dropdown functionality.
+        //const folders = document.getElementsByClassName("dropbtn");
+        const folders = document.getElementsByClassName("accordion");
+        attachFolderListeners(folders);
+        console.log("-----END OF BOOKMARK WALK-----");
     });
 }
 
