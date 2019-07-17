@@ -26,7 +26,7 @@ chrome.storage.sync.get("url", function(result) {
 });
 
 // All the modal functionality has to be a callback function from the chrome.tabs.query
-function autofiller(usableT,usableU) {
+function autofiller(usableT, usableU) {
     // When the user clicks the 'Bookmark' button,
     btn.onclick = function() {
         // Display the modal
@@ -46,13 +46,13 @@ function autofiller(usableT,usableU) {
             modal.style.display = "none";
         }
     }
-    
-    var bookURL = document.getElementById("newName");	
+
+    var bookURL = document.getElementById("newName");
     // When a user clicks the Create button, save a new bookmark
     btn2.onclick = function() {
-        chrome.bookmarks.create({'parentId': null,	
-                                  'title':    usableT,	
-                                 'url':      usableU	
+        chrome.bookmarks.create({'parentId': null,
+                                 'title':    usableT,
+                                 'url':      usableU
         });
     }
 }
