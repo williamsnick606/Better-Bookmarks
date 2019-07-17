@@ -6,6 +6,7 @@
  *
  */
 
+/*
  * Returns a new HTML tag.
  *
  * @param data : an object consisting of a tag,
@@ -43,7 +44,7 @@ export function createTag(data) {
  * @return a dropdown HTML element.
  *
  */
-function createDropdown(parentId) {
+export function createDropdown(parentId) {
     return createTag({ tag: "div"
                      , attrs: { id: "folderDropdown" +
                                     parentId
@@ -82,7 +83,7 @@ function createBookmark(bookmarkId, bookmarkTitle) {
  * @return a folder HTML element.
  *
  */
-function createFolder(folderId, folderTitle) {
+export function createFolder(folderId, folderTitle) {
     // Create a folder div.
     const folderDiv = createTag({ tag: 'div'
                                 , attrs: { id: 'folder' +
