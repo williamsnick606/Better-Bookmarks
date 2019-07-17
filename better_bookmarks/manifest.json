@@ -7,7 +7,7 @@
         "bookmarks",
         "contextMenus",
         "activeTab",
-		"storage"
+        "storage"
     ],
     "background": {
         "scripts": ["js/background.js",
