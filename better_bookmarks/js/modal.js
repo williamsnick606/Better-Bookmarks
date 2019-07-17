@@ -12,43 +12,51 @@ var span = document.getElementsByClassName("close")[0];
 
 // This will be the tabs title for bookmark naming purposes
 var usableT;
+// This will be the tabs body for folder choosing
+var usableU;
 // This will be the tabs description
 //var usableD;
 
-//Get access to 
+//Get access to
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-	var tab = tabs[0];
-	var title = tab.title;
-	//var desc = tab.description
-	usableT = title;
-	//usableD = desc;
-	autofiller(usableT)
+    var tab = tabs[0];
+    var title = tab.title;
+    var url = tab.url;
+    //var body = tab.title;   // document.queryselector('body').innertext
+    usableT = title;
+    usableU = url;
+    //usableB = body;
+    autofiller(usableT, usableU);
 })
 
 // All the modal functionality has to be a callback function from the chrome.tabs.query
-function autofiller(usableT) {
-	// When the user clicks the 'Bookmark' button,
-	btn.onclick = function() {
-		// Display the modal
-    	modal.style.display = "block";
-    	// Autofill the site Title as the bookmark name
-    	document.getElementById("newName").value = usableT;
-	}
+function autofiller(usableT, usableU) {
+    // When the user clicks the 'Bookmark' button,
+    btn.onclick = function() {
+        // Display the modal
+        modal.style.display = "block";
+        // Autofill the site Title as the bookmark name
+        document.getElementById("newName").value = usableT;
+    }
 
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	    modal.style.display = "none";
-	}
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
 
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	    if (event.target == modal) {
-	        modal.style.display = "none";
-	    }
-	}
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
-	// When a user clicks the Create button, save a new bookmark
-	btn2.onclick = function() {
-
-	}
+    var bookURL = document.getElementById("newName");
+    // When a user clicks the Create button, save a new bookmark
+    btn2.onclick = function() {
+        chrome.bookmarks.create({'parentId': null,
+                                 'title':    usableT,
+                                 'url':      usableU
+        });
+    }
 }
