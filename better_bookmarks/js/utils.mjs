@@ -146,7 +146,7 @@ export function addBookmarkContent() {
                 // Create a folder div.
                 folderDiv = createFolder(node.id, node.title);
                                       
-                //alert("Created folder div with id " + folderDiv.id);
+                console.log("Created folder div with id " + folderDiv.id);
                 // Add root bookmark folder to bookmarkContent
                 // div.
                 if (node.parentId == 0) {
@@ -156,17 +156,13 @@ export function addBookmarkContent() {
                 // should be added to that dropdown.
                 if (dropdownDiv) {
                     dropdownDiv.appendChild(folderDiv);
-                    /*
-                    alert("appended folder div with id " +
+                    console.log("appended folder div " +
                           folderDiv.id +
-                          " to dropdown div with id " +
+                          " to dropdown div " +
                           dropdownDiv.id);
-                          */
                     dropdownDivs.push(dropdownDiv);
-                    /*
-                    alert("pushed dropdown div " + dropdownDiv.id +
+                    console.log("pushed dropdown div " + dropdownDiv.id +
                           " to dropdown div stack");
-                          */
                     dropdownDiv = undefined;
                 }
             }
@@ -178,17 +174,13 @@ export function addBookmarkContent() {
                 if (node.parentId != 0 && !dropdownDiv) {
                     // Create a new bookmark "list."
                     dropdownDiv = createDropdown(node.parentId);
-                    /*
-                    alert("Created dropdown div with id " +
+                    console.log("Created dropdown div with id " +
                           dropdownDiv.id);
-                          */
                     folderDiv.appendChild(dropdownDiv);
-                    /*
-                    alert("appended dropdown div with id " +
+                    console.log("appended dropdown div " +
                           dropdownDiv.id +
-                          " to folder div with id " +
+                          " to folder div " +
                           folderDiv.id);
-                          */
                 }
                 // Create a bookmark element.
                 const bmark = createBookmark(node.id, node.title);
@@ -198,30 +190,24 @@ export function addBookmarkContent() {
                 bmark.addEventListener("click", () => {
                     chrome.tabs.create({ url: node.url });
                 });
-                /*
-                alert("Created bookmark with title " +
+                console.log("Created bookmark with title " +
                       bmark.innerText);
-                      */
                 // If a dropdown was created, then append
                 // the bookmark to that.
                 if (dropdownDiv) {
                     dropdownDiv.appendChild(bmark);
-                    /*
-                    alert("appended bookmark \"" +
+                    console.log("appended bookmark \"" +
                           bmark.innerText +
-                          "\" to dropdown div with id " +
+                          "\" to dropdown div " +
                           dropdownDiv.id);
-                          */
                 }
                 // Otherwise, add the bookmark to the
                 // bookmarkContent div.
                 else {
                     bmarkContent.appendChild(bmark);
-                    /*
-                    alert("appended bookmark \"" +
+                    console.log("appended bookmark \"" +
                           bmark.innerText +
                           "\" to bookmarkContent div");
-                          */
                 }
             }
             // Time to moon walk.
@@ -231,16 +217,17 @@ export function addBookmarkContent() {
         // off the dropdown stack.
         if (dropdownDivs.length > 0) {
             dropdownDiv = dropdownDivs.pop();
-            /*
-            alert("popped dropdown div stack");
-            alert("set dropdown div back to dropdown div with id " +
+            console.log("popped dropdown div stack");
+            console.log("set dropdown div back to dropdown div " +
                   dropdownDiv.id);
-            alert("stack = " + dropdownDivs);
-            */
+            console.log("stack = " + dropdownDivs);
         }
         // Reached root level, so go back to
         // nothing.
         else {
+            console.log("Dropdown stack empty; " +
+                        "setting dropdownDiv and " +
+                        "folderDiv to undefined.");
             dropdownDiv = undefined;
             folderDiv   = undefined;
         }
