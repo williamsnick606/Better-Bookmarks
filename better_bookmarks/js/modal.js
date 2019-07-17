@@ -12,6 +12,8 @@ var span = document.getElementsByClassName("close")[0];
 
 // This will be the tabs title for bookmark naming purposes
 var usableT;
+// This will be the tabs body for folder choosing	
+var usableU;
 // This will be the tabs description
 //var usableD;
 
