@@ -3,7 +3,37 @@
  * description : This file is a JavaScript module intended to
  *               contain utility functions.
  *
+ *
  */
+
+ * Returns a new HTML tag.
+ *
+ * @param data : an object consisting of a tag,
+ *               array of classes, and an object
+ *               of attribute keys and their values.
+ * @return a new HTML tag object.
+ *
+ */
+export function createTag(data) {
+    const tag     = data.tag;
+    const classes = data.classes;
+    const attrs   = data.attrs;
+    // Create a new new div tag.
+    const elem    = document.createElement(tag);
+    if (classes) {
+        let classVal;
+        for (classVal of classes) {
+            elem.classList.toggle(classVal);
+        }
+    }
+    if (attrs) {
+        let key;
+        for (key in attrs) {
+            elem[key] = attrs[key];
+        }
+    }
+    return elem;
+}
 
 /*
  * Walks the bookmark tree and adds the folders
@@ -14,6 +44,9 @@
  */
 export function addBookmarkContent() {
     var folderDiv, dropdownDiv, bmarkContent;
+    const folderDivs   = [];
+    const dropdownDivs = [];
+
     /*
     * Walks the bookmark tree adding
     * list tags for each folder it finds
@@ -31,19 +64,39 @@ export function addBookmarkContent() {
         for (let i = 0; i < bs.length; i++) {
             let node = bs[i];
             // Folder case.
-            if (node.id != 0 && node.url == undefined) {
+            if (node.url == undefined && node.id != 0) {
                 // Create a folder div.
-                folderDiv    = document.createElement("div");
-                folderDiv.id = "folder" + node.id;
-                
+                folderDiv = createTag({ tag: 'div'
+                                      , attrs: { id: 'folder' +
+                                                     node.id
+                                               }
+                                      });
+                                      
                 // Add a clickable link, i.e., an "actual"
                 // folder.
-                var folder  = document.createElement("a");
-                folder.id   = node.id;
-                folder.name = node.title;
-                folder.href = "#";
-                folder.classList.toggle("accordion");
-
+                var folder = createTag({ tag: "a"
+                                       , attrs: { id: node.id
+                                                , name: node.title
+                                                , href: '#'
+                                                }
+                                       , classes: ['accordion']
+                                       });
+                folderDiv.appendChild(folder);
+                if (dropdownDiv) {
+                    /*
+                    alert("appending folderDiv with id " +
+                          folderDiv.id + " to dropdownDiv " +
+                          "with id " + dropdownDiv.id);
+                          */
+                    dropdownDiv.appendChild(folderDiv);
+                    dropdownDivs.push(dropdownDiv);
+                    dropdownDiv = undefined;
+                }
+                // Only add folders in the root bookmark
+                // directory.
+                if (node.parentId == 0) {
+                    bmarkContent.appendChild(folderDiv);
+                }
                 // Chrome allows untitled folders, so
                 // check for them.
                 if (node.title.length > 0) {
@@ -53,45 +106,56 @@ export function addBookmarkContent() {
                 else {
                     folder.innerHTML = "untitled";
                 }
-                folderDiv.appendChild(folder);
             }
             // Bookmark case.
             if (node.url != undefined && node.id != 0) {
                 // Since the above check weeds out the
                 // root node, we only need to check if
                 // we've already created a dropdown div.
-                if (!dropdownDiv) {
+                if (node.parentId != 0 && !dropdownDiv) {
+                    //alert("Created dropdown for folderId " +
+                          //node.parentId);
                     // Create a new bookmark "list."
-                    dropdownDiv = document.createElement("div");
-                    dropdownDiv.id = "folderDropdown" +
-                                     node.parentId;
-                    dropdownDiv.classList
-                               .toggle("panel");
-                    
+                    dropdownDiv = createTag({ tag: "div"
+                                            , attrs: { id: "folderDropdown" +
+                                                   node.parentId }
+                                            , classes: ["panel"]
+                                            });
                 }
-                // Add a bookmark entry to the dropdown.
-                const bmark     = document.createElement("a");
-                bmark.id        = "bookmark" + node.id;
-                bmark.href      = "#";
-                bmark.innerHTML = node.title;
+                // Create a bookmark element.
+                const bmark = createTag({ tag: "a"
+                                        , id: "bookmark" + node.id
+                                        , attrs: { href: "#"
+                                                 , innerHTML: node.title
+                                                 }
+                                        });
                 // Add an on-click event listener for
                 // launching a clicked-on bookmark in
                 // a new tab.
                 bmark.addEventListener("click", () => {
                     chrome.tabs.create({ url: node.url });
                 });
-                dropdownDiv.appendChild(bmark);
+                // If a dropdown was created, then append
+                // the bookmark to that.
+                if (dropdownDiv) {
+                    //alert("appending bookmark with id " +
+                          //node.id);
+                    dropdownDiv.appendChild(bmark);
+                    //alert("appending dropdownDiv with id " +
+                          //dropdownDiv.id + " to folderDiv with id " +
+                          //folderDiv.id);
+                    folderDiv.appendChild(dropdownDiv);
+                }
+                // Otherwise, add the bookmark to the
+                // bookmarkContent div.
+                else {
+                    bmarkContent.appendChild(bmark);
+                }
             }
             walkChildren(node.children);
         }
-        // Close out the folder divs and dropdowns.
-        if (dropdownDiv) {
-            folderDiv.appendChild(dropdownDiv);
-            dropdownDiv = undefined;
-        }
-        if (folderDiv) {
-            bmarkContent.appendChild(folderDiv);
-            folderDiv = undefined;
+        if (dropdownDivs.length > 0) {
+            dropdownDiv = dropdownDivs.pop();
         }
     }
     // Get the bookmarkContent div so we can place our
