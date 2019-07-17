@@ -108,6 +108,36 @@ export function createFolder(folderId, folderTitle) {
     return folderDiv;
 }
 
+ /* 
+ * Returns a new HTML tag.
+ *
+ * @param data : an object consisting of a tag,
+ *               array of classes, and an object
+ *               of attribute keys and their values.
+ * @return a new HTML tag object.
+ *
+ */
+export function createTag(data) {
+    const tag     = data.tag;
+    const classes = data.classes;
+    const attrs   = data.attrs;
+    // Create a new new div tag.
+    const elem    = document.createElement(tag);
+    if (classes) {
+        let classVal;
+        for (classVal of classes) {
+            elem.classList.toggle(classVal);
+        }
+    }
+    if (attrs) {
+        let key;
+        for (key in attrs) {
+            elem[key] = attrs[key];
+        }
+    }
+    return elem;
+}
+
 /*
  * Walks the bookmark tree and adds the folders
  * to the popup menu.
