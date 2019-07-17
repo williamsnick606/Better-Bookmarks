@@ -142,6 +142,8 @@ export function addBookmarkContent() {
                 if (!dropdownDiv && folderDiv) {
                     dropdownDiv = createDropdown(node.parentId);
                     folderDiv.appendChild(dropdownDiv);
+                    console.log("Created dropdown div with id " +
+                                dropdownDiv.id);
                 }
                 // Create a folder div.
                 folderDiv = createFolder(node.id, node.title);
