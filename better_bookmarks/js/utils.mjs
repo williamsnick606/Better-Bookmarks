@@ -35,6 +35,14 @@ export function createTag(data) {
     return elem;
 }
 
+/*
+ * Returns a div tag that represents a folder dropdown.
+ *
+ * @param parentId : the numeric ID of the parent bookmark
+ *                   node.
+ * @return a dropdown HTML element.
+ *
+ */
 function createDropdown(parentId) {
     return createTag({ tag: "div"
                      , attrs: { id: "folderDropdown" +
@@ -44,6 +52,16 @@ function createDropdown(parentId) {
                      });
 }
 
+/*
+ * Returns an a tag that represents a clickable
+ * bookmark to be included in a folder dropdown.
+ *
+ * @param bookmarkId    : the numeric ID of the bookmark
+ *                        node.
+ * @param bookmarkTitle : the bookmark's title.
+ * @return a bookmark HTML element.
+ *
+ */
 function createBookmark(bookmarkId, bookmarkTitle) {
     return createTag({ tag: "a"
                      , id: "bookmark" + bookmarkId
@@ -53,6 +71,17 @@ function createBookmark(bookmarkId, bookmarkTitle) {
                      });
 }
 
+/*
+ * Returns a div tag with an inner a tag which
+ * represents a clickable, and dropdownable,
+ * folder.
+ *
+ * @param folderId    : the numeric ID of the bookmark folder
+ *                      node.
+ * @param folderTitle : the bookmark folder's title.
+ * @return a folder HTML element.
+ *
+ */
 function createFolder(folderId, folderTitle) {
     // Create a folder div.
     const folderDiv = createTag({ tag: 'div'
@@ -114,7 +143,7 @@ export function addBookmarkContent() {
                 // Create a folder div.
                 folderDiv = createFolder(node.id, node.title);
                                       
-                alert("Created folder div with id " + folderDiv.id);
+                //alert("Created folder div with id " + folderDiv.id);
                 // Add root bookmark folder to bookmarkContent
                 // div.
                 if (node.parentId == 0) {
@@ -124,13 +153,17 @@ export function addBookmarkContent() {
                 // should be added to that dropdown.
                 if (dropdownDiv) {
                     dropdownDiv.appendChild(folderDiv);
+                    /*
                     alert("appended folder div with id " +
                           folderDiv.id +
                           " to dropdown div with id " +
                           dropdownDiv.id);
+                          */
                     dropdownDivs.push(dropdownDiv);
+                    /*
                     alert("pushed dropdown div " + dropdownDiv.id +
                           " to dropdown div stack");
+                          */
                     dropdownDiv = undefined;
                 }
             }
@@ -142,13 +175,17 @@ export function addBookmarkContent() {
                 if (node.parentId != 0 && !dropdownDiv) {
                     // Create a new bookmark "list."
                     dropdownDiv = createDropdown(node.parentId);
+                    /*
                     alert("Created dropdown div with id " +
                           dropdownDiv.id);
+                          */
                     folderDiv.appendChild(dropdownDiv);
+                    /*
                     alert("appended dropdown div with id " +
                           dropdownDiv.id +
                           " to folder div with id " +
                           folderDiv.id);
+                          */
                 }
                 // Create a bookmark element.
                 const bmark = createBookmark(node.id, node.title);
@@ -158,34 +195,51 @@ export function addBookmarkContent() {
                 bmark.addEventListener("click", () => {
                     chrome.tabs.create({ url: node.url });
                 });
+                /*
                 alert("Created bookmark with title " +
                       bmark.innerText);
+                      */
                 // If a dropdown was created, then append
                 // the bookmark to that.
                 if (dropdownDiv) {
                     dropdownDiv.appendChild(bmark);
+                    /*
                     alert("appended bookmark \"" +
                           bmark.innerText +
                           "\" to dropdown div with id " +
                           dropdownDiv.id);
+                          */
                 }
                 // Otherwise, add the bookmark to the
                 // bookmarkContent div.
                 else {
                     bmarkContent.appendChild(bmark);
+                    /*
                     alert("appended bookmark \"" +
                           bmark.innerText +
                           "\" to bookmarkContent div");
+                          */
                 }
             }
+            // Time to moon walk.
             walkChildren(node.children);
         }
+        // About to go back up one level, so pop
+        // off the dropdown stack.
         if (dropdownDivs.length > 0) {
             dropdownDiv = dropdownDivs.pop();
+            /*
             alert("popped dropdown div stack");
             alert("set dropdown div back to dropdown div with id " +
                   dropdownDiv.id);
             alert("stack = " + dropdownDivs);
+            */
+        }
+        // Reached root level, so go back to
+        // nothing.
+        else {
+            dropdownDiv = undefined;
+            folderDiv   = undefined;
         }
     }
     // Get the bookmarkContent div so we can place our
