@@ -12,19 +12,21 @@ var span = document.getElementsByClassName("close")[0];
 
 // This will be the tabs title for bookmark naming purposes
 var usableT;
-// This will be the tabs body for folder choosing	
+// This will be the tabs body for folder choosing
 var usableU;
 // This will be the tabs description
 //var usableD;
 
 chrome.storage.sync.get("title", function(result) {
     usableT = result.title;
-    autofiller(usableT);
-}); 
+});
 
+chrome.storage.sync.get("url", function(result) {
+    usableU = result.url;
+});
 
 // All the modal functionality has to be a callback function from the chrome.tabs.query
-function autofiller(usableT) {
+function autofiller(usableT,usableU) {
     // When the user clicks the 'Bookmark' button,
     btn.onclick = function() {
         // Display the modal
@@ -44,9 +46,13 @@ function autofiller(usableT) {
             modal.style.display = "none";
         }
     }
-
+    
+    var bookURL = document.getElementById("newName");	
     // When a user clicks the Create button, save a new bookmark
     btn2.onclick = function() {
-
+        chrome.bookmarks.create({'parentId': null,	
+                                  'title':    usableT,	
+                                 'url':      usableU	
+        });
     }
 }
