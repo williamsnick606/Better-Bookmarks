@@ -100,9 +100,9 @@ export function createFolder(folderId, folderTitle) {
                                       }
                              , classes: ['accordion']
                              });
-    folder.innerHTML = folderTitle;
+    folder.innerHTML = "<b>" + folderTitle + "</b>";
     if (folderTitle.length == 0) {
-        folder.innerHTML = "untitled";
+        folder.innerHTML = "<b>untitled</b>";
     }
     folderDiv.appendChild(folder);
     return folderDiv;
