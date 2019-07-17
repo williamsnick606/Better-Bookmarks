@@ -5,7 +5,8 @@
     "manifest_version": 2,
     "permissions": [
         "bookmarks",
-        "contextMenus"
+        "contextMenus",
+        "activeTab"
     ],
     "background": {
         "scripts": ["js/background.js",
@@ -15,6 +16,11 @@
     },
     "browser_action": {
         "default_title": "Better Bookmarks",
+        "default_icon": "icon.png",
         "default_popup": "views/popup.html"
-    }
+    },
+    "options_ui": {
+        "page": "views/options.html",
+        "open_in_tab": false
+  }
 }

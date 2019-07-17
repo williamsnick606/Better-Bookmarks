@@ -3,9 +3,9 @@
  * description : This file is a JavaScript module intended to
  *               contain utility functions.
  *
+ *
  */
 
-/*
  * Returns a new HTML tag.
  *
  * @param data : an object consisting of a tag,
@@ -118,6 +118,7 @@ export function addBookmarkContent() {
     var folderDiv, dropdownDiv, bmarkContent;
     const folderDivs   = [];
     const dropdownDivs = [];
+
     /*
     * Walks the bookmark tree adding
     * list tags for each folder it finds
