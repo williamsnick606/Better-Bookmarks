@@ -32,19 +32,16 @@ function autofiller(usableT, usableU) {
         // Autofill the site Title as the bookmark name
         document.getElementById("newName").value = usableT;
     }
-
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
     }
-
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
-
     var bookURL = document.getElementById("newName");
     // When a user clicks the Create button, save a new bookmark
     btn2.onclick = function() {
