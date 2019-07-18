@@ -1,3 +1,12 @@
+/*
+ * file        : modal.js
+ * description : This file contains code for manipulating the modal,
+ *               i.e., popup, that displays when a user clicks the
+ *               "add bookmark" button in the primary extension popup.
+ *
+ */
+import {predictCategory} from './predictCategory.mjs'
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
