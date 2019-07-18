@@ -4,14 +4,15 @@ const url = document.URL;
 var description;
 for (let i = 0; i < metas.length; i++) {
     const meta = metas[i];
+    // Some websites don't conform to the norm, thus requiring toLowerCase()
     if (meta.name.toLowerCase() == "description"){
         description = meta.content;
     }
 }
 if(description === undefined){
-    chrome.storage.sync.set({title: title.innerHTML, desc: "", url: url}, function () {});
+    chrome.storage.sync.set({title: title.innerText, desc: "", url: url}, function () {});
 }
 else{
-    chrome.storage.sync.set({title: title.innerHTML, desc: description, url: url}, function () {});
+    chrome.storage.sync.set({title: title.innerText, desc: description, url: url}, function () {});
 }
 
