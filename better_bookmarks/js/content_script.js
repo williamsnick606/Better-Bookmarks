@@ -9,9 +9,7 @@ for (let i = 0; i < metas.length; i++) {
         description = meta.content;
     }
 }
-if(description === undefined){
-    chrome.storage.sync.set({title: title.innerText, desc: "", url: url}, function () {});
+if(!description){
+    description = "";
 }
-else{
-    chrome.storage.sync.set({title: title.innerText, desc: description, url: url}, function () {});
-}
+chrome.storage.sync.set({title: title.innerText, desc: description, url: url}, function () {});
