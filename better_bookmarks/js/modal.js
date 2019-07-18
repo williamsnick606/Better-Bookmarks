@@ -17,8 +17,13 @@ var usableU;
 // This will be the tabs description
 //var usableD;
 
+<<<<<<< HEAD
 chrome.storage.sync.get(["desc", "url"], function(result) {
     usableT = result.desc;
+=======
+chrome.storage.sync.get(["title", "url"], function(result) {
+    usableT = result.title;
+>>>>>>> 7956320f75931d32b948ac49708c833c2fc07849
     usableU = result.url;
     autofiller(usableT, usableU);
 });
