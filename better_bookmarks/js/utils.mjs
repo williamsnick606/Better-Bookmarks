@@ -5,7 +5,8 @@
  *
  *
  */
-
+ 
+/*
  * Returns a new HTML tag.
  *
  * @param data : an object consisting of a tag,
