@@ -1,3 +1,12 @@
+/*
+ * file        : modal.js
+ * description : This file contains code for manipulating the modal,
+ *               i.e., popup, that displays when a user clicks the
+ *               "add bookmark" button in the primary extension popup.
+ *
+ */
+import {predictCategory} from './predictCategory.mjs'
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -15,11 +24,16 @@ var usableT;
 // This will be the tabs body for folder choosing
 var usableU;
 // This will be the tabs description
-//var usableD;
+var usableD;
 
-chrome.storage.sync.get(["title", "url"], function(result) {
+chrome.storage.sync.get(["title", "desc", "url"], function(result) {
     usableT = result.title;
     usableU = result.url;
+    usableD = result.desc;
+    console.log("Getting title, description, and url " +
+                "inside modal...");
+    console.log("title = " + result.title + " | " +
+                "desc = " + result.desc);
     autofiller(usableT, usableU);
 });
 
@@ -48,6 +62,6 @@ function autofiller(usableT, usableU) {
         chrome.bookmarks.create({'parentId': null,
                                  'title':    usableT,
                                  'url':      usableU
-        });
+                                });
     }
 }

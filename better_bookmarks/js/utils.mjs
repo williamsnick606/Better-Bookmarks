@@ -118,7 +118,6 @@ export function createFolder(folderId, folderTitle) {
  */
 export function addBookmarkContent() {
     var folderDiv, dropdownDiv, bmarkContent;
-    const folderDivs   = [];
     const dropdownDivs = [];
 
     /*
@@ -132,7 +131,7 @@ export function addBookmarkContent() {
     *
     */
     function walkChildren(bs) {
-        if (bs == undefined || bs.length == 0) {
+        if (bs == undefined) {
             return;
         }
         for (let i = 0; i < bs.length; i++) {
@@ -192,6 +191,7 @@ export function addBookmarkContent() {
                 bmark.addEventListener("click", () => {
                     chrome.tabs.create({ url: node.url });
                 });
+                console.log("Found bookmark with parentId " + node.parentId);
                 console.log("Created bookmark with title " +
                       bmark.innerText);
                 // If a dropdown was created, then append
@@ -213,7 +213,11 @@ export function addBookmarkContent() {
                 }
             }
             // Time to moon walk.
+            console.log("ABOUT TO WALK CHILDREN OF BOOKMARK " +
+                        "NODE WITH ID " + node.id);
             walkChildren(node.children);
+            console.log("FINISHED WALK OF CHILDREN FOR NODE WITH ID " +
+                        node.id);
         }
         // About to go back up one level, so pop
         // off the dropdown stack.

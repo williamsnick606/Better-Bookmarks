@@ -1,34 +1,33 @@
 {
-    "name": "Better Bookmarks",
-    "version": "0.01",
-    "description": "Uses machine learning to automatically sort your bookmarks.",
-    "manifest_version": 2,
-    "permissions": [
-        "bookmarks",
-        "contextMenus",
-        "activeTab",
-        "storage"
-    ],
+    "name"             : "Better Bookmarks",
+    "version"          : "0.01",
+    "description"      : "Uses machine learning to automatically sort your bookmarks.",
+    "manifest_version" : 2,
+    "permissions"      : [ "bookmarks"
+                         , "contextMenus"
+                         , "activeTab"
+                         , "storage"
+                         ],
     "background": {
-        "scripts": ["js/background.js",
-                    "js/bookmark_listener.js"
-                   ],
-        "persistent": false
+        "scripts"    : [ "js/background.js"
+                       , "js/bookmark_listener.js"
+                       ],
+        "persistent" : false
     },
     "browser_action": {
-        "default_title": "Better Bookmarks",
-        "default_icon": "icon.png",
-        "default_popup": "views/popup.html"
+        "default_title" : "Better Bookmarks",
+        "default_icon"  : "icon.png",
+        "default_popup" : "views/popup.html"
     },
     "content_scripts": [
         {
-            "matches": ["http://*/*", "https://*/*"],
-            "run_at": "document_end",
-            "js": ["js/content_script.js"]
+            "matches" : ["http://*/*", "https://*/*"],
+            "run_at"  : "document_end",
+            "js"      : ["js/content_script.js"]
         }
     ],
-    "options_ui": {
-        "page": "views/options.html",
-        "open_in_tab": false
-  }
+    "options_ui"      : {
+        "page"        : "views/options.html",
+        "open_in_tab" : false
+    }
 }

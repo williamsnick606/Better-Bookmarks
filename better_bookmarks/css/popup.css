@@ -15,6 +15,10 @@ div {
     margin: 0;
     padding: 0;
 }
+a {
+    font-family: 'Noto Serif', serif;
+    font-size: 12px;
+}
 .flex-container {
     display: flex;
     flex-direction: column;
@@ -45,7 +49,6 @@ div {
 .panel a {
     display: block;
     padding: 10px;
-    font-size: 11px;
     text-decoration: none;
     color: inherit;
 }
