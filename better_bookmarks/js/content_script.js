@@ -12,4 +12,4 @@ for (let i = 0; i < metas.length; i++) {
 if(!description){
     description = "";
 }
-chrome.storage.sync.set({title: title.innerText, desc: description, url: url}, function () {});
+chrome.storage.sync.set({title: title.innerText, desc: description, url: url});
