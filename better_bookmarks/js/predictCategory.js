@@ -63,4 +63,3 @@ async function predictCategory(title, description){
     }
     return ret;
 }
-
