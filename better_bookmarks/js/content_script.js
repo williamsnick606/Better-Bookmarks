@@ -9,7 +9,18 @@ for (let i = 0; i < metas.length; i++) {
         description = meta.content;
     }
 }
+console.log("Got title = " + title + " | " +
+            "description = " + description);
+/*
 if(!description){
     description = "";
 }
-chrome.storage.sync.set({title: title.innerText, desc: description, url: url});
+chrome.storage.sync.set({ title: title.innerText
+                        , desc: description
+                        , url: url
+                        });
+                        */
+chrome.storage.sync.set({ title: title.innerText
+                        , desc: description
+                        , url: url
+                        });
