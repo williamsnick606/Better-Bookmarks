@@ -1,0 +1,9 @@
+'test_titles' contains a script to test our model trained on desc input
+on title input.
+
+Results were poor demonstrating we need to train a model specifically on title
+inputs if that's the only data we have to make predictions.
+
+In other words we will use a model trained on desc if we have desc data available
+from the desired html, else we will use title data from the html on a model trained
+with titles.
