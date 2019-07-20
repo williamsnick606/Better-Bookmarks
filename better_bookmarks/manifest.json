@@ -11,6 +11,7 @@
     "background": {
         "scripts"    : [ "js/background.js"
                        , "js/bookmark_listener.js"
+                       , "js/tf.min.js"
                        ],
         "persistent" : false
     },
