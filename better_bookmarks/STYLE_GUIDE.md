@@ -20,3 +20,7 @@ thereby reducing the amount of time required for documenting and
 the time required for reading said documentation.  Additionally,
 using __JSDOC__ allows us to quickly generate nice looking API
 documentation.
+
+### Separating Blocks
+
+We use line breaks to separate logical blocks of code.
