@@ -26,6 +26,7 @@ var usableU;
 // This will be the tabs description
 var usableD;
 
+/*
 chrome.storage.sync.get(["title", "desc", "url"], function(result) {
     usableT = result.title;
     usableU = result.url;
@@ -36,6 +37,7 @@ chrome.storage.sync.get(["title", "desc", "url"], function(result) {
                 "desc = " + result.desc);
     autofiller(usableT, usableU);
 });
+*/
 
 // All the modal functionality has to be a callback function from the chrome.tabs.query
 function autofiller(usableT, usableU) {
