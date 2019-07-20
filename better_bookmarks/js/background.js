@@ -17,3 +17,19 @@ chrome.contextMenus.create({
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
     alert('first');
 });
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    console.log("Tab " + tabId + " updated...");
+    console.log("URL = " + changeInfo.url);
+    console.log("Title = " + changeInfo.title);
+    chrome.tabs.executeScript(tabId, {code: 'document.getElementsByTagName("title")[0];',
+                                      runAt: "document_end"},
+                              function(result) {
+        alert("result = " + result);
+        /*
+        usableT = result.title;
+        usableD = result.description;
+        usableU = result.url;
+        */
+    });
+});
