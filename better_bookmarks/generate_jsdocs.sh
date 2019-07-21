@@ -8,21 +8,26 @@
 # Destination folder for JSDoc.
 dest="./docs"
 
-# Array of files to run `jsdoc' on.
-jsFiles=("js/utils.mjs" "js/modal.js")
+# JS modules.
+modules=("js/utils.mjs")
+
+# Regular JS files.
+jsFiles=("js/modal.js")
 
 # Loop through jsFiles and call `jsdoc' on each file.
-for jsFile in "${jsFiles[@]}"; do
-    inJSFile="$jsFIle"
-    if [[ "$jsFile" == *".mjs" ]]; then
-        inJSFile="${jsFile%*.mjs}.js"
-        echo "Copying $jsFile to $inJSFile..."
-        cp -v "$jsFile" "$inJSFile"
-        echo "Running jsdoc on file \"$inJSFile\"..."
-    fi
-    jsdoc --destination "$dest" "$inJSFile"
-    if [ "$jsFile" != "$inJSFile" ]; then
-        echo "Removing temporary js file \"$inJSFile\"..."
-        rm -v "$inJSFile"
-    fi
+for module in "${modules[@]}"; do
+    jsFile="${module%*.mjs}.js"
+    echo "Copying $module to $jsFile..."
+    cp -v "$module" "$jsFile"
+    echo "Adding $jsFile to source files array..."
+    jsFiles+=("$jsFile")
+done
+
+echo "Running jsdoc on ${jsFiles[@]}"
+jsdoc --destination "$dest" "${jsFiles[@]}"
+
+for module in "${modules[@]}"; do
+    jsFile="${module%*.mjs}.js"
+    echo "Removing file $jsFile"
+    rm -v "$jsFile"
 done
