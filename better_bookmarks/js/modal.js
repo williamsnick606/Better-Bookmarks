@@ -44,51 +44,49 @@ const codeToExecute =
     "const pageData = {title: pageTitle, description: pageDescription, url: pageURL};\n" +
     "pageData;";
 
-// This will be the tabs title for bookmark naming purposes
-let usableT;
-// This will be the tabs body for folder choosing
-let usableU;
-// This will be the tabs description
-let usableD;
 // Collect the relevant page information for the
 // tab that "add bookmark" was clicked on.
 chrome.tabs.executeScript({ code  : codeToExecute
                           , runAt : "document_end"
                           }, (results) => {
+    // This will be the tabs title for bookmark naming purposes
+    let usableT;
+    // This will be the tabs body for folder choosing
+    let usableU;
+    // This will be the tabs description
+    let usableD;
     const result = results[0];
     usableT      = result.title;
     usableU      = result.url;
     usableD      = result.description;
-    alert("title = " + usableT + " | " +
-          "url = " + usableU + " | " +
-          "description = " + usableD);
+    console.log("title = " + usableT + "\n" +
+                "url = " + usableU + "\n" +
+                "description = " + usableD);
+    // Fill the title and URL fields that the
+    // user sees.
+    autofiller(usableT, usableU);
 });
 
-console.log("title = " + usableT + "\n" +
-            "url = " + usableU + "\n" +
-            "description = " + usableD);
-// Fill the title and URL fields that the
-// user sees.
-autofiller(usableT, usableU);
 
 /**
  *  Creates a new bookmark given a bookmark title
  *  and url.
  *
- *  @param {string} usableT - The title of the page being
+ *  @param {string} title - The title of the page being
  *      bookmarked.
- *  @param {string} usableU - The url of the page being
+ *  @param {string} url - The url of the page being
  *      bookmarked.
  *  @return {undefined}
  *
  */
-function autofiller(usableT, usableU) {
+function autofiller(title, url) {
+    alert("In autofiller...title = " + title);
     // When the user clicks the 'Bookmark' button,
     btn.onclick = function() {
         // Display the modal
         modal.style.display = "block";
         // Autofill the site Title as the bookmark name
-        document.getElementById("newName").value = usableT;
+        document.getElementById("newName").value = title;
     }
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
@@ -104,8 +102,8 @@ function autofiller(usableT, usableU) {
     // When a user clicks the Create button, save a new bookmark
     btn2.onclick = function() {
         chrome.bookmarks.create({'parentId': null,
-                                 'title':    usableT,
-                                 'url':      usableU
+                                 'title':    title,
+                                 'url':      url
                                 });
     }
 }
