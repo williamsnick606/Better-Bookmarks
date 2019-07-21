@@ -1,8 +1,14 @@
-/**
+/*
  * file        : modal.js
  * description : This file contains code for manipulating the modal,
  *               i.e., popup, that displays when a user clicks the
  *               "add bookmark" button in the primary extension popup.
+ *
+ */
+/**
+ * @file This file contains code for manipulating the modal,
+ *     i.e., popup, that displays when a user clicks the
+ *     "add bookmark" button in the primary extension popup.
  *
  */
 import {predictCategory} from './predictCategory.mjs'
@@ -18,7 +24,6 @@ var btn2 = document.getElementById("makeBtn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-
 
 /* 
  * Since executeScript doesn't seem to like when
@@ -66,7 +71,6 @@ chrome.tabs.executeScript({ code  : codeToExecute
     // user sees.
     autofiller(usableT, usableU);
 });
-
 
 /**
  *  Creates a new bookmark given a bookmark title

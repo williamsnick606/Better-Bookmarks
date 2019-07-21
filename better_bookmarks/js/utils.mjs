@@ -1,4 +1,4 @@
-/**
+/*
  * file        : utils.mjs
  * description : This file is a JavaScript module intended to
  *               contain utility functions.
@@ -8,6 +8,10 @@
  *               , addBookmarkContent/0
  *               , validateForm/0
  *               ]
+ */
+/**
+ * @file This file is a JavaScript module intended to
+ *     contain utility functions.
  *
  * @module utils
  * 
