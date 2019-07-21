@@ -33,3 +33,30 @@ documentation.
 ### Separating Blocks
 
 We use line breaks to separate logical blocks of code.
+
+### Conditionals
+
+The __W3C__ style guide recommends formatting _if-else_ blocks in
+the following way:
+
+```javascript
+...
+if (booleanCondition) {
+    ...
+} else {
+    ...
+}
+...
+```
+However, we use the following formatting with _if-else_ blocks:
+
+```javascript
+...
+if (booleanCondition) {
+    ...
+}
+else {
+    ...
+}
+...
+```
