@@ -19,27 +19,69 @@ var btn2 = document.getElementById("makeBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
+
+/* 
+ * Since executeScript doesn't seem to like when
+ * I set the file property with content equivalent
+ * to what follows below, we have to resort to the
+ * below solution until we figure out how to use a
+ * file with the exact same content, or an even better
+ * solution that doesn't require the use of executeScript.
+ */
+const codeToExecute =
+    "const pageTitle = document.getElementsByTagName(\"title\")[0].innerText;\n" +
+    "const pageURL   = document.URL;\n" +
+    "const metas     = document.getElementsByTagName('meta');\n" +
+    "let pageDescription;\n" +
+    "for (let i = 0; i < metas.length; i++) {\n" +
+    "    const meta = metas[i];\n" +
+        // Some websites don't conform to the norm,
+        // thus requiring toLowerCase().
+    "    if (meta.name.toLowerCase() === 'description'){\n" +
+    "        pageDescription = meta.content;\n" +
+    "    }\n" +
+    "}\n" +
+    "const pageData = {title: pageTitle, description: pageDescription, url: pageURL};\n" +
+    "pageData;";
+
 // This will be the tabs title for bookmark naming purposes
-var usableT;
+let usableT;
 // This will be the tabs body for folder choosing
-var usableU;
+let usableU;
 // This will be the tabs description
-var usableD;
-
-/*
-chrome.storage.sync.get(["title", "desc", "url"], function(result) {
-    usableT = result.title;
-    usableU = result.url;
-    usableD = result.desc;
-    console.log("Getting title, description, and url " +
-                "inside modal...");
-    console.log("title = " + result.title + " | " +
-                "desc = " + result.desc);
-    autofiller(usableT, usableU);
+let usableD;
+// Collect the relevant page information for the
+// tab that "add bookmark" was clicked on.
+chrome.tabs.executeScript({ code  : codeToExecute
+                          , runAt : "document_end"
+                          }, (results) => {
+    const result = results[0];
+    usableT      = result.title;
+    usableU      = result.url;
+    usableD      = result.description;
+    alert("title = " + usableT + " | " +
+          "url = " + usableU + " | " +
+          "description = " + usableD);
 });
-*/
 
-// All the modal functionality has to be a callback function from the chrome.tabs.query
+console.log("title = " + usableT + "\n" +
+            "url = " + usableU + "\n"
+            "description = " + usableD);
+// Fill the title and URL fields that the
+// user sees.
+autofiller(usableT, usableU);
+
+/**
+ *  Creates a new bookmark given a bookmark title
+ *  and url.
+ *
+ *  @param {string} usableT - The title of the page being
+ *      bookmarked.
+ *  @param {string} usableU - The url of the page being
+ *      bookmarked.
+ *  @return {undefined}
+ *
+ */
 function autofiller(usableT, usableU) {
     // When the user clicks the 'Bookmark' button,
     btn.onclick = function() {
