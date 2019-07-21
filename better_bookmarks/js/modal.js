@@ -6,6 +6,7 @@
  *
  */
 import {predictCategory} from './predictCategory.mjs'
+import {preprocess} from './predictCategory.mjs'
 
 // Get the modal
 var modal = document.getElementById("myModal");
