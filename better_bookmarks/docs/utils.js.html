@@ -77,9 +77,9 @@ export function createTag(data) {
 /**
  * Returns a div tag that represents a folder dropdown.
  *
- * @param parentId - the numeric ID of the parent bookmark
- *     node.
- * @return a dropdown HTML element.
+ * @param {string} parentId - the numeric ID of the
+ *     parent bookmark node as a string.
+ * @return {Object} a dropdown HTML element.
  *
  */
 export function createDropdown(parentId) {
@@ -95,10 +95,10 @@ export function createDropdown(parentId) {
  * Returns an a tag that represents a clickable
  * bookmark to be included in a folder dropdown.
  *
- * @param bookmarkId    - the numeric ID of the bookmark
- *     node.
- * @param bookmarkTitle - the bookmark's title.
- * @return a bookmark HTML element.
+ * @param {string} bookmarkId    - the numeric ID of the bookmark
+ *     node as a string.
+ * @param {string} bookmarkTitle - the bookmark's title.
+ * @return {Object} a bookmark HTML element.
  *
  */
 function createBookmark(bookmarkId, bookmarkTitle) {
@@ -115,10 +115,10 @@ function createBookmark(bookmarkId, bookmarkTitle) {
  * represents a clickable, and dropdownable,
  * folder.
  *
- * @param folderId    - the numeric ID of the bookmark folder
- *     node.
- * @param folderTitle - the bookmark folder's title.
- * @return a folder HTML element.
+ * @param {string} folderId    - the numeric ID of the bookmark folder
+ *     node as a string.
+ * @param {string} folderTitle - the bookmark folder's title.
+ * @return {Object} a folder HTML element.
  *
  */
 export function createFolder(folderId, folderTitle) {
@@ -139,7 +139,7 @@ export function createFolder(folderId, folderTitle) {
                              , classes: ['accordion']
                              });
     folder.innerHTML = "&lt;b>" + folderTitle + "&lt;/b>";
-    if (folderTitle.length == 0) {
+    if (folderTitle.length === 0) {
         folder.innerHTML = "&lt;b>untitled&lt;/b>";
     }
     folderDiv.appendChild(folder);
@@ -151,7 +151,7 @@ export function createFolder(folderId, folderTitle) {
  * Walks the bookmark tree and adds the folders
  * to the popup menu.
  *
- * @return undefined
+ * @return {undefined}
  *
  */
 export function addBookmarkContent() {
@@ -164,18 +164,19 @@ export function addBookmarkContent() {
      * along the way.
      *
      *
-     * @param bs - the child array.
-     * @return undefined
+     * @param {Object[]} bs - the child array.
+     * @return {undefined}
      *
      */
     function walkChildren(bs) {
-        if (bs == undefined) {
+        // bs is undefined.
+        if (!bs) {
             return;
         }
         for (let i = 0; i &lt; bs.length; i++) {
             let node = bs[i];
             // Folder case.
-            if (node.url == undefined &amp;&amp; node.id != 0) {
+            if (!node.url &amp;&amp; node.id !== "0") {
                 if (!dropdownDiv &amp;&amp; folderDiv) {
                     dropdownDiv = createDropdown(node.parentId);
                     folderDiv.appendChild(dropdownDiv);
@@ -189,7 +190,7 @@ export function addBookmarkContent() {
                             folderDiv.id);
                 // Add root bookmark folder to bookmarkContent
                 // div.
-                if (node.parentId == 0) {
+                if (node.parentId === "0") {
                     bmarkContent.appendChild(folderDiv);
                 }
                 // A dropdown already exists, so this folder
@@ -208,11 +209,11 @@ export function addBookmarkContent() {
                 }
             }
             // Bookmark case.
-            if (node.url != undefined &amp;&amp; node.id != 0) {
-                // Since the above check weeds out the
-                // root node, we only need to check if
-                // we've already created a dropdown div.
-                if (node.parentId != 0 &amp;&amp; !dropdownDiv) {
+            if (node.url &amp;&amp; node.id !== "0") {
+                // In Chrome, no bookmarks have a parentId
+                // of zero, so all we need to do is check
+                // that dropdownDiv is undefined.
+                if (!dropdownDiv) {
                     // Create a new bookmark "list."
                     dropdownDiv = createDropdown(node.parentId);
                     console.log("Created dropdown div with id " +
@@ -302,7 +303,7 @@ export function addBookmarkContent() {
  *
  * ==== Still in progress. ====
  *
- * @return undefined
+ * @return {undefined}
  *
  */
 export function validateForm() {
@@ -315,9 +316,9 @@ export function validateForm() {
  * that reside in a clicked on folder matching a
  * given ID in the popup menu.
  *
- * @param folder   - the folder element whose contents
+ * @param {Object} folder   - the folder element whose contents
  *     need to be displayed.
- * @param folderID - the ID of the folder that was just
+ * @param {string} folderID - the ID of the folder that was just
  *     clicked.
  * @return undefined
  *
@@ -342,9 +343,9 @@ function toggleBookmarks(folder, folderId) {
  * Attaches on-click listerners to the bookmark
  * folders in the popupmenu.
  *
- * @param folders - the folders to attach an onclick
+ * @param {Object[]} folders - the folders to attach an onclick
  *     listener to.
- * @return undefined
+ * @return {undefined}
  *
  */
 function attachFolderListeners(folders) {
@@ -371,7 +372,7 @@ function attachFolderListeners(folders) {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Jul 20 2019 03:19:55 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Jul 20 2019 21:36:11 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>
