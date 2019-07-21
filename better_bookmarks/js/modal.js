@@ -6,6 +6,7 @@
  *
  */
 import {predictCategory} from './predictCategory.mjs'
+import {preprocess} from './predictCategory.mjs'
 
 // Get the modal
 var modal = document.getElementById("myModal");
@@ -34,7 +35,16 @@ chrome.storage.sync.get(["title", "desc", "url"], function(result) {
                 "inside modal...");
     console.log("title = " + result.title + " | " +
                 "desc = " + result.desc);
+    //document.write(usableT);
+    predictCategory(usableT).then(function(t){
+
+  // do something ............. <-------------------
+
+    var o = ["art", "business", "health", "society", "sports"];
+    //document.write(o[t]);
     autofiller(usableT, usableU);
+
+    });
 });
 
 // All the modal functionality has to be a callback function from the chrome.tabs.query
