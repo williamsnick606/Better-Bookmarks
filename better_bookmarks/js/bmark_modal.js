@@ -1,38 +1,42 @@
 /*
- * file        : modal.js
- * description : This file contains code for manipulating the modal,
+ * File        : bmarkModal.js
+ * Description : This file contains code for manipulating the modal,
  *               i.e., popup, that displays when a user clicks the
- *               "add bookmark" button in the primary extension popup.
- *
+ *               "new bookmark" button in the primary extension popup.
  */
+
 import {predictCategory} from './predictCategory.mjs'
 
-// Make variable's for the modal and all of its buttons
-var modal    = document.getElementById("myModal");
-var newBook  = document.getElementById("newBook");
-var saveBook = document.getElementById("saveBook");
-var span     = document.getElementsByClassName("close")[0];
-var select   = document.getElementById('folderDrop');
-// These will help keep track of the folder ID's of the folders added
-// by the extensioon so the ML predictor knows which folder to 
-//use as a recommendation
+// This initializes all the variables we need for the modal.
+var modal    = document.getElementById("bmarkModal");
+var newBook  = document.getElementById("newBmark");
+var saveBook = document.getElementById("saveBmark");
+var span     = document.getElementById("bmarkSpan");
+var select   = document.getElementById('bmarkDrop');
+
+/* The only way to add a bookmark to a certain folder is by knowing
+ * the bookmarkID of the folder you want it added to. These variables
+ * will keep track of the bookmarkID's of the folders our ML function
+ * can recommend.
+ */
 var art, business, health, society, sports;
-// This adds all bookmark folders as options in the modal's folder
-// selection dropdown. '0' means it starts @ the root node
+
+/*
+ * Description: This function goes through the user's bookmark tree, adding
+ *              their folders as options to our folder dropdown, so that they
+ *              can save a bookmark to any bookmark folder they want.
+ * Inputs:      "id" == a number corresponding to the bookmarkID of the node
+ *              whose children you want added to the dropdown list.
+ * Output:      None.
+ */
 grabFolders('0');
 function grabFolders(id) {
-    // Gets each bookmark item by id
     chrome.bookmarks.getChildren(id, function(children) {
         children.forEach(function(bookmark) { 
-            // If the url is null (it's a folder)
             if(bookmark.url == null){
-                // Create an option to add to our dropdown
                 var option = document.createElement('option');
-                // Copy the info over from folder to the new option
                 option.value = bookmark.id;
                 option.text = bookmark.title;
-                // When we run into a predictable folder, make note
-                // of the folder's ID
                 if(option.text == "Art") {
                     art = option.value;
                 } else if(option.text == "Business") {
@@ -44,23 +48,33 @@ function grabFolders(id) {
                 } else if(option.text == "Sports") {
                     sports = option.value;
                 }
-                // Add the option to the dropdown
                 select.appendChild(option);
             }
-            // Recursive call on the folder's children
             grabFolders(bookmark.id);
         });
     });
 }
 
-// This will be the tabs Title for bookmark naming purposes
+/* These variables will hold the Title, URL, and Description of the 
+ * web page being bookmarked. The last two variables are used to 
+ * choose which Category will be chosen by the ML function and shown
+ * as the preset value in the folder dropdown when creating a bookmark.
+ */
 var usableT;
 var usableU;
 var usableD;
 var o = ["art", "business", "health", "society", "sports"];
 var prediction;
 
-
+/*
+ * Description: This function grabs the current page's info from Chrome's
+ *              storage API, where a different function had sent it.
+ * Inputs:      "title" grabs the title from storage.
+ *              "url" grabs the url.
+ *              "desc" grabs the description.
+ * Outputs:     "UsableT", the title. Can be passed to a callback.
+ *              "UsableU", the url. Can be passed to the callback.
+ */
 chrome.storage.sync.get(["title", "url", "desc"], function(result) {
     usableT = result.title;
     usableU = result.url;
@@ -69,10 +83,9 @@ chrome.storage.sync.get(["title", "url", "desc"], function(result) {
                 "inside modal...");
     console.log("title = " + result.title + " | " +
                 "desc  = " + result.desc);
-    predictCategory(usableT, usableD).then(function(p) {
-        prediction = o[p];
-    });
-    autofiller(usableT, usableU);
+    predictCategory(usableT, usableD).then(function(p){
+        autofiller(usableT, usableU, prediction);
+    })
 });
 
 // I'm keeping my data grabbing function here until Roberts is able to update itself
@@ -83,7 +96,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     var tab = tabs[0];
     var title = tab.title;
     var url = tab.url;
-    //var body = tab.title;   // document.queryselector('body').innertext
     usableT = title;
     usableU = url;
     //usableB = body;
@@ -91,13 +103,20 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 })
 */
 
-// All the modal functionality has to be a callback function from the chrome.tabs.query
+/*
+ * Description: This function is responsible for saving a new bookmark
+ *              with all of the corect information. Basically it makes
+ *              sure that the modal's fields show the right presets,
+ *              and stores the correct information as a bookmark.
+ * Inputs:      "usableT" is the title of the current page.
+ *              "usableU" is the URL of the current page.
+ *              "prediction" is the category that the ML function
+ *              decided was the best fir for this page.
+ * Outputs:     None.
+ */
 function autofiller(usableT, usableU, prediction) {
-
-    // Autofill the site Title as the bookmark name
     document.getElementById("newName").value = usableT;
 
-    // Autofill the category prediction as the folder preset
     if(prediction == 'art') {
         document.getElementById("folderDrop").value = art;
     } else if (prediction == 'business') {
@@ -110,32 +129,24 @@ function autofiller(usableT, usableU, prediction) {
         document.getElementById("folderDrop").value = sports;
     }
 
-    // When the user clicks the 'Bookmark' button,
     newBook.onclick = function() {
-        // Display the modal
         modal.style.display = "block";
     }
 
-    // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
     }
 
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
 
-    // When a user clicks the Create button
     saveBook.onclick = function() {
-        // Grab the current bookmark name
         var bookT = document.getElementById("newName").value;
-        // Grab the current bookmark folder
-        var selection = document.getElementById("folderDrop").text;
-        var ID = document.getElementById("folderDrop").value;
-        // Save the bookmark
+        var selection = document.getElementById("bmarkDrop").text;
+        var ID = document.getElementById("bmarkDrop").value;
         chrome.bookmarks.create({'parentId': ID,
                                  'title':    bookT,
                                  'url':      usableU

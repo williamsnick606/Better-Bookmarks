@@ -1,19 +1,25 @@
+/*
+ * File        : modal.css
+ * Description : This file contains all of the CSS styling for both
+ *               of the modal popups in the extension.
+ */
+ 
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 2px; /* Location of the box 3 */
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    display: none;
+    height: 100%;
     left: 0;
+    overflow: auto;
+    padding-top: 2px;
+    position: fixed;
     top: 0;
-    width: 95%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 95%;
+    z-index: 1;
 }
 
 /* Modal Content */
-.modal-content {
+.modalContent {
     position: relative;
     background-color: #fefefe;
     margin: auto;
@@ -30,12 +36,12 @@
 /* Add Animation */
 @-webkit-keyframes animatetop {
     from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
+    to   {top:0; opacity:1}
 }
 
 @keyframes animatetop {
     from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
+    to   {top:0; opacity:1}
 }
 
 /* The Close Button */
@@ -53,15 +59,15 @@
     cursor: pointer;
 }
 
-.modal-header {
+.modalHeader {
     padding: 1px 15px;
     background-color: dimgray;
     color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+.modalBody {padding: 2px 16px;}
 
-.input1 {
+.bmarkName {
     width: 80%;
     padding: 1px 1px;
     margin: 7px 0 0 0;
@@ -70,7 +76,7 @@
     border: 2px solid silver;
 }
 
-.select1 {
+.bmarkParent {
     width: 79%;
     padding: 1px 1px;
     margin: 7px 0 0 0;
@@ -79,7 +85,7 @@
     border: 2px solid silver;
 }
 
-.button2 {
+.saveBmark {
     background-color: dimgray;
     border: none;
     border-radius: 2px;
@@ -90,7 +96,7 @@
     display: inline-block;
     font-size: 13px;
     cursor: pointer;
-    margin: 7px 80px 7px;
+    margin: 7px 104px 7px;
 }
 
 .modal-footer {

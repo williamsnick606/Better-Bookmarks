@@ -1,6 +1,6 @@
 /*
- * file        : add_bookmarks.mjs
- * description : This file contains a function for adding bookmark
+ * File        : add_bookmarks.mjs
+ * Description : This file contains a function for adding bookmark
  *               folders to the extension's popup menu.
  *
  */
