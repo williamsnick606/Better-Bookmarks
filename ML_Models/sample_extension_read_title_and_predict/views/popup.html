@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+       <link rel="stylesheet" type="text/css" href="../css/popup.css">
+       <link rel="stylesheet" type="text/css" href="../css/modal.css">
+       <link href="https://fonts.googleapis.com/css?family=Noto+Serif&display=swap"
+             rel="stylesheet">
+       <script type="module" src="../js/add_content.mjs"></script>
+       <script type="module" src="../js/predictCategory.mjs"></script>
+        <script src="../js/tf.min.js"></script>
+    </head>
+    <body style="width:600px">
+       <div id="search">
+           <form name="searchForm">
+               <input type="text" name="searchBar" placeholder="Search Bookmarks">
+               <input id="submit-btn" type="submit" value="Search">
+           </form>
+       </div>
+       <!-- made a button for adding bookmarks !-->
+       <button id="newBook" class="button1">Bookmark this page</button>
+       <div id="myModal" class="modal">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <span class="close">&times;</span>
+                   <h2>New Bookmark</h2>
+               </div>
+               <div class="Modal-body">
+                   <div> Name <input class="input1" type="text"
+                                     id="newName"  value="Name">
+                   </div>
+                   <div> Folder
+                       <select class="select1" id="folderDrop">
+                       </select>
+                   </div>
+                   <div>
+                       <button id="saveBook"
+                               class="button2" >Create
+                       </button>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <!-- made a button for adding bookmarks !-->
+       <div id="bookmarkContent" class="flex-container"></div>
+    </body>
+    <script src="../js/script.js"></script>
+</html>
