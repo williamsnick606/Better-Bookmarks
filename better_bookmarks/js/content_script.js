@@ -15,7 +15,8 @@ const metas = document.getElementsByTagName("meta");
 let pageDescription;
 for (let i = 0; i < metas.length; i++) {
     const meta = metas[i];
-    // Some websites don't conform to the norm, thus requiring toLowerCase()
+    // Some websites don't conform to the norm,
+    // thus requiring toLowerCase()
     if (meta.name.toLowerCase() == "description"){
         pageDescription = meta.content;
     }
