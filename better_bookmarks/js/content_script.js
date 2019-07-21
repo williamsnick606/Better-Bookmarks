@@ -1,13 +1,10 @@
 /**
-        alert("currentTab = " + currentTab);
  * file        : content_script.js
  * description : This file contains code that grabs, whenever
  *               available, the title, description, and url of
  *               the website that the user has currently visited.
  *
- * NOTE: When a user opens a tab, opens another tab, and then
- *       switches back to the first tab, the page information
- *       for the first tab is lost.
+ * NOTE: This file is not currently used.
  *
  */
 
