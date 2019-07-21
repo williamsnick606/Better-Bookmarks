@@ -49,9 +49,9 @@ export function createTag(data) {
 /**
  * Returns a div tag that represents a folder dropdown.
  *
- * @param parentId - the numeric ID of the parent bookmark
- *     node.
- * @return a dropdown HTML element.
+ * @param {string} parentId - the numeric ID of the
+ *     parent bookmark node as a string.
+ * @return {Object} a dropdown HTML element.
  *
  */
 export function createDropdown(parentId) {
@@ -67,10 +67,10 @@ export function createDropdown(parentId) {
  * Returns an a tag that represents a clickable
  * bookmark to be included in a folder dropdown.
  *
- * @param bookmarkId    - the numeric ID of the bookmark
- *     node.
- * @param bookmarkTitle - the bookmark's title.
- * @return a bookmark HTML element.
+ * @param {string} bookmarkId    - the numeric ID of the bookmark
+ *     node as a string.
+ * @param {string} bookmarkTitle - the bookmark's title.
+ * @return {Object} a bookmark HTML element.
  *
  */
 function createBookmark(bookmarkId, bookmarkTitle) {
@@ -87,10 +87,10 @@ function createBookmark(bookmarkId, bookmarkTitle) {
  * represents a clickable, and dropdownable,
  * folder.
  *
- * @param folderId    - the numeric ID of the bookmark folder
- *     node.
- * @param folderTitle - the bookmark folder's title.
- * @return a folder HTML element.
+ * @param {string} folderId    - the numeric ID of the bookmark folder
+ *     node as a string.
+ * @param {string} folderTitle - the bookmark folder's title.
+ * @return {Object} a folder HTML element.
  *
  */
 export function createFolder(folderId, folderTitle) {
@@ -123,7 +123,7 @@ export function createFolder(folderId, folderTitle) {
  * Walks the bookmark tree and adds the folders
  * to the popup menu.
  *
- * @return undefined
+ * @return {undefined}
  *
  */
 export function addBookmarkContent() {
@@ -136,8 +136,8 @@ export function addBookmarkContent() {
      * along the way.
      *
      *
-     * @param bs - the child array.
-     * @return undefined
+     * @param {Object[]} bs - the child array.
+     * @return {undefined}
      *
      */
     function walkChildren(bs) {
@@ -275,7 +275,7 @@ export function addBookmarkContent() {
  *
  * ==== Still in progress. ====
  *
- * @return undefined
+ * @return {undefined}
  *
  */
 export function validateForm() {
@@ -288,9 +288,9 @@ export function validateForm() {
  * that reside in a clicked on folder matching a
  * given ID in the popup menu.
  *
- * @param folder   - the folder element whose contents
+ * @param {Object} folder   - the folder element whose contents
  *     need to be displayed.
- * @param folderID - the ID of the folder that was just
+ * @param {string} folderID - the ID of the folder that was just
  *     clicked.
  * @return undefined
  *
@@ -315,9 +315,9 @@ function toggleBookmarks(folder, folderId) {
  * Attaches on-click listerners to the bookmark
  * folders in the popupmenu.
  *
- * @param folders - the folders to attach an onclick
+ * @param {Object[]} folders - the folders to attach an onclick
  *     listener to.
- * @return undefined
+ * @return {undefined}
  *
  */
 function attachFolderListeners(folders) {
