@@ -80,7 +80,7 @@ chrome.tabs.executeScript({ code  : codeToExecute
  *
  */
 function autofiller(title, url) {
-    alert("In autofiller...title = " + title);
+    console.log("Entering autofiller in modal.js...");
     // When the user clicks the 'Bookmark' button,
     btn.onclick = function() {
         // Display the modal
