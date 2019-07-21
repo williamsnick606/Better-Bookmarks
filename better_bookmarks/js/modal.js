@@ -1,4 +1,4 @@
-/*
+/**
  * file        : modal.js
  * description : This file contains code for manipulating the modal,
  *               i.e., popup, that displays when a user clicks the
@@ -12,6 +12,7 @@
  *
  */
 import {predictCategory} from './predictCategory.mjs'
+import {preprocess} from './predictCategory.mjs'
 
 // Get the modal
 var modal = document.getElementById("myModal");

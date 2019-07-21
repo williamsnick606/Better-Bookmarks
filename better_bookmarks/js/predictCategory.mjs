@@ -29,11 +29,14 @@ function is_dumy(c){
 
 function remove_dummy(a){
     var len = a.length;
+    var b = "";
     for(var i = 0; i < len; i++){
-        if(is_dumy(a[i]))
-            a[i] = ' ';
+        if(!is_dumy(a[i]))
+            b = b + ' ';
+        else
+            b = b + a[i];
     }
-    return a.toLowerCase();
+    return b.toLowerCase();
 }
 
 function text_to_seq(text_token){
@@ -57,8 +60,12 @@ function pad_seq(seq){
     return [ret];
 }
 
+export function preprocess(str){
+    return pad_seq(text_to_seq(remove_dummy(str).split(' ')));
+}
+
 export async function predictCategory(title, description){
-    const model = await tf.loadLayersModel('model.json');
+    const model = await tf.loadLayersModel('../bb_model_strong/model.json');
     var title_token = await remove_dummy(title).split(' ');
     var title_seq = await text_to_seq(title_token);
     var title_pad = await pad_seq(title_seq);
