@@ -55,22 +55,29 @@ const codeToExecute =
 chrome.tabs.executeScript({ code  : codeToExecute
                           , runAt : "document_end"
                           }, (results) => {
-    // This will be the tabs title for bookmark naming purposes
-    let usableT;
-    // This will be the tabs body for folder choosing
-    let usableU;
-    // This will be the tabs description
-    let usableD;
-    const result = results[0];
-    usableT      = result.title;
-    usableU      = result.url;
-    usableD      = result.description;
-    console.log("title = " + usableT + "\n" +
-                "url = " + usableU + "\n" +
-                "description = " + usableD);
-    // Fill the title and URL fields that the
-    // user sees.
-    autofiller(usableT, usableU);
+    try {
+        // This will be the tabs title for bookmark naming purposes
+        let usableT;
+        // This will be the tabs body for folder choosing
+        let usableU;
+        // This will be the tabs description
+        let usableD;
+        const result = results[0];
+        usableT      = result.title;
+        usableU      = result.url;
+        usableD      = result.description;
+        console.log("title = " + usableT + "\n" +
+                    "url = " + usableU + "\n" +
+                    "description = " + usableD);
+        // Fill the title and URL fields that the
+        // user sees.
+        autofiller(usableT, usableU);
+    }
+    catch(err) {
+        console.log("Caught error running executeScript " +
+                    "in file modal.js.");
+        console.log("Error: " + err);
+    }
 });
 
 /**

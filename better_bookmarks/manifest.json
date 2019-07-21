@@ -6,13 +6,12 @@
     "permissions"      : [ "bookmarks"
                          , "contextMenus"
                          , "tabs"
-                         , "activeTab"
-                         , "storage"
+                         , "http://*/*"
+                         , "https://*/*"
                          ],
     "background": {
         "scripts"    : [ "js/background.js"
                        , "js/bookmark_listener.js"
-                       , "js/tf.min.js"
                        ],
         "persistent" : false
     },
