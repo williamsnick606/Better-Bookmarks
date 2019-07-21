@@ -131,14 +131,14 @@ export function addBookmarkContent() {
     *
     */
     function walkChildren(bs) {
-        // bs === undefined.
+        // bs is undefined.
         if (!bs) {
             return;
         }
         for (let i = 0; i < bs.length; i++) {
             let node = bs[i];
             // Folder case.
-            if (!node.url && node.id !== 0) {
+            if (!node.url && node.id !== "0") {
                 if (!dropdownDiv && folderDiv) {
                     dropdownDiv = createDropdown(node.parentId);
                     folderDiv.appendChild(dropdownDiv);
@@ -151,7 +151,7 @@ export function addBookmarkContent() {
                 console.log("Created folder div with id " + folderDiv.id);
                 // Add root bookmark folder to bookmarkContent
                 // div.
-                if (node.parentId === 0) {
+                if (node.parentId === "0") {
                     bmarkContent.appendChild(folderDiv);
                 }
                 // A dropdown already exists, so this folder
@@ -169,11 +169,11 @@ export function addBookmarkContent() {
                 }
             }
             // Bookmark case.
-            if (node.url != undefined && node.id != 0) {
-                // Since the above check weeds out the
-                // root node, we only need to check if
-                // we've already created a dropdown div.
-                if (node.parentId != 0 && !dropdownDiv) {
+            if (node.url && node.id !== "0") {
+                // In Chrome, no bookmarks have a parentId
+                // of zero, so all we need to do is check
+                // that dropdownDiv is undefined.
+                if (!dropdownDiv) {
                     // Create a new bookmark "list."
                     dropdownDiv = createDropdown(node.parentId);
                     console.log("Created dropdown div with id " +
@@ -192,7 +192,6 @@ export function addBookmarkContent() {
                 bmark.addEventListener("click", () => {
                     chrome.tabs.create({ url: node.url });
                 });
-                console.log("Found bookmark with parentId " + node.parentId);
                 console.log("Created bookmark with title " +
                       bmark.innerText);
                 // If a dropdown was created, then append
@@ -214,11 +213,7 @@ export function addBookmarkContent() {
                 }
             }
             // Time to moon walk.
-            console.log("ABOUT TO WALK CHILDREN OF BOOKMARK " +
-                        "NODE WITH ID " + node.id);
             walkChildren(node.children);
-            console.log("FINISHED WALK OF CHILDREN FOR NODE WITH ID " +
-                        node.id);
         }
         // About to go back up one level, so pop
         // off the dropdown stack.
