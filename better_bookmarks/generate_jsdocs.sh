@@ -9,7 +9,7 @@
 dest="./docs"
 
 # Array of files to run `jsdoc' on.
-jsFiles=("js/utils.mjs")
+jsFiles=("js/utils.mjs" "js/modal.js")
 
 # Loop through jsFiles and call `jsdoc' on each file.
 for jsFile in "${jsFiles[@]}"; do
