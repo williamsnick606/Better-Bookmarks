@@ -48,7 +48,7 @@ function pad_seq(seq){
 }
 
 async function predictCategory(title, description){
-    const model = await tf.loadLayersModel('model.json');
+    const model = await tf.loadLayersModel('../bb_model_strong/model.json');
     var title_token = await remove_dummy(title).split(' ');
     var title_seq = await text_to_seq(title_token);
     var title_pad = await pad_seq(title_seq);
