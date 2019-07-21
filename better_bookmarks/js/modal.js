@@ -65,7 +65,7 @@ chrome.tabs.executeScript({ code  : codeToExecute
 });
 
 console.log("title = " + usableT + "\n" +
-            "url = " + usableU + "\n"
+            "url = " + usableU + "\n" +
             "description = " + usableD);
 // Fill the title and URL fields that the
 // user sees.
