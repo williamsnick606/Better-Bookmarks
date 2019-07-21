@@ -101,7 +101,7 @@ export function createFolder(folderId, folderTitle) {
                              , classes: ['accordion']
                              });
     folder.innerHTML = "<b>" + folderTitle + "</b>";
-    if (folderTitle.length === 0) {
+    if (folderTitle.length == 0) {
         folder.innerHTML = "<b>untitled</b>";
     }
     folderDiv.appendChild(folder);
@@ -131,14 +131,13 @@ export function addBookmarkContent() {
     *
     */
     function walkChildren(bs) {
-        // bs === undefined.
-        if (!bs) {
+        if (bs == undefined) {
             return;
         }
         for (let i = 0; i < bs.length; i++) {
             let node = bs[i];
             // Folder case.
-            if (!node.url && node.id !== 0) {
+            if (node.url == undefined && node.id != 0) {
                 if (!dropdownDiv && folderDiv) {
                     dropdownDiv = createDropdown(node.parentId);
                     folderDiv.appendChild(dropdownDiv);
@@ -151,7 +150,7 @@ export function addBookmarkContent() {
                 console.log("Created folder div with id " + folderDiv.id);
                 // Add root bookmark folder to bookmarkContent
                 // div.
-                if (node.parentId === 0) {
+                if (node.parentId == 0) {
                     bmarkContent.appendChild(folderDiv);
                 }
                 // A dropdown already exists, so this folder
