@@ -11,6 +11,9 @@ import {predictCategory, preprocess} from './predictCategory.mjs'
 *  Creates a new bookmark given a bookmark title
 *  and url.
 *
+*  @author Brady McGrath
+*  @author Kyle Head
+*
 *  @param {string} title - The title of the page being
 *      bookmarked.
 *  @param {string} url - The url of the page being
@@ -53,17 +56,18 @@ function autofiller(title, url,
  * a title (defaults to page title) and folder
  * (defaults to the one recommended by predictCategory).
  *
+ * @author Brady McGrath
+ * @author Kyle Head
+ *
+ * @param {Object} btn - the "add bookmark" button object.
  * @return {undefined}
  *
  */
 export function addBookmark(btn) {
     return ( () => {
-        // Get the modal
         const modal = document.getElementById("myModal");
-
         // Get the button that creates a bookmark
         const btn2  = document.getElementById("makeBtn");
-
         // Get the <span> element that closes the modal
         const span  = document.getElementsByClassName("close")[0];
 
@@ -74,10 +78,13 @@ export function addBookmark(btn) {
         * below solution until we figure out how to use a
         * file with the exact same content, or an even better
         * solution that doesn't require the use of executeScript.
+        *
+        * NOTE: Chrome doesn't allow the injection of scripts
+        *       for any chrome://* URLs, nor does it allow
+        *       injection in the default chrome new tab page,
+        *       i.e., your homepage.
         */
         const codeToExecute =
-            //"const pageTitle = document.getElementsByTagName(\"title\")[0].innerText;\n" +
-            //"const pageURL   = document.URL;\n" +
             "const metas     = document.getElementsByTagName('meta');\n" +
             "let pageDescription;\n" +
             "for (let i = 0; i < metas.length; i++) {\n" +
@@ -88,53 +95,59 @@ export function addBookmark(btn) {
             "        pageDescription = meta.content;\n" +
             "    }\n" +
             "}\n" +
-            //"const pageData = {title: pageTitle, description: pageDescription, url: pageURL};\n" +
-            //"pageData;";
-            //"alert(\"desc = \" + pageDescription);\n" +
             "pageDescription";
 
-
-        //chrome.tabs.reload();
-
+        // Get the current tab's ID, title, and URL.
+        // After getting that information, call
+        // executeScript to get the description if
+        // available.
         chrome.tabs.getSelected(null, (tab) => {
             const tabId   = tab.id;
             const usableT = tab.title;
             const usableU = tab.url;
             let usableD;
-            //alert("codeToExecute =\n" + codeToExecute);
-            // Collect the relevant page information for the
-            // tab that "add bookmark" was clicked on.
+
+            // Get the description for the page being
+            // bookmarked.
             chrome.tabs.executeScript(tabId, { code  : codeToExecute
                                              , runAt : "document_start"
                                              }, (results) => {
                 try {
-                    const result = results[0];
-                    //let usableD  = result.description;
-                    let usableD  = result;
-
+                    // Should be the description of the page.
+                    usableD = results[0];
 
                     console.log("title = " + usableT + "\n" +
                                 "url = " + usableU + "\n" +
                                 "description = " + usableD);
 
+                    // Prepare the description for storing.
                     let obj = {};
                     const key = "_" + tabId;
                     obj[key] = usableD;
                     console.log("obj." + key + " = " + obj[key]);
 
+                    // Got the description.
                     if (usableD) {
                         chrome.storage.sync.set(obj);
                     }
-
+                    // Description was null, so either it
+                    // doesn't exist or we gotta get it
+                    // from storage.
                     else {
-                        chrome.storage.sync.get([key], (getResult) => {
+                        chrome.storage.sync.get([key], (result) => {
+                            const description = result[key];
+
                             console.log("description was null in " +
                                         "executeScript in " +
                                         "add_new_bookmark.js...");
-                            console.log("getResult[" + key + "]: " +
-                                        getResult[key]);
+                            console.log("result[" + key + "]: " +
+                                        description);
+
+                            usableD = description;
                         });
                     }
+                    // Fill the title and folder fields that
+                    // the user sees on the modal.
                     autofiller(usableT, usableU, modal, span, btn2);
                 }
                 catch(err) {
