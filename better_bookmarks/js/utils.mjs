@@ -20,6 +20,8 @@
 /**
  * Returns a new HTML tag.
  *
+ * @author Brady McGrath
+ *
  * @param {Object} data           - An object describing the HTML tag
  *     to construct.
  * @param {string}   data.tag     - The HTML tag to create.
@@ -53,6 +55,8 @@ export function createTag(data) {
 /**
  * Returns a div tag that represents a folder dropdown.
  *
+ * @author Brady McGrath
+ *
  * @param {string} parentId - the numeric ID of the
  *     parent bookmark node as a string.
  * @return {Object} a dropdown HTML element.
@@ -70,6 +74,8 @@ export function createDropdown(parentId) {
 /**
  * Returns an a tag that represents a clickable
  * bookmark to be included in a folder dropdown.
+ *
+ * @author Brady McGrath
  *
  * @param {string} bookmarkId    - the numeric ID of the bookmark
  *     node as a string.
@@ -90,6 +96,8 @@ function createBookmark(bookmarkId, bookmarkTitle) {
  * Returns a div tag with an inner a tag which
  * represents a clickable, and dropdownable,
  * folder.
+ *
+ * @author Brady McGrath
  *
  * @param {string} folderId    - the numeric ID of the bookmark folder
  *     node as a string.
@@ -127,6 +135,8 @@ export function createFolder(folderId, folderTitle) {
  * Walks the bookmark tree and adds the folders
  * to the popup menu.
  *
+ * @author Brady McGrath
+ *
  * @return {undefined}
  *
  */
@@ -139,6 +149,7 @@ export function addBookmarkContent() {
      * list tags for each folder it finds
      * along the way.
      *
+     * @author Brady McGrath
      *
      * @param {Object[]} bs - the child array.
      * @return {undefined}
@@ -273,24 +284,11 @@ export function addBookmarkContent() {
 }
 
 /**
- * Validates the search bar text and if the
- * input is valid, passes it to a callback
- * that searches for that text in the bookmarks.
- *
- * ==== Still in progress. ====
- *
- * @return {undefined}
- *
- */
-export function validateForm() {
-    var val = document.forms["searchForm"]["searchBar"].value;
-    alert(val);
-}
-
-/**
  * Toggles, i.e., shows, the bookmark titles/folders,
  * that reside in a clicked on folder matching a
  * given ID in the popup menu.
+ *
+ * @author Brady McGrath
  *
  * @param {Object} folder   - the folder element whose contents
  *     need to be displayed.
@@ -318,6 +316,8 @@ function toggleBookmarks(folder, folderId) {
 /**
  * Attaches on-click listerners to the bookmark
  * folders in the popupmenu.
+ *
+ * @author Brady McGrath
  *
  * @param {Object[]} folders - the folders to attach an onclick
  *     listener to.
