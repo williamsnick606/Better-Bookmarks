@@ -21,7 +21,7 @@ are located here in the extension's root directory.
 
 # JavaScript Coding Style
 
-See the file __Javascript_Style_Guide.md__.
+See the file __Programming_Style_Guidlines\Javascript_Style_Guide.md__.
 
 # Contributing Code
 
