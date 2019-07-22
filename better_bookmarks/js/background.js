@@ -1,6 +1,6 @@
 /*
- * File        : background.js
- * Description : This file contains various event listeners and
+ * file        : background.js
+ * description : This file contains various event listeners and
  *               their associated callback functions to be ran
  *               in the background.
  *
@@ -19,17 +19,19 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
 });
 
 // Create the necessary folders on install
-chrome.bookmarks.create({parentId: '1',
-                          'title': 'Art'});
+chrome.runtime.onInstalled.addListener(function (details) {
+	chrome.bookmarks.create({parentId: '1',
+	                          'title': 'Art'});
 
-chrome.bookmarks.create({parentId: '1',
-                          'title': 'Business'});
+	chrome.bookmarks.create({parentId: '1',
+	                          'title': 'Business'});
 
-chrome.bookmarks.create({parentId: '1',
-                          'title': 'Health'});
+	chrome.bookmarks.create({parentId: '1',
+ 	                          'title': 'Health'});
 
-chrome.bookmarks.create({parentId: '1',
-                          'title': 'Society'});
+	chrome.bookmarks.create({parentId: '1',
+	                          'title': 'Society'});
 
-chrome.bookmarks.create({parentId: '1',
-                          'title': 'Sports'});
+	chrome.bookmarks.create({parentId: '1',
+	                          'title': 'Sports'});
+});

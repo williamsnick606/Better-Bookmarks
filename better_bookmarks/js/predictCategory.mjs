@@ -1,6 +1,6 @@
 ﻿/*
- * File        : predictCategory.mjs
- * Description : This file is an ES6 style module that contains
+ * file        : predictCategory.mjs
+ * description : This file is an ES6 style module that contains
  *               code related to predicting a folder category
  *               that a newly created bookmark should go into
  *               by utlilizing machine learning techniques.

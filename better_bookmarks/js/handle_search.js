@@ -1,6 +1,6 @@
 /*
- * File        : handle_search.js
- * Description : This file searches the user's bookmarks and folders
+ * file        : handle_search.js
+ * description : This file searches the user's bookmarks and folders
  *               in the GUI and returns a match
  *
  */

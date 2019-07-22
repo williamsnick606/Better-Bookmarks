@@ -1,6 +1,6 @@
 /*
- * File        : folderModal.js
- * Description : This file contains code for manipulating the modal,
+ * file        : folderModal.js
+ * description : This file contains code for manipulating the modal,
  *               i.e., popup, that displays when a user clicks the
  *               "add folder" button in the primary extension popup.
  *

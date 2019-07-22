@@ -1,4 +1,3 @@
-
 /**
  * file        : modal.js
  * description : This file contains code for manipulating the modal,
@@ -8,7 +7,6 @@
  */
 import {addBookmark} from './add_new_bookmark.mjs'
 
-// Get the button that opens the modal
+// Get the "add bookmark" button that opens the modal
 const addBmarkbtn = document.getElementById("newBmark");
-addBmarkbtn.addEventListener("click",
-                             addBookmark(addBmarkbtn));
+addBmarkbtn.addEventListener("click", addBookmark(addBmarkbtn));

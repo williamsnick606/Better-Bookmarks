@@ -1,6 +1,6 @@
 /**
- * File        : content_script.js
- * Description : This file contains code that grabs, whenever
+ * file        : content_script.js
+ * description : This file contains code that grabs, whenever
  *               available, the title, description, and url of
  *               the website that the user has currently visited.
  *
