@@ -25,15 +25,14 @@ for (let i = 0; i < metas.length; i++) {
 console.log("Got title = " + title + " | " +
             "description = " + pageDescription);
 
-/*
 if(!pageDescription){
     pageDescription = "";
 }
+
 chrome.storage.sync.set({ title: title.innerText
                         , desc: description
                         , url: url
                         });
-*/
 { title       : pageTitle
 , description : pageDescription
 , url         : pageURL
