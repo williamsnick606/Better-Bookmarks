@@ -16,12 +16,12 @@ directory.
 We make use of [__JSDoc__](https://github.com/jsdoc/jsdoc) to automatically generate API documentation which gets output in the __docs__
 directory.
 
-Informational files such as this README and style guide related files
-are located here in the extension's root directory.
+General informational files such as this README
+are located here in the extension's root directory. Programming style guidelines are located in the __Programming_Style_Guidline folder__.
 
 # JavaScript Coding Style
 
-See the file __Programming_Style_Guidlines\Javascript_Style_Guide.md__.
+See the file __Programming_Style_Guidelines\Javascript_Style_Guide.md__.
 
 # Contributing Code
 
