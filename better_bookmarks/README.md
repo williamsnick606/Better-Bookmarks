@@ -1,5 +1,8 @@
-# Better Bookmarks Extension
+# Better Bookmarks Chrome Extension
 
+Better Bookmarks is a bookmark oganization tool. It uses Machine Learning and Natural Language Processing to automatically categorize your newly added bookmarks into 5 pre-defined categories with 90% accuracy. The categories we currently filter for are Arts, Business, Health, Society, and Sports. No more messy bookmark folders.
+
+# File structure
 This is the root folder for the better bookmarks Chrome extension
 code.  This README file provides information that each extension
 developer should know and be aware of.
