@@ -45,7 +45,6 @@ Functions must have the authors, a description, inputs, and output specified. He
  *
  */
 function createBookmark(bookmarkId, bookmarkTitle)
-"
 ```
 
 ### Separating Blocks
