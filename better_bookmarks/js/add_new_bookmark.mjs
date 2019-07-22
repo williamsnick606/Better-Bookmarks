@@ -85,7 +85,7 @@ export function addBookmark(btn) {
         *       i.e., your homepage.
         */
         const codeToExecute =
-            "const metas     = document.getElementsByTagName('meta');\n" +
+            "const metas = document.getElementsByTagName('meta');\n" +
             "let pageDescription;\n" +
             "for (let i = 0; i < metas.length; i++) {\n" +
             "    const meta = metas[i];\n" +
