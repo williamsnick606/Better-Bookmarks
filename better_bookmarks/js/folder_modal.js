@@ -3,6 +3,7 @@
  * Description : This file contains code for manipulating the modal,
  *               i.e., popup, that displays when a user clicks the
  *               "add folder" button in the primary extension popup.
+ *
  */
 
 // This initializes all the variables we need for the modal.

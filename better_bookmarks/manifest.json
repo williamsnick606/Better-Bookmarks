@@ -7,11 +7,13 @@
                          , "contextMenus"
                          , "activeTab"
                          , "storage"
+                         , "tabs"
+                         , "http://*/*"
+                         , "https://*/*"
                          ],
     "background": {
         "scripts"    : [ "js/background.js"
                        , "js/bookmark_listener.js"
-                       , "js/tf.min.js"
                        ],
         "persistent" : false
     },
@@ -19,12 +21,5 @@
         "default_title" : "Better Bookmarks",
         "default_icon"  : "icon.png",
         "default_popup" : "views/popup.html"
-    },
-    "content_scripts": [
-        {
-            "matches" : ["http://*/*", "https://*/*"],
-            "run_at"  : "document_end",
-            "js"      : ["js/content_script.js"]
-        }
-    ]
+    }
 }

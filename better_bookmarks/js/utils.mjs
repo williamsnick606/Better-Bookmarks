@@ -1,8 +1,7 @@
 /*
- * file        : utils.mjs
- * description : This file is a JavaScript module intended to
+ * File        : utils.mjs
+ * Description : This file is a JavaScript module intended to
  *               contain utility functions.
- *
  *
  */
 

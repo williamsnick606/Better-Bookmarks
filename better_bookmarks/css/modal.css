@@ -2,6 +2,11 @@
  * File        : modal.css
  * Description : This file contains all of the CSS styling for both
  *               of the modal popups in the extension.
+ *
+ * NOTES:        
+ *   * This styling is lightly modified CSS styling from w3schools.com. 
+ *     Link to the site where we found the style guide:
+ *     https://www.w3schools.com/howto/howto_css_modals.asp
  */
  
 .modal {
@@ -44,7 +49,7 @@
     to   {top:0; opacity:1}
 }
 
-/* The Close Button */
+/* Close button */
 .close {
     color: white;
     float: right;
@@ -59,6 +64,7 @@
     cursor: pointer;
 }
 
+/* Modal header */
 .modalHeader {
     padding: 1px 15px;
     background-color: dimgray;
@@ -67,6 +73,7 @@
 
 .modalBody {padding: 2px 16px;}
 
+/* 'Name' field */
 .bmarkName {
     width: 80%;
     padding: 1px 1px;
@@ -76,6 +83,7 @@
     border: 2px solid silver;
 }
 
+/* 'Folder' dropdown */
 .bmarkParent {
     width: 79%;
     padding: 1px 1px;
@@ -85,6 +93,7 @@
     border: 2px solid silver;
 }
 
+/* 'Create' button */
 .saveBmark {
     background-color: dimgray;
     border: none;
@@ -96,11 +105,5 @@
     display: inline-block;
     font-size: 13px;
     cursor: pointer;
-    margin: 7px 104px 7px;
-}
-
-.modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
+    margin: 7px 90px 7px;
 }

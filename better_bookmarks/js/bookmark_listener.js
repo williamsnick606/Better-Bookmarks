@@ -1,8 +1,9 @@
 /*
- * file        : bookmark_event_listener.js
- * description : This file contains various event listeners
+ * File        : bookmark_event_listener.js
+ * Description : This file contains various event listeners
  *               for bookmark related activities such as
  *               creation, movement, deletion, etc.
+ *
  */
  
 /*
