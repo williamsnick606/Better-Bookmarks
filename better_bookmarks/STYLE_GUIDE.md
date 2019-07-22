@@ -46,6 +46,28 @@ Functions must have the authors, a description, inputs, and output specified. He
  */
 function createBookmark(bookmarkId, bookmarkTitle)
 ```
+### Files
+Include the filename, a description of the files purpose, and any exports. Here is an example file header
+```
+/*
+ * file        : utils.mjs
+ * description : This file is a JavaScript module intended to
+ *               contain utility functions.
+ * exports     : [ createTag/1
+ *               , createDropdown/1
+ *               , createFolder/2
+ *               , addBookmarkContent/0
+ *               , validateForm/0
+ *               ]
+ */
+/**
+ * @file This file is a JavaScript module intended to
+ *     contain utility functions.
+ *
+ * @module utils
+ * 
+ */
+```
 
 ### Separating Blocks
 
