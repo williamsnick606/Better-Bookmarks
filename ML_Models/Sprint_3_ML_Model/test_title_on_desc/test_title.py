@@ -1,3 +1,8 @@
+# Author: Joseph Rodrigues
+#
+# Synopsis: Tested preivous best desc ml model on title inputs.
+#           Performance was poor indicating we needed to train
+#           a separate title model.
 from numpy import asarray
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
@@ -10,7 +15,6 @@ from keras import metrics
 import numpy
 import pandas as pd
 
-# Lists to hold the text review strings, and the integer sentiment labels y.
 docs=[] #Python list
 labels=([]) #numpy array
 
@@ -20,10 +24,10 @@ dmoz = pd.read_csv('dmoz_3.csv')
 dmoz = dmoz[dmoz.index != 0]
 num_col = len(dmoz.columns)
 for i in range(len(dmoz)):
-  phrase = dmoz.iloc[i][num_col-3]
-  label=int(dmoz.iloc[i][num_col-1])
-  docs.append(phrase)
-  labels.append(label)
+    phrase = dmoz.iloc[i][num_col-3]
+    label=int(dmoz.iloc[i][num_col-1])
+    docs.append(phrase)
+    labels.append(label)
 
 labels = np_utils.to_categorical(labels) #needs to be one hot encoded
 
@@ -35,11 +39,11 @@ vocab_size = len(t.word_index) + 1
 # Integer encode the documents.
 encoded_docs = t.texts_to_sequences(docs)
 
-# Pad documents to a max length of 7 words.
+# Pad documents to a max length of 15 words.
 phrase_length = 15
 padded_docs = pad_sequences(encoded_docs, maxlen=phrase_length, padding='post')
     
-# Assign training, validation, and test data.
+# Assign test data.
 X_test = padded_docs[:25000]
 y_test = labels[:25000]
 

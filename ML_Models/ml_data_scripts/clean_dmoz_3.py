@@ -5,7 +5,7 @@
 #   -clean_dmoz_3.py
 # 
 # Description
-#   - Creates data set based on best beprforming categories
+#   - Creates data set based on best perrforming categories
 #     on previously trained ml model.
 
 import pandas as pd
@@ -18,7 +18,7 @@ wanted_rows = []
 dict_categories = {'Arts': 0, 'Computers': 1, 'Health': 2, 'Shopping': 3,
                    'Sports': 4}
 
-# This dictionary keeps count of how many categories in the data set.
+# This dictionary keeps count of how many of each category is in the data set.
 dict_count = {'Arts': 0, 'Computers': 0, 'Health': 0,
           'Shopping': 0, 'Sports': 0}
 
@@ -32,6 +32,7 @@ dmoz = dmoz[dmoz.category != 'Reference']
 dmoz = dmoz[dmoz.category != 'Science']
 dmoz = dmoz[dmoz.category != 'Society']
 
+# Turns 'category' column of dmoz dataframe into list.
 cat = list(dmoz.loc[:, 'category'])
 
 # Loop counts how many of each category in dataframe.
@@ -49,14 +50,14 @@ count = 0
 # For loop creates lists of row indices we want to keep from the dmoz
 # dataframe.
 for i in range(len(dmoz)):
-	if(i%alpha == 0):
-		wanted_rows.append(i)
-	if((count == num_items[j]) and len(dict_count)-1):
-		j += 1
-		count = 1
-		alpha = num_items[j]//20000
-		continue
-	count += 1
+    if(i%alpha == 0):
+        wanted_rows.append(i)
+    if((count == num_items[j]) and len(dict_count)-1):
+        j += 1
+        count = 1
+        alpha = num_items[j]//20000
+        continue
+    count += 1
 
 # This line removes any rows from dmoz which have index
 # not occuring in list wanted_rows.
@@ -69,7 +70,7 @@ for i in range(len(dmoz)):
 # Turns list of labels into pandas.Series.
 labels = pd.Series(labels)
 # Since labels is a pandas.Series we may assign its values to
-# be a column in dmoz.
+# be a column in dmoz named 'label'.
 dmoz = dmoz.assign(label=labels.values)
 
 # Shuffles rows of dmoz dataframe.

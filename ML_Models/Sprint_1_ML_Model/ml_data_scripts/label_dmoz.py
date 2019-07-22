@@ -2,7 +2,7 @@
 # Date: 07/07/19
 # 
 # Name
-#   -process_dmoz.py
+#   -label_dmoz.py
 # 
 # Description
 #   -Adds a column to the original dmoz.csv called 'labels' which
