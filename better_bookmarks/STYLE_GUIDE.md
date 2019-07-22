@@ -31,7 +31,7 @@ using __JSDOC__ allows us to quickly generate nice looking API
 documentation.
 
 Functions must have the authors, a description, inputs, and output specified. Here is an example function declaration
-
+"
 /**
  * Returns a tag that represents a clickable
  * bookmark to be included in a folder dropdown.
@@ -45,6 +45,7 @@ Functions must have the authors, a description, inputs, and output specified. He
  *
  */
 function createBookmark(bookmarkId, bookmarkTitle)
+"
 
 ### Separating Blocks
 
