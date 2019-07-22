@@ -9,10 +9,10 @@
 dest="./docs"
 
 # JS modules.
-modules=("js/utils.mjs")
+modules=("js/utils.mjs" "js/add_new_bookmark.mjs")
 
 # Regular JS files.
-jsFiles=("js/modal.js")
+jsFiles=()
 
 # Loop through jsFiles and call `jsdoc' on each file.
 for module in "${modules[@]}"; do
