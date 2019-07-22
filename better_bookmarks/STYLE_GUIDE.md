@@ -19,7 +19,7 @@ interpreted exactly the same no matter the editor, or system, which
 helps us to maintain consistency and ensure all of our code is
 uniformly indented.
 
-### Function Documentation
+### Functions
 
 We make use of [__JSDoc__](https://github.com/jsdoc/jsdoc), an API
 documentation generator for JavaScript.  It follows a style very
@@ -29,6 +29,22 @@ thereby reducing the amount of time required for documenting and
 the time required for reading said documentation.  Additionally,
 using __JSDOC__ allows us to quickly generate nice looking API
 documentation.
+
+Functions must have the authors, a description, inputs, and output specified. Here is an example function declaration
+
+/**
+ * Returns a tag that represents a clickable
+ * bookmark to be included in a folder dropdown.
+ *
+ * @author Brady McGrath
+ *
+ * @param {string} bookmarkId    - the numeric ID of the bookmark
+ *     node as a string.
+ * @param {string} bookmarkTitle - the bookmark's title.
+ * @return {Object} a bookmark HTML element.
+ *
+ */
+function createBookmark(bookmarkId, bookmarkTitle)
 
 ### Separating Blocks
 
