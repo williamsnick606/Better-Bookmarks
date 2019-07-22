@@ -6,18 +6,25 @@
         <link href="https://fonts.googleapis.com/css?family=Noto+Serif&display=swap"
               rel="stylesheet">
         <script type="module" src="../js/add_content.mjs"></script>
+        <script type="module" src="../js/modal.js"></script>
         <script src="../js/tf.min.js"></script>
     </head>
     <body>
         <div id="search">
             <form name="searchForm">
-                <input type="text" name="searchBar" placeholder="Search Bookmarks">
-                <input id="submit-btn" type="submit" value="Search">
+                <input type="text"
+                       name="searchBar"
+                       placeholder="Search Bookmarks">
+                <input id="submit-btn"
+                       type="submit"
+                       value="Search">
             </form>
         </div>
-        <!-- made a button for adding bookmarks !-->
-        <button id="myBtn" class="button1">Bookmark this page</button>
-        
+        <!-- Made a button for adding bookmarks !-->
+        <button id="addBookmarkBtn"
+                class="button1">Bookmark this page
+        </button>
+        <!-- Start Modal !-->
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -26,9 +33,9 @@
                 </div>
                 <div class="Modal-body">
                     <div>Name <input class="input1"
-                                    type="text"
-                                    id="newName"
-                                    value="Name">
+                                     type="text"
+                                     id="newName"
+                                     value="Name">
                     </div>
                     <div>Folder
                         <select class="select1">
@@ -55,9 +62,8 @@
                 </div>
             </div>
         </div>
-        <!-- made a button for adding bookmarks !-->
+        <!-- End modal !-->
+        <!-- Folder and bookmark display entry point. !-->
         <div id="bookmarkContent" class="flex-container"></div>
     </body>
-    <script type="module" src="../js/validate.mjs"></script>
-    <script type="module" src="../js/modal.js"></script>
 </html>
