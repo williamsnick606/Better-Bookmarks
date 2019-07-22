@@ -17,7 +17,7 @@ We make use of [__JSDoc__](https://github.com/jsdoc/jsdoc) to automatically gene
 directory.
 
 General informational files such as this README
-are located here in the extension's root directory. Programming style guidelines are located in the __Programming_Style_Guidline folder__.
+are located here in the extension's root directory. Programming style guidelines are located in the __Programming_Style_Guideline folder__.
 
 # JavaScript Coding Style
 
