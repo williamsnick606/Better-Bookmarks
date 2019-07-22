@@ -1,0 +1,14 @@
+Desc_200_Model: Training set accuracy: 0.8983725003649102
+Desc_200_Model: Test set accuracy: 0.87327581313504
+              precision    recall  f1-score   support
+
+           0       0.81      0.84      0.83      6410
+           1       0.83      0.92      0.87      6971
+           2       0.93      0.87      0.90      7570
+           3       0.94      0.81      0.87      7847
+           4       0.86      0.93      0.89      6436
+
+   micro avg       0.87      0.87      0.87     35234
+   macro avg       0.87      0.88      0.87     35234
+weighted avg       0.88      0.87      0.87     35234
+
