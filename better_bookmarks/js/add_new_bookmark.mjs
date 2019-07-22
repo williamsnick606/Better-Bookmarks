@@ -68,6 +68,7 @@ function autofiller(title, url, category,
                                 , "title"    : bookT
                                 , "url"      : url
                                 });
+        modal.style.display = "none";
     }
 }
 

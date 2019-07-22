@@ -57,4 +57,5 @@ saveFolder.onclick = function() {
     chrome.bookmarks.create({'parentId': ID,
                              'title':    folderT
     });
+    modal.style.display = "none";
 }
