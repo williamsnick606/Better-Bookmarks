@@ -7,6 +7,10 @@
  *   * Block items occur on their own lines and extend
  *     to the full left and right widths available.
  */
+body {
+    background-color: #FFEBCD;
+    width: 350px;
+}
 form {
     margin: 5px;
 }
@@ -14,18 +18,52 @@ div {
     margin: 0;
     padding: 0;
 }
+#logo {
+    margin: 10px;
+}
+i {
+    padding-right: 8px;
+}
 a {
     font-family: 'Noto Serif', serif;
     font-size: 12px;
 }
-/* 'Better Bookmarks logo */
+/* 'Better Bookmarks logo. */
 img {
     padding: 0 7px;
+    width:250px;
+    height:125px;
 }
-/* Button for adding a new Bookmark */
-.newBmark {
-    background-color: #555555;
-    border: none;
+/* File folder Icon. */
+#folderIcon {
+    font-size: 12px;
+}
+#linkIcon {
+    font-size: 15px;
+}
+/* Button for adding a new Bookmark. */
+#addNewBookmarkBtn {
+    background-color: #FF6666;
+}
+#addNewBookmarkBtn:hover {
+    background-color: #FFFFCC;
+    color: black;
+}
+#addNewBookmarkFolderBtn {
+    background-color: #CCCCFF;
+    padding-left: 22px;
+    padding-right: 22px;
+}
+#addNewBookmarkFolderBtn:hover {
+    background-color: #FFFFCC;
+    color: black;
+}
+#bookmarkContent {
+    border-top: 3px solid grey;
+    width: 97%;
+}
+.btn {
+    border: 2px solid #FFCC99;
     border-radius: 2px;
     color: white;
     padding: 9px 10px;
@@ -34,33 +72,9 @@ img {
     display: inline-block;
     font-size: 13px;
     cursor: pointer;
-    margin-left: 20px;
+    border-radius: 4px;
 }
-/* What changes when you hover the button */
-.newBmark:hover {
-    border: 1px solid dimgrey;
-}
-/* Button for adding a new Folder */
-.newFolder {
-    background-color: white;
-    border: 1px solid dimgrey;
-    border-radius: 2px;
-    color: dimgrey;
-    padding: 8px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 13px;
-    cursor: pointer;
-    margin-left: 24px;
-}
-/* What changes when you hover the button */
-.newFolder:hover {
-    background-color: #555555;
-    color: white;
-    border: 2px solid dimgrey;
-}
-/* Bookmark Searchbar */
+/* Bookmark Searchbar. */
 .searchBar {
     width: 65%;
     padding: 1px 1px;
@@ -70,7 +84,7 @@ img {
     border-radius: 2px;
     border: 2px solid silver;
 }
-/* Searchbar search button */
+/* Searchbar search button. */
 .searchButton {
     background-color: white;
     border: 1px solid dimgrey;
@@ -82,6 +96,12 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+.flexCenterContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }
 .accordion {
     background-color: inherit;
@@ -101,7 +121,7 @@ img {
 }
 .panel {
     display: none;
-    padding: 0 18px;
+    padding: 0 20px;
     background-color: inherit;
     overflow: auto;
 }
@@ -113,8 +133,4 @@ img {
 }
 .panel a:hover {
     background-color: lightgrey;
-}
-#bookmarkContent {
-    border-top: 3px solid grey;
-    width: 97%;
 }

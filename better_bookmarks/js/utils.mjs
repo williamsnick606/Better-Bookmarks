@@ -84,12 +84,19 @@ export function createDropdown(parentId) {
  *
  */
 function createBookmark(bookmarkId, bookmarkTitle) {
-    return createTag({ tag: "a"
-                     , id: "bookmark" + bookmarkId
-                     , attrs: { href: "#"
-                              , innerHTML: bookmarkTitle
-                              }
-                     });
+    const bookmark = createTag({ tag: "a"
+                               , id: "bookmark" + bookmarkId
+                               , attrs: { href: "#" }
+                               });
+    const linkIcon = createTag({ tag     : "i"
+                               , attrs   : { id        : "linkIcon"
+                                           , innerHTML : "link"
+                                           }
+                               , classes : [ "material-icons" ]
+                               });
+    bookmark.appendChild(linkIcon);
+    bookmark.innerHTML += bookmarkTitle;
+    return bookmark;
 }
 
 /**
@@ -107,22 +114,29 @@ function createBookmark(bookmarkId, bookmarkTitle) {
  */
 export function createFolder(folderId, folderTitle) {
     // Create a folder div.
-    const folderDiv = createTag({ tag: 'div'
-                                , attrs: { id: 'folder' +
-                                           folderId
-                                         }
-                                });
+    const folderDiv      = createTag({ tag: "div"
+                                     , attrs: { id: "folder" +
+                                                    folderId
+                                              }
+                                     });
                             
     // Add a clickable link, i.e., an "actual"
     // folder.
-    const folder = createTag({ tag: "a"
-                             , attrs: { id: folderId
-                                      , name: folderTitle
-                                      , href: '#'
-                                      }
-                             , classes: ['accordion']
-                             });
-    folder.innerHTML = "<b>" + folderTitle + "</b>";
+    const folder         = createTag({ tag: "a"
+                                     , attrs: { id: folderId
+                                              , name: folderTitle
+                                              , href: '#'
+                                              }
+                                     , classes: ['accordion']
+                                     });
+    const folderIcon     = createTag({ tag     : "i"
+                                     , attrs   : { id        : "folderIcon"
+                                                 , innerHTML : "&#xe2c7;"
+                                                 }
+                                     , classes : ["material-icons"]
+                                     });
+    folder.appendChild(folderIcon);
+    folder.innerHTML    += "<b>" + folderTitle + "</b>";
     if (folderTitle.length === 0) {
         folder.innerHTML = "<b>untitled</b>";
     }

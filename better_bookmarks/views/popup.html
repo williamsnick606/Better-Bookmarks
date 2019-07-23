@@ -1,9 +1,18 @@
 <!DOCTYPE HTML>
 <html>
    <head>
-        <!-- Stylesheets and Scripts !-->
-       <link rel="stylesheet" type="text/css" href="../css/popup.css">
-       <link rel="stylesheet" type="text/css" href="../css/modal.css">
+       <!-- Necessary meta and link tags for the Google file icon. !-->
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+             rel="stylesheet">
+       <!-- BB styles. !-->
+       <link rel="stylesheet"
+             type="text/css"
+             href="../css/popup.css">
+       <link rel="stylesheet"
+             type="text/css"
+             href="../css/modal.css">
+       <!-- Google font styles. !-->
        <link href="https://fonts.googleapis.com/css?family=Noto+Serif&display=swap"
              rel="stylesheet">
        <script type="module" src="../js/add_content.mjs"></script>
@@ -13,17 +22,16 @@
    </head>
    <body>
         <!-- Better Bookmarks logo !--> 
-        <div id="logo">
-                <img src="../BBlogo.png" alt="Extension logo" 
-                     style="width:260px;height:104px">
+        <div id="logo" class="flexCenterContainer">
+            <img src="../BBlogo.png" alt="Extension logo">
         </div>
         <!-- Buttons to create bmark/folder !-->
-        <div id="createNew">
+        <div id="createNew" class="flexCenterContainer">
             <button id="addNewBookmarkBtn"
-                    class="newBmark">New Bookmark
+                    class="btn">Add New Bookmark
             </button>
             <button id="addNewBookmarkFolderBtn"
-                    class="newFolder">Add a Folder
+                    class="btn">Add New Folder
             </button>
         </div>
         <!-- Bookmark Searchbar !-->
