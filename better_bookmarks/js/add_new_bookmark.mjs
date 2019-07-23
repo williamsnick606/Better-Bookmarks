@@ -147,6 +147,12 @@ export function addBookmark(btn) {
             const usableU = tab.url;
             let   usableD;
 
+            if (usableU.search("chrome://") !== -1) {
+                alert("Bookmarking URLs of the form, \"chrome://*\" " +
+                      "is not allowed.");
+                return;
+            }
+
             // Get the description for the page being
             // bookmarked.
             chrome.tabs.executeScript(tabId, { code  : codeToExecute

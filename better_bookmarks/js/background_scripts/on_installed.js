@@ -1,22 +1,10 @@
 /*
- * file        : background.js
- * description : This file contains various event listeners and
- *               their associated callback functions to be ran
- *               in the background.
+ * file        : on_installed.js
+ * description : This file contains code that is ran in
+ *               response to the onInstalled event which
+ *               occurs when the user installs the extension.
  *
  */
-
-// Create context menu items.
-chrome.contextMenus.removeAll();
-chrome.contextMenus.create({
-    id: "first-id",
-    title: "first",
-    contexts: ["browser_action"]
-});
-// Context menu onClicked listener.
-chrome.contextMenus.onClicked.addListener(function(info, tab) {
-    alert('first');
-});
 
 // Create the necessary folders on install if they haven't
 // been already.
