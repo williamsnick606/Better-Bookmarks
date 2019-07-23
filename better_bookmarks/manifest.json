@@ -1,7 +1,7 @@
 {
     "name"             : "Better Bookmarks",
     "version"          : "0.01",
-    "description"      : "Uses machine learning to automatically sort your bookmarks.",
+    "description"      : "Uses machine learning to automatically recommend where to place your bookmarks.",
     "manifest_version" : 2,
     "permissions"      : [ "bookmarks"
                          , "contextMenus"
@@ -12,7 +12,7 @@
                          , "https://*/*"
                          ],
     "background": {
-        "scripts"    : [ "js/background.js"
+        "scripts"    : [ "js/background_scripts/on_installed.js"
                        ],
         "persistent" : false
     },
