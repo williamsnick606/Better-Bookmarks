@@ -18,9 +18,6 @@ div {
     margin: 0;
     padding: 0;
 }
-#logo {
-    margin: 10px;
-}
 i {
     padding-right: 8px;
 }
@@ -34,14 +31,22 @@ img {
     width:250px;
     height:125px;
 }
-/* File folder Icon. */
+/* Add space between the create new buttons.
+ * and the containers around them. */
+#createNew {
+    margin: 10px;
+}
+/* Add space between the BB logo and
+ * the containers around it. */
+#logo {
+    margin: 10px;
+}
 #folderIcon {
     font-size: 12px;
 }
 #linkIcon {
     font-size: 15px;
 }
-/* Button for adding a new Bookmark. */
 #addNewBookmarkBtn {
     background-color: #FF6666;
 }
