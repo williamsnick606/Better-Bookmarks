@@ -7,6 +7,9 @@
  *   * Block items occur on their own lines and extend
  *     to the full left and right widths available.
  */
+body {
+    background-color: #FFEBCD;
+}
 form {
     margin: 5px;
 }
@@ -14,15 +17,25 @@ div {
     margin: 0;
     padding: 0;
 }
+i {
+    padding-right: 8px;
+}
 a {
     font-family: 'Noto Serif', serif;
     font-size: 12px;
 }
-/* 'Better Bookmarks logo */
+/* 'Better Bookmarks logo. */
 img {
     padding: 0 7px;
 }
-/* Button for adding a new Bookmark */
+/* File folder Icon. */
+#folderIcon {
+    font-size: 12px;
+}
+#linkIcon {
+    font-size: 15px;
+}
+/* Button for adding a new Bookmark. */
 .newBmark {
     background-color: #555555;
     border: none;
@@ -36,11 +49,11 @@ img {
     cursor: pointer;
     margin-left: 20px;
 }
-/* What changes when you hover the button */
+/* What changes when you hover the button. */
 .newBmark:hover {
     border: 1px solid dimgrey;
 }
-/* Button for adding a new Folder */
+/* Button for adding a new folder. */
 .newFolder {
     background-color: white;
     border: 1px solid dimgrey;
@@ -54,13 +67,13 @@ img {
     cursor: pointer;
     margin-left: 24px;
 }
-/* What changes when you hover the button */
+/* What changes when you hover the button. */
 .newFolder:hover {
     background-color: #555555;
     color: white;
     border: 2px solid dimgrey;
 }
-/* Bookmark Searchbar */
+/* Bookmark Searchbar. */
 .searchBar {
     width: 65%;
     padding: 1px 1px;
@@ -70,7 +83,7 @@ img {
     border-radius: 2px;
     border: 2px solid silver;
 }
-/* Searchbar search button */
+/* Searchbar search button. */
 .searchButton {
     background-color: white;
     border: 1px solid dimgrey;
@@ -101,7 +114,7 @@ img {
 }
 .panel {
     display: none;
-    padding: 0 18px;
+    padding: 0 20px;
     background-color: inherit;
     overflow: auto;
 }
