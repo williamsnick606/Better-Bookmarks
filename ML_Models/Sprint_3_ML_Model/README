@@ -11,5 +11,4 @@ with titles.
 'misc_tests' contains other attempts at improving our models.
 
 'best_desc' and 'best_title' contain the scripts for training the most accurate desc and
-title models along with saved results. Due to the size of these ml model (.h5) files we
-could not upload them to git.
+title models along with saved results.
