@@ -130,6 +130,34 @@ export function createFolder(folderId, folderTitle) {
     return folderDiv;
 }
 
+/**
+ * Adds all the current bookmark folders to the given
+ * HTML selection tag object.
+ *
+ * @param {Object} selectionMenu - The select tag used for displaying
+ *     a user's folders when adding a new bookmark or folder.
+ * @return {undefined}
+ *
+ */
+export function addFoldersToSelectionMenu(selectionMenu) {
+    function go(nodeId) {
+        chrome.bookmarks.getChildren(nodeId, children => {
+            for (let child of children) {
+                if (!child.url) {
+                    const optionTag = createTag({ tag   : "option"
+                                                , attrs : { id    : "option" + child.id
+                                                        , value : child.id
+                                                        , text  : child.title
+                                                        }
+                                                });
+                    selectionMenu.appendChild(optionTag);
+                }
+                go(child.id);
+            }
+        });
+    }
+    go("0");
+}
 
 /**
  * Walks the bookmark tree and adds the folders
@@ -171,7 +199,11 @@ export function addBookmarkContent() {
                                 dropdownDiv.id);
                 }
                 // Create a folder div.
-                folderDiv = createFolder(node.id, node.title);
+                folderDiv    = createFolder(node.id, node.title);
+                const folder = folderDiv.firstChild;
+                folder.addEventListener("click", () => {
+                    toggleBookmarks(folder, folder.id); 
+                });
                                       
                 console.log("Created folder div with id " +
                             folderDiv.id);
@@ -273,12 +305,8 @@ export function addBookmarkContent() {
     // Create the necessary HTML and add it to the DOM.
     console.log("-----STARTING BOOKMARK WALK-----");
     chrome.bookmarks.getTree(function(bs) {
+        // Start moon walkin'.
         walkChildren(bs);
-
-        // Attach the listeners for dropdown functionality.
-        //const folders = document.getElementsByClassName("dropbtn");
-        const folders = document.getElementsByClassName("accordion");
-        attachFolderListeners(folders);
         console.log("-----END OF BOOKMARK WALK-----");
     });
 }
@@ -310,25 +338,5 @@ function toggleBookmarks(folder, folderId) {
         else {
             panel.style.display = "block";
         }
-    }
-}
-
-/**
- * Attaches on-click listerners to the bookmark
- * folders in the popupmenu.
- *
- * @author Brady McGrath
- *
- * @param {Object[]} folders - the folders to attach an onclick
- *     listener to.
- * @return {undefined}
- *
- */
-function attachFolderListeners(folders) {
-    for (let i = 0; i < folders.length; i++) {
-        const folder = folders[i];
-        folder.addEventListener("click", () => {
-            toggleBookmarks(folder, folder.id); 
-        });
     }
 }
