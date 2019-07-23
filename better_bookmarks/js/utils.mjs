@@ -84,19 +84,12 @@ export function createDropdown(parentId) {
  *
  */
 function createBookmark(bookmarkId, bookmarkTitle) {
-    const bookmark = createTag({ tag: "a"
-                               , id: "bookmark" + bookmarkId
-                               , attrs: { href: "#" }
-                               });
-    const linkIcon = createTag({ tag     : "i"
-                               , attrs   : { id        : "linkIcon"
-                                           , innerHTML : "link"
-                                           }
-                               , classes : [ "material-icons" ]
-                               });
-    bookmark.appendChild(linkIcon);
-    bookmark.innerHTML += bookmarkTitle;
-    return bookmark;
+    return createTag({ tag: "a"
+                     , id: "bookmark" + bookmarkId
+                     , attrs: { href: "#"
+                              , innerHTML: bookmarkTitle
+                              }
+                     });
 }
 
 /**
@@ -114,29 +107,22 @@ function createBookmark(bookmarkId, bookmarkTitle) {
  */
 export function createFolder(folderId, folderTitle) {
     // Create a folder div.
-    const folderDiv      = createTag({ tag: "div"
-                                     , attrs: { id: "folder" +
-                                                    folderId
-                                              }
-                                     });
+    const folderDiv = createTag({ tag: 'div'
+                                , attrs: { id: 'folder' +
+                                           folderId
+                                         }
+                                });
                             
     // Add a clickable link, i.e., an "actual"
     // folder.
-    const folder         = createTag({ tag: "a"
-                                     , attrs: { id: folderId
-                                              , name: folderTitle
-                                              , href: '#'
-                                              }
-                                     , classes: ['accordion']
-                                     });
-    const folderIcon     = createTag({ tag     : "i"
-                                     , attrs   : { id        : "folderIcon"
-                                                 , innerHTML : "&#xe2c7;"
-                                                 }
-                                     , classes : ["material-icons"]
-                                     });
-    folder.appendChild(folderIcon);
-    folder.innerHTML    += "<b>" + folderTitle + "</b>";
+    const folder = createTag({ tag: "a"
+                             , attrs: { id: folderId
+                                      , name: folderTitle
+                                      , href: '#'
+                                      }
+                             , classes: ['accordion']
+                             });
+    folder.innerHTML = "<b>" + folderTitle + "</b>";
     if (folderTitle.length === 0) {
         folder.innerHTML = "<b>untitled</b>";
     }
@@ -144,34 +130,6 @@ export function createFolder(folderId, folderTitle) {
     return folderDiv;
 }
 
-/**
- * Adds all the current bookmark folders to the given
- * HTML selection tag object.
- *
- * @param {Object} selectionMenu - The select tag used for displaying
- *     a user's folders when adding a new bookmark or folder.
- * @return {undefined}
- *
- */
-export function addFoldersToSelectionMenu(selectionMenu) {
-    function go(nodeId) {
-        chrome.bookmarks.getChildren(nodeId, children => {
-            for (let child of children) {
-                if (!child.url) {
-                    const optionTag = createTag({ tag   : "option"
-                                                , attrs : { id    : "option" + child.id
-                                                        , value : child.id
-                                                        , text  : child.title
-                                                        }
-                                                });
-                    selectionMenu.appendChild(optionTag);
-                }
-                go(child.id);
-            }
-        });
-    }
-    go("0");
-}
 
 /**
  * Walks the bookmark tree and adds the folders
@@ -213,11 +171,7 @@ export function addBookmarkContent() {
                                 dropdownDiv.id);
                 }
                 // Create a folder div.
-                folderDiv    = createFolder(node.id, node.title);
-                const folder = folderDiv.firstChild;
-                folder.addEventListener("click", () => {
-                    toggleBookmarks(folder, folder.id); 
-                });
+                folderDiv = createFolder(node.id, node.title);
                                       
                 console.log("Created folder div with id " +
                             folderDiv.id);
@@ -319,8 +273,12 @@ export function addBookmarkContent() {
     // Create the necessary HTML and add it to the DOM.
     console.log("-----STARTING BOOKMARK WALK-----");
     chrome.bookmarks.getTree(function(bs) {
-        // Start moon walkin'.
         walkChildren(bs);
+
+        // Attach the listeners for dropdown functionality.
+        //const folders = document.getElementsByClassName("dropbtn");
+        const folders = document.getElementsByClassName("accordion");
+        attachFolderListeners(folders);
         console.log("-----END OF BOOKMARK WALK-----");
     });
 }
@@ -352,5 +310,25 @@ function toggleBookmarks(folder, folderId) {
         else {
             panel.style.display = "block";
         }
+    }
+}
+
+/**
+ * Attaches on-click listerners to the bookmark
+ * folders in the popupmenu.
+ *
+ * @author Brady McGrath
+ *
+ * @param {Object[]} folders - the folders to attach an onclick
+ *     listener to.
+ * @return {undefined}
+ *
+ */
+function attachFolderListeners(folders) {
+    for (let i = 0; i < folders.length; i++) {
+        const folder = folders[i];
+        folder.addEventListener("click", () => {
+            toggleBookmarks(folder, folder.id); 
+        });
     }
 }

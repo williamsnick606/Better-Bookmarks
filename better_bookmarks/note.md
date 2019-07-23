@@ -1,22 +1,10 @@
 # Temporary Fix for Bookmarking With Multiple Tabs Open
 
-In order to get the correct/expected behavior when
-a user either:
-
-- opens a new tab, opens another new tab, switches back to
-the first tab and bookmarks that page; or
-- opens the extension, clicks to add a bookmark, closes the
-extenson, reopens the extension, followed by bookmarking the page;
-
-we associate, with each unique tab ID, the first non-null description
-that we encounter and store it using the Chrome storage API.
-
-Script injection, and therefore storing the first valid description
-received, only happens when the user clicks the button to create a
-new bookmark.  Therefore, this is currently the most optimal solution.
-From what I gathered during my research, any other optimal solution to
-the problem that our current technique solves would likely vary only
-marginally.
+In order to allow the user to open a tab, open another
+new tab, switch back to the first tab, and then bookmark
+the first tab, I can just have to content script log the
+tab id.  Using the tab id, the code for adding a bookmark—
+in modal.js—can run:
 
     ```javascript
     let pageTitle, pageDescription, pageURL;
@@ -27,3 +15,11 @@ marginally.
         pageURL         = pageObj.URL;
     });
     ```
+
+Using the above method, while not the most efficient in
+terms of memory usage—the content script will do this for
+every single page the user visits, and it is likely that
+hardly any of the visited pages will be bookmarked—, should
+get the job done.  At the very least, this method will provide
+us with a temporary solution until we can figure out and
+implement a more optimal solution.
