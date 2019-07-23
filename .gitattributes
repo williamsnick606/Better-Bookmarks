@@ -23,3 +23,4 @@ Sprint_Misc/Sprint[[:space:]]1[[:space:]]ML[[:space:]]Model/ml_data_scripts/dmoz
 Sprint_Misc/Sprint[[:space:]]1[[:space:]]ML[[:space:]]Model/ml_data_scripts/ml_data filter=lfs diff=lfs merge=lfs -text
 Sprint_Misc/Sprint[[:space:]]1[[:space:]]ML[[:space:]]Model/ml_data_scripts/process_dmoz.py filter=lfs diff=lfs merge=lfs -text
 Sprint_Misc/Sprint[[:space:]]1[[:space:]]ML[[:space:]]Model/ml_data_scripts/README filter=lfs diff=lfs merge=lfs -text
+*.h5 filter=lfs diff=lfs merge=lfs -text
