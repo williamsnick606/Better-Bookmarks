@@ -1,0 +1,56 @@
+Desc_Model 1 : Training set accuracy: 0.8757480659757699
+Desc_Model 1 : Test set accuracy: 0.8674291877164103
+              precision    recall  f1-score   support
+
+           0       0.86      0.77      0.81      6410
+           1       0.88      0.87      0.87      6971
+           2       0.86      0.92      0.89      7570
+           3       0.88      0.86      0.87      7847
+           4       0.86      0.91      0.88      6436
+
+   micro avg       0.87      0.87      0.87     35234
+   macro avg       0.87      0.87      0.87     35234
+weighted avg       0.87      0.87      0.87     35234
+
+Desc_Model 2 : Training set accuracy: 0.8731450396535786
+Desc_Model 2 : Test set accuracy: 0.8648748368053585
+              precision    recall  f1-score   support
+
+           0       0.83      0.80      0.81      6410
+           1       0.90      0.84      0.87      6971
+           2       0.83      0.93      0.88      7570
+           3       0.87      0.87      0.87      7847
+           4       0.90      0.88      0.89      6436
+
+   micro avg       0.86      0.86      0.86     35234
+   macro avg       0.87      0.86      0.86     35234
+weighted avg       0.87      0.86      0.86     35234
+
+Desc_Model 3 : Training set accuracy: 0.8608354011579818
+Desc_Model 3 : Test set accuracy: 0.8542317080093091
+              precision    recall  f1-score   support
+
+           0       0.81      0.80      0.80      6410
+           1       0.76      0.93      0.84      6971
+           2       0.92      0.85      0.88      7570
+           3       0.89      0.84      0.86      7847
+           4       0.93      0.85      0.89      6436
+
+   micro avg       0.85      0.85      0.85     35234
+   macro avg       0.86      0.85      0.85     35234
+weighted avg       0.86      0.85      0.86     35234
+
+Desc_Model 4 : Training set accuracy: 0.870858268865859
+Desc_Model 4 : Test set accuracy: 0.8633138445819379
+              precision    recall  f1-score   support
+
+           0       0.82      0.80      0.81      6410
+           1       0.85      0.88      0.86      6971
+           2       0.87      0.90      0.89      7570
+           3       0.90      0.84      0.87      7847
+           4       0.88      0.89      0.89      6436
+
+   micro avg       0.86      0.86      0.86     35234
+   macro avg       0.86      0.86      0.86     35234
+weighted avg       0.86      0.86      0.86     35234
+

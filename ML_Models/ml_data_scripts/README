@@ -6,3 +6,5 @@ https://www.kaggle.com/shawon10/url-classification-dataset-dmoz/downloads/url-cl
 NOTE: I renamed 'URL Classification.csv' to 'url.csv' on my local machine.
       Also, 'dmoz.csv' and 'url.csv' are too big to be uploaded to git. If you want
       to run a script(s) download the source data and desired script(s) to run locally.
+
+      Also, 'relabel_dmoz.py' depends on dmoz_2.csv which is not uploaded due to file size.

@@ -1,69 +1,80 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="../css/popup.css">
-        <link rel="stylesheet" type="text/css" href="../css/modal.css">
-        <link href="https://fonts.googleapis.com/css?family=Noto+Serif&display=swap"
-              rel="stylesheet">
-        <script type="module" src="../js/add_content.mjs"></script>
-        <script type="module" src="../js/modal.js"></script>
-        <script src="../js/tf.min.js"></script>
-    </head>
-    <body>
+   <head>
+        <!-- Stylesheets and Scripts !-->
+       <link rel="stylesheet" type="text/css" href="../css/popup.css">
+       <link rel="stylesheet" type="text/css" href="../css/modal.css">
+       <link href="https://fonts.googleapis.com/css?family=Noto+Serif&display=swap"
+             rel="stylesheet">
+       <script type="module" src="../js/add_content.mjs"></script>
+       <script type="module" src="../js/bmark_modal.js"></script>
+       <script type="module" src="../js/folder_modal.js"></script>
+       <script src="../js/tf.min.js"></script>
+   </head>
+   <body>
+        <!-- Better Bookmarks logo !--> 
+        <div id="logo">
+                <img src="../BBlogo.png" alt="Extension logo" 
+                     style="width:260px;height:104px">
+        </div>
+        <!-- Buttons to create bmark/folder !-->
+        <div id="createNew">
+            <button id="newBmark" class="newBmark">New Bookmark</button>
+            <button id="newFolder" class="newFolder">Add a Folder</button>
+        </div>
+        <!-- Bookmark Searchbar !-->
         <div id="search">
-            <form name="searchForm">
-                <input type="text"
-                       name="searchBar"
-                       placeholder="Search Bookmarks">
-                <input id="submit-btn"
-                       type="submit"
-                       value="Search">
-            </form>
-        </div>
-        <!-- Made a button for adding bookmarks !-->
-        <button id="addBookmarkBtn"
-                class="button1">Bookmark this page
-        </button>
-        <!-- Start Modal !-->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <h2>New Bookmark</h2>
-                </div>
-                <div class="Modal-body">
-                    <div>Name <input class="input1"
-                                     type="text"
-                                     id="newName"
-                                     value="Name">
-                    </div>
-                    <div>Folder
-                        <select class="select1">
-                            <option value="Arts">Arts</option>
-                            <option value="Business">Business</option>
-                            <option value="Computers">Computers</option>
-                            <option value="Games">Games</option>
-                            <option value="Health">Health</option>
-                            <option value="Home">Home</option>
-                            <option value="News">News</option>
-                            <option value="Recreation">Recreation</option>
-                            <option value="Reference">Reference</option>
-                            <option value="Science">Science</option>
-                            <option value="Shopping">Shopping</option>
-                            <option value="Society">Society</option>
-                            <option value="Sports">Sports</option>
-                        </select>
-                    </div>
-                    <div>
-                        <button id="makeBtn"
-                                class="button2">Create
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End modal !-->
-        <!-- Folder and bookmark display entry point. !-->
-        <div id="bookmarkContent" class="flex-container"></div>
-    </body>
+           <form name="searchForm">
+               <input class="searchBar" type="text" name="searchBar"
+                      placeholder="Search Bookmarks">
+               <input id="submit-btn" class="searchButton"
+                      type="submit" value="Search">
+           </form>
+       </div>
+       <!-- 'New Bookmark' Modal !-->
+       <div id="bmarkModal" class="modal">
+           <div class="modalContent">
+               <div class="modalHeader">
+                   <span id="bmarkSpan" class="close">&times;</span>
+                   <h2>New Bookmark</h2>
+               </div>
+               <div class="modalBody">
+                   <div> 
+                        Name <input id="newName" class="bmarkName"
+                                    type="text" value="Name">
+                   </div>
+                   <div> Folder
+                       <select class="bmarkParent" id="bmarkDrop">
+                       </select>
+                   </div>
+                   <div>
+                       <button id="saveBmark" class="saveBmark">Create</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <!-- 'Add Folder' Modal !-->
+       <div id="folderModal" class="modal">
+           <div class="modalContent">
+               <div class="modalHeader">
+                   <span id="folderSpan" class="close">&times;</span>
+                   <h2>New Folder</h2>
+               </div>
+               <div class="modalBody">
+                   <div> 
+                        Name <input id="newNameF" class="bmarkName"
+                                    type="text" preset="Folder Name">
+                   </div>
+                   <div> Folder
+                       <select class="bmarkParent" id="folderDrop">
+                       </select>
+                   </div>
+                   <div>
+                       <button id="saveFolder" class="saveBmark">Create</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div id="bookmarkContent" class="flexContainer"></div>
+   </body>
 </html>

@@ -23,7 +23,8 @@ dict_categories = {'Arts': 0, 'Business': 1, 'Computers': 2, 'Games': 3,
           'Sports': 12}
 
 # Number of items in each respective category: Arts, Business, ..., Sports.
-num_items = [ 193914, 204910, 93204, 36454, 50388, 22241, 7488, 83618, 47428, 96766, 78184, 195880, 85375]
+num_items = [ 193914, 204910, 93204, 36454, 50388, 22241, 7488, 83618, 47428,
+              96766, 78184, 195880, 85375]
 count = 1
 j = 0
 # Helps with modular arithmetic.
@@ -32,14 +33,14 @@ alpha = num_items[0]//7000
 # For loop creates lists of row indices we want to keep from the dmoz
 # dataframe.
 for i in range(len(dmoz)):
-	if(i%alpha == 0):
-		wanted_rows.append(i)
-	if((count == num_items[j]) and (j <= 11)):
-		j = j+1
-		count = 1
-		alpha = num_items[j]//7000
-		continue
-	count = count+1
+    if(i%alpha == 0):
+	wanted_rows.append(i)
+    if((count == num_items[j]) and (j <= 11)):
+	j = j+1
+	count = 1
+	alpha = num_items[j]//7000
+	continue
+    count = count+1
 
 # This line removes any rows from dmoz which have index
 # not occuring in list wanted_rows.

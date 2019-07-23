@@ -1,12 +1,11 @@
 /*
- * file        : popup.css
- * description : This file contains the main CSS rules for the
+ * File        : popup.css
+ * Description : This file contains the main CSS rules for the
  *               popup extension whose HTML code is in popup.html.
  *               
  * NOTES:
  *   * Block items occur on their own lines and extend
  *     to the full left and right widths available.
- *
  */
 form {
     margin: 5px;
@@ -19,7 +18,67 @@ a {
     font-family: 'Noto Serif', serif;
     font-size: 12px;
 }
-.flex-container {
+/* 'Better Bookmarks logo */
+img {
+    padding: 0 7px;
+}
+/* Button for adding a new Bookmark */
+.newBmark {
+    background-color: #555555;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    padding: 9px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+/* What changes when you hover the button */
+.newBmark:hover {
+    border: 1px solid dimgrey;
+}
+/* Button for adding a new Folder */
+.newFolder {
+    background-color: white;
+    border: 1px solid dimgrey;
+    border-radius: 2px;
+    color: dimgrey;
+    padding: 8px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    cursor: pointer;
+    margin-left: 24px;
+}
+/* What changes when you hover the button */
+.newFolder:hover {
+    background-color: #555555;
+    color: white;
+    border: 2px solid dimgrey;
+}
+/* Bookmark Searchbar */
+.searchBar {
+    width: 65%;
+    padding: 1px 1px;
+    margin-top: 13px;
+    margin-left: 15px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    border: 2px solid silver;
+}
+/* Searchbar search button */
+.searchButton {
+    background-color: white;
+    border: 1px solid dimgrey;
+    border-radius: 2px;
+    color: dimgrey;
+    cursor: pointer;
+}
+.flexContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -57,20 +116,5 @@ a {
 }
 #bookmarkContent {
     border-top: 3px solid grey;
-}
-.button1 {
-    background-color: #555555;
-    border: none;
-    color: white;
-    padding: 10px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    cursor: pointer;
-    margin: 5px 36px;
-}
-.button1:hover {
-    box-shadow: 0 5px 5px 0 rgba(0,0,0,0.2),
-                0 5px 5px 0 rgba(0,0,0,0.19);
+    width: 97%;
 }

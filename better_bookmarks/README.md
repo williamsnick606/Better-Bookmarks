@@ -1,5 +1,8 @@
-# Better Bookmarks Extension
+# Better Bookmarks Chrome Extension
 
+Better Bookmarks is a bookmark oganization tool. It uses Machine Learning and Natural Language Processing to automatically categorize your newly added bookmarks into 5 pre-defined categories with 90% accuracy. The categories we currently filter for are Arts, Business, Health, Society, and Sports. No more messy bookmark folders.
+
+# File structure
 This is the root folder for the better bookmarks Chrome extension
 code.  This README file provides information that each extension
 developer should know and be aware of.
@@ -13,12 +16,12 @@ directory.
 We make use of [__JSDoc__](https://github.com/jsdoc/jsdoc) to automatically generate API documentation which gets output in the __docs__
 directory.
 
-Informational files such as this README and style guide related files
-are located here in the extension's root directory.
+General informational files such as this README
+are located here in the extension's root directory. Programming style guidelines are located in the __Programming_Style_Guideline folder__.
 
 # JavaScript Coding Style
 
-See the file __STYLE_GUIDE.md__.
+See the file __Programming_Style_Guidelines\Javascript_Style_Guide.md__.
 
 # Contributing Code
 

@@ -1,5 +1,5 @@
-# Contributions: Code originally authored by Nicholas
-#    Williams. Edited by Joseph Rodrigues
+# Contributions: Code originally authored by Nicholas Williams.
+#                Edited by Joseph Rodrigues
 #
 # UCSC CMPS 115 Software Engineering
 # Bookmark Categorization Model
@@ -8,7 +8,7 @@
 # class project.
 #
 # Date: 7/14/2019
-
+#
 # This code trains an LSTM using transfer learning on the
 # word embeddings using the pre-trained GloVe Stanford NLP
 # Group word embeddings.
@@ -32,17 +32,13 @@ from keras.models import model_from_json
 from keras import optimizers
 from keras import metrics
 from sklearn.metrics import classification_report
-
-import pandas as pd
 import math
 import numpy
 import os
 import nltk
 import string
-
-from joblib import dump, load
 import matplotlib.pyplot as plt
-
+import pandas as pd
 #import tensorflowjs as tfjs
 
 # Lists to hold the text review strings, and the integer sentiment labels y.
@@ -55,10 +51,10 @@ dmoz = pd.read_csv('dmoz_3.csv')
 dmoz = dmoz[dmoz.index != 0]
 num_col = len(dmoz.columns)
 for i in range(len(dmoz)):
-  phrase = dmoz.iloc[i][num_col-2]
-  label=int(dmoz.iloc[i][num_col-1])
-  docs.append(phrase)
-  labels.append(label)
+    phrase = dmoz.iloc[i][num_col-2]
+    label=int(dmoz.iloc[i][num_col-1])
+    docs.append(phrase)
+    labels.append(label)
 
 labels = np_utils.to_categorical(labels) #needs to be one hot encoded
 
@@ -78,19 +74,19 @@ padded_docs = pad_sequences(encoded_docs, maxlen=phrase_length, padding='post')
 embeddings_index = dict()
 f = open('glove.twitter.27B.100d.txt', encoding ='utf-8')
 for line in f:
-	values = line.split()
-	word = values[0]
-	coefs = asarray(values[1:], dtype='float32')
-	embeddings_index[word] = coefs
+    values = line.split()
+    word = values[0]
+    coefs = asarray(values[1:], dtype='float32')
+    embeddings_index[word] = coefs
 f.close()
-print('Loaded %s word vectors.' % len(embeddings_index))
+#print('Loaded %s word vectors.' % len(embeddings_index))
 
 # Create a weight matrix for words in training docs.
 embedding_matrix = zeros((vocab_size, 100))
 for word, i in t.word_index.items():
-	embedding_vector = embeddings_index.get(word)
-	if embedding_vector is not None:
-		embedding_matrix[i] = embedding_vector
+    embedding_vector = embeddings_index.get(word)
+    if embedding_vector is not None:
+        embedding_matrix[i] = embedding_vector
     
 # Assign training, validation, and test data.
 train_clip = math.floor((0.70)*len(dmoz))
@@ -158,7 +154,7 @@ y_pred = model.predict_classes(X_test)
 print(classification_report(Y_test, y_pred))
 
 # Save the model.
-print("Saving model to the disk...")
+#print("Saving model to the disk...")
 #dump(model, 'dmozModelTitlesBB.joblib')
 model.save('bb_model_strong.h5')
 #tfjs.converters.save_keras_model(model, '.tfjs_models')

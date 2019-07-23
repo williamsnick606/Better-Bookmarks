@@ -17,3 +17,21 @@ chrome.contextMenus.create({
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
     alert('first');
 });
+
+// Create the necessary folders on install
+chrome.runtime.onInstalled.addListener(function (details) {
+	chrome.bookmarks.create({parentId: '1',
+	                          'title': 'Art'});
+
+	chrome.bookmarks.create({parentId: '1',
+	                          'title': 'Business'});
+
+	chrome.bookmarks.create({parentId: '1',
+ 	                          'title': 'Health'});
+
+	chrome.bookmarks.create({parentId: '1',
+	                          'title': 'Society'});
+
+	chrome.bookmarks.create({parentId: '1',
+	                          'title': 'Sports'});
+});
