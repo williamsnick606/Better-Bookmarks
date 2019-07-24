@@ -14,9 +14,9 @@ function createCategoryFolder(categoryTitle, categoryParentId) {
         chrome.storage.sync.set(obj);
     }
     chrome.bookmarks.create({ parentId : categoryParentId
-                           , title    : categoryTitle
-                           }, callback
-                          );
+                            , title    : categoryTitle
+                            }, callback
+                           );
 }
 
 // Create the necessary folders on install if they haven't
