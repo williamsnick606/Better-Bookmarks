@@ -175,6 +175,7 @@ export function addBookmark(btn) {
                                         usableD);
                         });
                     }
+
                     predictCategory(usableT, usableD).then((t) => {
                         const finalCategory = t;
                         autofiller(usableT, usableU,

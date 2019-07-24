@@ -4,7 +4,6 @@
     "description"      : "Uses machine learning to automatically recommend where to place your bookmarks.",
     "manifest_version" : 2,
     "permissions"      : [ "bookmarks"
-                         , "contextMenus"
                          , "storage"
                          , "activeTab"
                          , "tabs"

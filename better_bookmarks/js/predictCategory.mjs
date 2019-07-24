@@ -25,20 +25,24 @@ const dict = {'and': 1, 'of': 2, 'the': 3, 'in': 4, 'a': 5, 'for': 6, 'informati
  * Otherwise, true.
  *
  * @author HyunKyu Jung
+ * @author Brady McGrath (edits)
  *
  * @param {character} c - the 1byte character
  * @return {Boolean} whether the character is dummy or not
  *
  */
-function is_dumy(c){
-    if(c=='.')return false;
-    if(c=='!')return false;
-    if(c==',')return false;
-    if(c=='?')return false;
-    if(c=='.')return false;
-    if(c=='-')return false;
-    if(c=='|')return false;
-    return true;
+function is_dumy(c) {
+    const falseTerms = [ "."
+                       , "!"
+                       , ","
+                       , "?"
+                       , "-"
+                       , "|"
+                       ];
+
+    // Returns true if c is not in falseTerms,
+    // false otherwise.
+    return (falseTerms.indexOf(c) === -1);
 }
 
 /**
@@ -47,20 +51,25 @@ function is_dumy(c){
  *  Returns valid text
  *
  * @author HyunKyu Jung
+ * @author Brady McGrath (edits)
  *
  * @param {string} a - raw text message either can be title or description of html file
  * @return {string} lowercased and valid text message
  *
  */
-function remove_dummy(a){
-    var len = a.length;
-    var b = "";
-    for(var i = 0; i < len; i++){
-        if(!is_dumy(a[i]))
-            b = b + ' ';
-        else
-            b = b + a[i];
+function remove_dummy(a) {
+    const len = a.length;
+    let   b   = "";
+
+    for(let i = 0; i < len; i++){
+        if (!is_dumy(a[i])) {
+            b += ' ';
+        }
+        else {
+            b += a[i];
+        }
     }
+
     return b.toLowerCase();
 }
 
@@ -68,17 +77,21 @@ function remove_dummy(a){
  *  Get text message as string list and return as integer list.
  *
  * @author HyunKyu Jung
+ * @author Brady McGrath (edits)
  *
  * @param {string list} text_token - English text splitted by space as string list
  * @return {int list} convert to integer list with tokenixed dictionary
  *
  */
-function text_to_seq(text_token){
-    var seq = [];
+function text_to_seq(text_token) {
+    const seq = [];
+
     text_token.forEach(function(word){
-        if(dict.hasOwnProperty(word))
+        if (dict.hasOwnProperty(word)) {
             seq.push(dict[word]);
+        }
     })
+
     return seq;
 }
 
@@ -88,20 +101,24 @@ function text_to_seq(text_token){
  *    if input list length is larger than 16 it only use last 15 elements.
  *
  * @author HyunKyu Jung
+ * @author Brady McGrath (edits)
  *
  * @param {int list} seq - list of integers which contains information of words
  * @return {int list} limited into length 15 integer list
  *
  */
-function pad_seq(seq){
-    var len = seq.length;
-    if(len >= 15){
-        return [seq.slice(len-15, len)];
+function pad_seq(seq) {
+    const len = seq.length;
+    const ret = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    if (len >= 15) {
+        return [seq.slice(len - 15, len)];
     }
-    var ret = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    for(var i = 0; i<len; i++){
+
+    for (let i = 0; i < len; i++) {
         ret[i] = seq[i];
     }
+
     return [ret];
 }
 
@@ -115,7 +132,7 @@ function pad_seq(seq){
  * @return {int list} limited into length 15 integer list
  *
  */
-export function preprocess(str){
+export function preprocess(str) {
     return pad_seq(text_to_seq(remove_dummy(str).split(' ')));
 }
 
@@ -124,31 +141,35 @@ export function preprocess(str){
  *    output means one of categories with art, business, health, society, and sports
  *
  * @author HyunKyu Jung
+ * @author Brady McGrath (edits)
  *
  * @param {string} title - raw text message as html title
  * @param {string} description - not used
  * @return {int} integer as output of prediction with trained model
  *
  */
-export async function predictCategory(title, description){
-    var text;
-    if((typeof(description) == "string") && (description.length > title.length))
-        text = title + description;
-    else
-        text = title;
-    const model = await tf.loadLayersModel('../bb_model_strong/model.json');
+export async function predictCategory(title, description) {
+    let text = title;
 
-    var text_token = await remove_dummy(text).split(' ');
-    var text_seq = await text_to_seq(text_token);
-    var text_pad = await pad_seq(text_seq);
-    var predict = await model.predict(tf.tensor2d(text_pad)).dataSync();
-    var ret = -1;
-    var max_value = -1;
-    for(var i = 0; i < predict.length; i++){
+    if((typeof(description) === "string")
+        && (description.length > title.length)) {
+        text += description;
+    }
+
+    const model      = await tf.loadLayersModel('../bb_model_strong/model.json');
+    const text_token = await remove_dummy(text).split(' ');
+    const text_seq   = await text_to_seq(text_token);
+    const text_pad   = await pad_seq(text_seq);
+    const predict    = await model.predict(tf.tensor2d(text_pad)).dataSync();
+    const ret        = -1;
+    const max_value  = -1;
+
+    for (let i = 0; i < predict.length; i++) {
         if(predict[i] > max_value){
-            ret = i;
+            ret       = i;
             max_value = predict[i];
         }
     }
+
     return ret;
 }
