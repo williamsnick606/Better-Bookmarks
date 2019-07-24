@@ -161,8 +161,8 @@ export async function predictCategory(title, description) {
     const text_seq   = await text_to_seq(text_token);
     const text_pad   = await pad_seq(text_seq);
     const predict    = await model.predict(tf.tensor2d(text_pad)).dataSync();
-    const ret        = -1;
     const max_value  = -1;
+    let   ret        = -1;
 
     for (let i = 0; i < predict.length; i++) {
         if(predict[i] > max_value){
