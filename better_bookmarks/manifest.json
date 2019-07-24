@@ -13,6 +13,7 @@
                          ],
     "background": {
         "scripts"    : [ "js/background_scripts/on_installed.js"
+                       , "js/background_scripts/on_removed.js"
                        ],
         "persistent" : false
     },
