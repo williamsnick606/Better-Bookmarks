@@ -30,15 +30,12 @@ const dict = {'and': 1, 'of': 2, 'the': 3, 'in': 4, 'a': 5, 'for': 6, 'informati
  * @return {Boolean} whether the character is dummy or not
  *
  */
-function is_dumy(c){
-    if(c=='.')return false;
-    if(c=='!')return false;
-    if(c==',')return false;
-    if(c=='?')return false;
-    if(c=='.')return false;
-    if(c=='-')return false;
-    if(c=='|')return false;
-    return true;
+function is_dumy(chr){
+    var c = chr.charCodeAt(0)
+    if(chr==' ')return true;
+    if(c>=65 && c<=90)return true;
+    if(c>=97 && c<=122)return true;
+    return false;
 }
 
 /**
@@ -131,19 +128,43 @@ export function preprocess(str){
  *
  */
 export async function predictCategory(title, description){
-    const model = await tf.loadLayersModel('../bb_model_strong/model.json');
-    var text = title + description;
-    var text_token = await remove_dummy(text).split(' ');
-    var text_seq = await text_to_seq(text_token);
-    var text_pad = await pad_seq(text_seq);
-    var predict = await model.predict(tf.tensor2d(text_pad)).dataSync();
-    var ret = -1;
-    var max_value = -1;
-    for(var i = 0; i < predict.length; i++){
-        if(predict[i] > max_value){
-            ret = i;
-            max_value = predict[i];
-        }
+    var is_desc = false;
+    if(typeof(description)=="string"){
+        if(description.length > 0)
+            is_desc = true;
     }
-    return ret;
+    if(is_desc){
+        const model = await tf.loadLayersModel('../bb_model_strong/model.json');
+        var text = description;
+        var text_token = await remove_dummy(text).split(' ');
+        var text_seq = await text_to_seq(text_token);
+        var text_pad = await pad_seq(text_seq);
+        var predict = await model.predict(tf.tensor2d(text_pad)).dataSync();
+        var ret = -1;
+        var max_value = -1;
+        for(var i = 0; i < predict.length; i++){
+            if(predict[i] > max_value){
+                ret = i;
+                max_value = predict[i];
+            }
+        }
+        return ret;
+    }
+    else{
+        const model = await tf.loadLayersModel('../bb_model/model.json');
+        var text = title;
+        var text_token = await remove_dummy(text).split(' ');
+        var text_seq = await text_to_seq(text_token);
+        var text_pad = await pad_seq(text_seq);
+        var predict = await model.predict(tf.tensor2d(text_pad)).dataSync();
+        var ret = -1;
+        var max_value = -1;
+        for(var i = 0; i < predict.length; i++){
+            if(predict[i] > max_value){
+                ret = i;
+                max_value = predict[i];
+            }
+        }
+        return ret;
+    }
 }
