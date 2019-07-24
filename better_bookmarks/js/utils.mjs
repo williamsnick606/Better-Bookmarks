@@ -5,8 +5,8 @@
  * exports     : [ createTag/1
  *               , createDropdown/1
  *               , createFolder/2
+ *               , addFoldersToSelectionMenu/1
  *               , addBookmarkContent/0
- *               , validateForm/0
  *               ]
  */
 /**

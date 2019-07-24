@@ -10,13 +10,17 @@
  *     adds all the bookmark folders a user had to the
  *     modal window used for adding new folders.
  *
+ * @module add_new_folder
+ *
  */
 
-import {addFoldersToSelectionMenu} from './utils.mjs'
+import { addFoldersToSelectionMenu } from './utils.mjs'
 
 /**
- * Adds all the user's folders the modal for
- * adding a new folder.
+ * Adds all the user's folders to the modal so
+ * one can be selected by the user so they can
+ * choose where to place their newly created
+ * folder in.
  *
  * @author Brady McGrath
  * @author Kyle Head

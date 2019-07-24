@@ -1,7 +1,16 @@
+/*
+ * file        : add_new_bookmarks.mjs
+ * description : This file contains code for manipulating the modal,
+ *               i.e., popup, that displays when a user clicks the
+ *               "add bookmark" button in the primary extension popup.
+ *
+ */
 /**
  * @file This file contains code for manipulating the modal,
  *     i.e., popup, that displays when a user clicks the
  *     "add bookmark" button in the primary extension popup.
+ *
+ * @module add_new_bookmark
  *
  */
 import { predictCategory, preprocess } from './predictCategory.mjs'
