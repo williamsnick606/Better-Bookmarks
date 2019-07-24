@@ -29,11 +29,11 @@ const dict = {'and': 1, 'of': 2, 'the': 3, 'in': 4, 'a': 5, 'for': 6, 'informati
  * @author HyunKyu Jung
  * @author Brady McGrath (stylistic edits)
  *
- * @param {character} c - the 1byte character
+ * @param {char} c - The 1-byte character.
  * @return {Boolean} whether the character is dummy or not
  *
  */
-function is_dumy(c) {
+function isDumy(c) {
     const falseTerms = [ "."
                        , "!"
                        , ","
@@ -55,16 +55,17 @@ function is_dumy(c) {
  * @author HyunKyu Jung
  * @author Brady McGrath (stylistic edits)
  *
- * @param {string} a - raw text message either can be title or description of html file
+ * @param {string} a - Raw text message either can
+ *     be title or description of html file.
  * @return {string} lowercased and valid text message
  *
  */
-function remove_dummy(a) {
+function removeDummy(a) {
     const len = a.length;
     let   b   = "";
 
     for(let i = 0; i < len; i++){
-        if (!is_dumy(a[i])) {
+        if (!isDumy(a[i])) {
             b += ' ';
         }
         else {
@@ -81,14 +82,15 @@ function remove_dummy(a) {
  * @author HyunKyu Jung
  * @author Brady McGrath (stylistic edits)
  *
- * @param {string list} text_token - English text splitted by space as string list
- * @return {int list} convert to integer list with tokenixed dictionary
+ * @param {string[]} textToken - English text splitted by space
+ *     as string array.
+ * @return {number[]} convert to integer array with tokenixed object.
  *
  */
-function text_to_seq(text_token) {
+function textToSeq(textToken) {
     const seq = [];
 
-    text_token.forEach(function(word){
+    textToken.forEach(function(word) {
         if (dict.hasOwnProperty(word)) {
             seq.push(dict[word]);
         }
@@ -109,7 +111,7 @@ function text_to_seq(text_token) {
  * @return {int list} limited into length 15 integer list
  *
  */
-function pad_seq(seq) {
+function padSeq(seq) {
     const len = seq.length;
     const ret = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -135,7 +137,7 @@ function pad_seq(seq) {
  *
  */
 export function preprocess(str) {
-    return pad_seq(text_to_seq(remove_dummy(str).split(' ')));
+    return padSeq(textToSeq(removeDummy(str).split(' ')));
 }
 
 /**
@@ -158,18 +160,18 @@ export async function predictCategory(title, description) {
         text += description;
     }
 
-    const model      = await tf.loadLayersModel('../bb_model_strong/model.json');
-    const text_token = await remove_dummy(text).split(' ');
-    const text_seq   = await text_to_seq(text_token);
-    const text_pad   = await pad_seq(text_seq);
-    const predict    = await model.predict(tf.tensor2d(text_pad)).dataSync();
-    let   max_value  = -1;
-    let   ret        = -1;
+    const model     = await tf.loadLayersModel('../bb_model_strong/model.json');
+    const textToken = await removeDummy(text).split(' ');
+    const textSeq   = await textToSeq(textToken);
+    const textPad   = await padSeq(textSeq);
+    const predict   = await model.predict(tf.tensor2d(textPad)).dataSync();
+    let   maxValue  = -1;
+    let   ret       = -1;
 
     for (let i = 0; i < predict.length; i++) {
-        if (predict[i] > max_value) {
+        if (predict[i] > maxValue) {
             ret       = i;
-            max_value = predict[i];
+            maxValue = predict[i];
         }
     }
 
