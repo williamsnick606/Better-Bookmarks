@@ -23,14 +23,22 @@ const dict = {'and': 1, 'of': 2, 'the': 3, 'in': 4, 'a': 5, 'for': 6, 'informati
 
 
 /**
- * Returns false if the character is dummy message like coma, plus, etc.
- * Otherwise, true.
+ * Returns false if the character is dummy message
+ * like coma, plus, etc.  Otherwise, true.
+ *
+ * NOTE:  The logic here, by HyunKyu Jung, is off; based
+ *     one the name of the function, it should return true
+ *     if the character is a dummy character, and false
+ *     otherwise.  However, HyunKyu Jung is using the
+ *     opposite logic, which makes the function name
+ *     misleading.
  *
  * @author HyunKyu Jung
- * @author Brady McGrath (stylistic edits)
+ * @author Brady McGrath (edits)
  *
- * @param {char} c - The 1-byte character.
- * @return {Boolean} whether the character is dummy or not
+ * @param {char} c - The character to test for "dumminess."
+ * @return {boolean} false if the character is a dummy,
+ *     true otherwise.
  *
  */
 function isDumy(c) {
@@ -48,16 +56,16 @@ function isDumy(c) {
 }
 
 /**
- *  Get text input and remove dummy message like coma, plus, etc.
- *  Also lowercase the alphabet
- *  Returns valid text
+ *  Returns a valid string, in lower case, by removing any
+ *  "dummy" characters found in it.
  *
  * @author HyunKyu Jung
- * @author Brady McGrath (stylistic edits)
+ * @author Brady McGrath (edits)
  *
  * @param {string} a - Raw text message either can
  *     be title or description of html file.
- * @return {string} lowercased and valid text message
+ * @return {string} Lower case string message that's been
+ *     validated.
  *
  */
 function removeDummy(a) {
@@ -77,14 +85,15 @@ function removeDummy(a) {
 }
 
 /**
- *  Get text message as string list and return as integer list.
+ *  Returns an array of integers determined through processing
+ *  the given text token.
  *
  * @author HyunKyu Jung
- * @author Brady McGrath (stylistic edits)
+ * @author Brady McGrath (edits)
  *
  * @param {string[]} textToken - English text splitted by space
  *     as string array.
- * @return {number[]} convert to integer array with tokenixed object.
+ * @return {number[]} Convert to integer array with tokenixed object.
  *
  */
 function textToSeq(textToken) {
@@ -100,15 +109,17 @@ function textToSeq(textToken) {
 }
 
 /**
- *  Return 15 length integer list
- *    if input list length is smaller than 15 it pad with 0s
- *    if input list length is larger than 16 it only use last 15 elements.
+ *  Returns an array of 15 integers such that if the given
+ *  sequence length is less than 15, then the returned array
+ *  is padded with 0s.  If given sequence's length is greater
+ *  than 16, then it only use last 15 elements.
  *
  * @author HyunKyu Jung
- * @author Brady McGrath (stylistic edits)
+ * @author Brady McGrath (edits)
  *
- * @param {int list} seq - list of integers which contains information of words
- * @return {int list} limited into length 15 integer list
+ * @param {number[]} seq - An array of integers containing word information?
+ * @return {number[]} An array of 15 integers that's potentially benn
+ *     padded with zeros.
  *
  */
 function padSeq(seq) {
@@ -127,13 +138,15 @@ function padSeq(seq) {
 }
 
 /**
- *  Return 15 length integer list
- *    with above preprocessing sequences
+ *  Returns an array of 15 integers that has been processed
+ *  using the above functions.
  *
  * @author HyunKyu Jung
+ * @author Brady McGrath (edits)
  *
- * @param {string} str - raw text message either can be title or description of html file
- * @return {int list} limited into length 15 integer list
+ * @param {string} str - This is either the title or description
+ *     grabbed from a website's HTML.
+ * @return {number[]} limited into length 15 integer list.
  *
  */
 export function preprocess(str) {
@@ -141,22 +154,27 @@ export function preprocess(str) {
 }
 
 /**
- *  Return output of prediction of trained model
- *    output means one of categories with art, business, health, society, and sports
+ *  Returns a number that represents a subject category being used
+ *  as a folder to house a user's bookmarks matching said category.
+ *  In order to predict a category, a trained model is used.
+ *
+ *  The currently supported categories are art, business, health,
+ *  society, and sports.
  *
  * @author HyunKyu Jung
- * @author Brady McGrath (stylistic edits)
+ * @author Brady McGrath (edits)
  *
- * @param {string} title - raw text message as html title
- * @param {string} description - not used
- * @return {int} integer as output of prediction with trained model
+ * @param {string} title - The title grabbed from a webpage's HTML.
+ * @param {string} description - The description grabbed from a webpage's
+ *     HTML.
+ * @return {number} integer as output of prediction with trained model
  *
  */
 export async function predictCategory(title, description) {
     let text = title;
 
-    if((typeof(description) === "string")
-        && (description.length > title.length)) {
+    if(description
+       && (description.length > title.length)) {
         text += description;
     }
 
