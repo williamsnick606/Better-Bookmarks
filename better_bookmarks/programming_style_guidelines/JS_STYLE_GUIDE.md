@@ -30,8 +30,10 @@ the time required for reading said documentation.  Additionally,
 using __JSDOC__ allows us to quickly generate nice looking API
 documentation.
 
-Functions must have the authors, a description, inputs, and output specified. Here is an example function declaration
-```
+Functions must have the authors, a description, inputs, and output specified.
+Here is an example function declaration:
+
+```javascript
 /**
  * Returns a tag that represents a clickable
  * bookmark to be included in a folder dropdown.
@@ -47,8 +49,11 @@ Functions must have the authors, a description, inputs, and output specified. He
 function createBookmark(bookmarkId, bookmarkTitle)
 ```
 ### Files
-Include the filename, a description of the files purpose, and any exports. Here is an example file header
-```
+
+Include the filename, a description of the files purpose, and any exports.
+Here is an example file header:
+
+```javascript
 /*
  * file        : utils.mjs
  * description : This file is a JavaScript module intended to
@@ -99,3 +104,102 @@ else {
 }
 ...
 ```
+
+Additionally, we always use a space following an if declaration and braces
+are used no matter what for `if`, `else if`, and `else` blocks.  For example:
+
+```javascript
+if (booleanCondition) {
+    ...
+}
+else if (otherBooleanCondition) {
+    ...
+}
+else {
+    ...
+}
+```
+
+### Return Statements
+
+Always include a line break before your return statements, unless you have
+a function that consists soley of a return statement.  Example:
+
+```javascript
+function funkyFreshFunction(...) {
+    let someVar;
+    if (booleanCondition) {
+        ...
+    }
+
+    return someVar;
+}
+```
+
+### Loops
+
+Just like how you must use spaces and braces with conditional statements,
+you must do the same with loops and iteration constructs.  Example:
+
+```javascript
+for (let i = 0; i < 10; i++) {
+    ...
+}
+```
+
+```javascript
+while (someCondition) {
+    ...
+}
+```
+
+### Creating Variables
+
+There is no reason for you to ever delare a variable with the `var` keyword.
+When declaring and defining variables, always use `let` and `const`—prefer
+`const` to `let`.  There is absolutely no reason for you to not declare and
+define variables with `const` if you never re-assign them.  The reason we
+use `let` instead of `var` is because of JavaScript's scoping rules.  Read
+up on the differences between `let` and `var`, as well as __hoisting__.
+
+Always declare your variables at the top of the function, unless of course
+you're creating a temporary variable within a for loop; that is:
+
+```javascript
+for (let i = 0; i < 10; i++) {
+    ...
+}
+```
+
+You must also properly align all of your variable assignments.  Example:
+
+```javascript
+// Do this; this makes everything very
+// easy to read.
+let flag                     = ...;
+let reallyBigValue           = ...;
+let someKindOfPhatDictionary = { ... };
+...
+```
+
+```javascript
+// Do NOT do this; this is ugly and
+// makes reading it more difficult
+// than it needs to be.
+let flag = ...;
+let reallyBigValue = ...;
+let someKindOfPhatDictionary = { ... };
+...
+```
+
+Another very important practice that you __must__ adhere to is __not__ creating
+global variables.  You are very unlikely to run into situations where you actually
+need to resort to using global variables, so unless you there is absolutely no other
+way to accomplish what it is you're coding, don't resort to using globals.
+
+Instead of using globals, use functions and, as mentioned above, declare all
+of the variables in the function, and else where, using `let` and `const`.  If you
+find yourself using global variables, then there's a good chance you need to seriously
+rethink your design.  __Closures__ provide a very nice mechanism for encapsulating state
+and keeping it from "leaking" outside and being overwritten and/or accessed by sections
+of code that shouldn't be coming anywhere near it.
