@@ -4,16 +4,8 @@
  *     "add bookmark" button in the primary extension popup.
  *
  */
-
 import { predictCategory, preprocess } from './predictCategory.mjs'
 import { addFoldersToSelectionMenu   } from './utils.mjs'
-
-/* The only way to add a bookmark to a certain folder is by knowing
- * the bookmarkID of the folder you want it added to. These variables
- * will keep track of the bookmarkID's of the folders our ML function
- * can recommend.
- */
-var art, business, health, society, sports;
 
 /**
 *  Creates a new bookmark given a bookmark title
@@ -30,54 +22,42 @@ var art, business, health, society, sports;
 *
 */
 function autofiller(title, url, category,
-                    modal, closeBtn, saveBtn) {
+                    modal, closeBtn, saveBookmarkBtn) {
     console.log("Entering autofiller in add_new_bookmark.js...");
 
-    switch (category) {
-        case 0:
-            document.getElementById("bmarkDrop")
-                    .value = art;
-            break;
-        case 1:
-            document.getElementById("bmarkDrop")
-                    .value = business;
-            break;
-        case 2:
-            document.getElementById("bmarkDrop")
-                    .value = health;
-            break;
-        case 3:
-            document.getElementById("bmarkDrop")
-                    .value = society;
-            break;
-        case 4:
-            document.getElementById("bmarkDrop")
-                    .value = sports;
-            break;
-        default:
-            throw "Error (add_new_bookmark.js): Unknown category \"" +
-                  category + "\" " + "encountered.";
-    }
+    chrome.storage.sync.get(["categoriesMap"], (result) => {
+        console.log("Fetching categoriesMap...result = " + result);
+        console.log("result.categoriesMap = " + result.categoriesMap);
 
-    // Display the modal.
+        let categoriesDict = result.categoriesMap;
+        const key          = categoriesDict[category];
+
+        chrome.storage.sync.get([key], (result) => {
+            console.log("Setting bmarkDrop value to " + result[key]);
+            document.getElementById("bmarkDrop")
+                    .value = result[key];
+        });
+    });
+
+    // Display the modal and set the
+    // default title name.
     modal.style.display = "block";
-    // Autofill the site Title as the bookmark name
     document.getElementById("newName")
             .value = title;
-    // When the user clicks on <span> (x), close the modal
     closeBtn.onclick = () => {
         modal.style.display = "none";
     }
-    // When the user clicks anywhere outside of the modal, close it
+
+    // Close the modal if there are any clicks outside
+    // its boundaries.
     window.onclick = (event) => {
         if (event.target === modal) {
             modal.style.display = "none";
         }
     }
 
-    const bookURL = document.getElementById("newName");
-    // When a user clicks the Create button, save a new bookmark
-    saveBtn.onclick = () => {
+    const bookURL           = document.getElementById("newName");
+    saveBookmarkBtn.onclick = () => {
         const bookT = document.getElementById("newName").value;
         const ID    = document.getElementById("bmarkDrop").value;
         chrome.bookmarks.create({ "parentId" : ID
