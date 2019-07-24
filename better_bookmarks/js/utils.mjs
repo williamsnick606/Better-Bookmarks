@@ -184,7 +184,7 @@ export function addFoldersToSelectionMenu(selectionMenu) {
  *
  */
 export function addBookmarkContent() {
-    var folderDiv, dropdownDiv, bmarkContent;
+    let folderDiv, dropdownDiv, bmarkContent;
     const dropdownDivs = [];
 
     /**
@@ -346,7 +346,8 @@ function toggleBookmarks(folder, folderId) {
     if (dropdown) {
         dropdown.classList.toggle("active");
 
-        var panel = folder.nextElementSibling;
+        let panel = folder.nextElementSibling;
+        
         if (panel.style.display === "block") {
             panel.style.display = "none";
         }
