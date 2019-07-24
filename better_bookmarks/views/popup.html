@@ -1,39 +1,36 @@
 <!DOCTYPE HTML>
 <html>
    <head>
-       <!-- Necessary meta and link tags for the Google file icon. !-->
-       <meta name="viewport" content="width=device-width, initial-scale=1">
-       <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-             rel="stylesheet">
-       <!-- BB styles. !-->
-       <link rel="stylesheet"
-             type="text/css"
-             href="../css/popup.css">
-       <link rel="stylesheet"
-             type="text/css"
-             href="../css/modal.css">
-       <!-- Google font styles. !-->
+        <!-- Stylesheets and Scripts !-->
+       <link rel="stylesheet" type="text/css" href="../css/popup.css">
+       <link rel="stylesheet" type="text/css" href="../css/modal.css">
        <link href="https://fonts.googleapis.com/css?family=Noto+Serif&display=swap"
              rel="stylesheet">
        <script type="module" src="../js/add_content.mjs"></script>
-       <script type="module" src="../js/bookmark_modal.js"></script>
+       <script type="module" src="../js/bmark_modal.js"></script>
        <script type="module" src="../js/folder_modal.js"></script>
        <script src="../js/tf.min.js"></script>
    </head>
    <body>
         <!-- Better Bookmarks logo !--> 
-        <div id="logo" class="flexCenterContainer">
-            <img src="../BBlogo.png" alt="Extension logo">
+        <div id="logo">
+                <img src="../BBlogo.png" alt="Extension logo" 
+                     style="width:260px;height:104px">
         </div>
-        <!-- Buttons to create bookmark/folder. !-->
-        <div id="createNew" class="flexCenterContainer">
-            <button id="addNewBookmarkBtn"
-                    class="btn">Add New Bookmark
-            </button>
-            <button id="addNewBookmarkFolderBtn"
-                    class="btn">Add New Folder
-            </button>
+        <!-- Buttons to create bmark/folder !-->
+        <div id="createNew">
+            <button id="newBmark" class="newBmark">New Bookmark</button>
+            <button id="newFolder" class="newFolder">Add a Folder</button>
         </div>
+        <!-- Bookmark Searchbar !-->
+        <div id="search">
+           <form name="searchForm">
+               <input class="searchBar" type="text" name="searchBar"
+                      placeholder="Search Bookmarks">
+               <input id="submit-btn" class="searchButton"
+                      type="submit" value="Search">
+           </form>
+       </div>
        <!-- 'New Bookmark' Modal !-->
        <div id="bmarkModal" class="modal">
            <div class="modalContent">

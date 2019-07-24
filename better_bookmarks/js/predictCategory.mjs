@@ -131,11 +131,17 @@ export function preprocess(str){
  *
  */
 export async function predictCategory(title, description){
+    var text;
+    if((typeof(description) == "string") && (description.length > title.length))
+        text = title + description;
+    else
+        text = title;
     const model = await tf.loadLayersModel('../bb_model_strong/model.json');
-    var title_token = await remove_dummy(title).split(' ');
-    var title_seq = await text_to_seq(title_token);
-    var title_pad = await pad_seq(title_seq);
-    var predict = await model.predict(tf.tensor2d(title_pad)).dataSync();
+
+    var text_token = await remove_dummy(text).split(' ');
+    var text_seq = await text_to_seq(text_token);
+    var text_pad = await pad_seq(text_seq);
+    var predict = await model.predict(tf.tensor2d(text_pad)).dataSync();
     var ret = -1;
     var max_value = -1;
     for(var i = 0; i < predict.length; i++){

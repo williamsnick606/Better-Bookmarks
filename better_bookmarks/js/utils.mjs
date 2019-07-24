@@ -114,10 +114,10 @@ function createBookmark(bookmarkId, bookmarkTitle) {
  */
 export function createFolder(folderId, folderTitle) {
     // Create a folder div.
-    const folderDiv      = createTag({ tag: "div"
-                                     , attrs: { id: "folder" +
-                                                    folderId
-                                              }
+    const folderDiv      = createTag({ tag   : "div"
+                                     , attrs : { id: "folder" +
+                                                     folderId
+                                               }
                                      });
                             
     // Add a clickable link, i.e., an "actual"
