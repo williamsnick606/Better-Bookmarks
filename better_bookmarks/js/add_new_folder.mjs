@@ -14,7 +14,7 @@
  *
  */
 
-import { addFoldersToSelectionMenu } from './utils.mjs'
+import { addFoldersToSelectionMenu, addBookmarkContent } from './utils.mjs'
 
 /**
  * Adds all the user's folders to the modal so
@@ -55,7 +55,9 @@ export function addFoldersToModal() {
         const ID              = folderMenu.value;
         chrome.bookmarks.create({ "parentId" : ID
                                 , "title"    : folderT
-                                });
+                                }, node => {
+            addBookmarkContent();
+        });
         modal.style.display = "none";
     }
 }

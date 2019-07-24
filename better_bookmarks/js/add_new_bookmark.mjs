@@ -14,7 +14,7 @@
  *
  */
 import { predictCategory, preprocess } from './predictCategory.mjs'
-import { addFoldersToSelectionMenu   } from './utils.mjs'
+import { addFoldersToSelectionMenu, addBookmarkContent } from './utils.mjs'
 
 /**
 *  Creates a new bookmark given a bookmark title
@@ -72,7 +72,9 @@ function autofiller(title, url, category,
         chrome.bookmarks.create({ "parentId" : ID
                                 , "title"    : bookT
                                 , "url"      : url
-                                });
+                                }, node => {
+            addBookmarkContent();
+        });
         modal.style.display = "none";
     }
 }
