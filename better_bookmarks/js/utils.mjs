@@ -159,10 +159,11 @@ export function addFoldersToSelectionMenu(selectionMenu) {
             for (let child of children) {
                 if (!child.url) {
                     const optionTag = createTag({ tag   : "option"
-                                                , attrs : { id    : "option" + child.id
-                                                        , value : child.id
-                                                        , text  : child.title
-                                                        }
+                                                , attrs : { id    : "option" +
+                                                                    child.id
+                                                          , value : child.id
+                                                          , text  : child.title
+                                                          }
                                                 });
                     selectionMenu.appendChild(optionTag);
                 }
