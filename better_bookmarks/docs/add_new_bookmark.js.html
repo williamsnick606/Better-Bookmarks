@@ -26,14 +26,23 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
+            <pre class="prettyprint source linenums"><code>/*
+ * file        : add_new_bookmarks.mjs
+ * description : This file contains code for manipulating the modal,
+ *               i.e., popup, that displays when a user clicks the
+ *               "add bookmark" button in the primary extension popup.
+ *
+ */
+/**
  * @file This file contains code for manipulating the modal,
  *     i.e., popup, that displays when a user clicks the
  *     "add bookmark" button in the primary extension popup.
  *
+ * @module add_new_bookmark
+ *
  */
-
-import {predictCategory, preprocess} from './predictCategory.mjs'
+import { predictCategory, preprocess } from './predictCategory.mjs'
+import { addFoldersToSelectionMenu   } from './utils.mjs'
 
 /**
 *  Creates a new bookmark given a bookmark title
@@ -49,32 +58,50 @@ import {predictCategory, preprocess} from './predictCategory.mjs'
 *  @return {undefined}
 *
 */
-function autofiller(title, url,
-                    modal, span,
-                    btn2) {
+function autofiller(title, url, category,
+                    modal, closeBtn, saveBookmarkBtn) {
     console.log("Entering autofiller in add_new_bookmark.js...");
-    // When the user clicks the 'Bookmark' button,
-    // Display the modal
+
+    chrome.storage.sync.get(["categoriesMap"], (result) => {
+        console.log("Fetching categoriesMap...result = " + result);
+        console.log("result.categoriesMap = " + result.categoriesMap);
+
+        let categoriesDict = result.categoriesMap;
+        const key          = categoriesDict[category];
+
+        chrome.storage.sync.get([key], (result) => {
+            console.log("Setting bmarkDrop value to " + result[key]);
+            document.getElementById("bmarkDrop")
+                    .value = result[key];
+        });
+    });
+
+    // Display the modal and set the
+    // default title name.
     modal.style.display = "block";
-    // Autofill the site Title as the bookmark name
-    document.getElementById("newName").value = title;
-    // When the user clicks on &lt;span> (x), close the modal
-    span.onclick = function() {
+    document.getElementById("newName")
+            .value = title;
+    closeBtn.onclick = () => {
         modal.style.display = "none";
     }
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
+
+    // Close the modal if there are any clicks outside
+    // its boundaries.
+    window.onclick = (event) => {
         if (event.target === modal) {
             modal.style.display = "none";
         }
     }
-    const bookURL = document.getElementById("newName");
-    // When a user clicks the Create button, save a new bookmark
-    btn2.onclick = function() {
-        chrome.bookmarks.create({ "parentId" : null
-                                , "title"    : title
+
+    const bookURL           = document.getElementById("newName");
+    saveBookmarkBtn.onclick = () => {
+        const bookT = document.getElementById("newName").value;
+        const ID    = document.getElementById("bmarkDrop").value;
+        chrome.bookmarks.create({ "parentId" : ID
+                                , "title"    : bookT
                                 , "url"      : url
                                 });
+        modal.style.display = "none";
     }
 }
 
@@ -93,11 +120,13 @@ function autofiller(title, url,
  */
 export function addBookmark(btn) {
     return ( () => {
-        const modal = document.getElementById("myModal");
-        // Get the button that creates a bookmark
-        const btn2  = document.getElementById("makeBtn");
-        // Get the &lt;span> element that closes the modal
-        const span  = document.getElementsByClassName("close")[0];
+        // All of the buttons/fields in the modal
+        const modal          = document.getElementById("bmarkModal");
+        const saveBmarkBtn   = document.getElementById("saveBmark");
+        const closeSpanBtn   = document.getElementById("bmarkSpan");
+        const selectMenu     = document.getElementById("bmarkDrop");
+        
+        addFoldersToSelectionMenu(selectMenu);
 
         /* 
         * Since executeScript doesn't seem to like when
@@ -119,7 +148,7 @@ export function addBookmark(btn) {
             "    const meta = metas[i];\n" +
                 // Some websites don't conform to the norm,
                 // thus requiring toLowerCase().
-            "    if (meta.name.toLowerCase() === 'description'){\n" +
+            "    if (meta.name.toLowerCase() === \"description\"){\n" +
             "        pageDescription = meta.content;\n" +
             "    }\n" +
             "}\n" +
@@ -133,7 +162,13 @@ export function addBookmark(btn) {
             const tabId   = tab.id;
             const usableT = tab.title;
             const usableU = tab.url;
-            let usableD;
+            let   usableD;
+
+            if (usableU.search("chrome://") !== -1) {
+                alert("Bookmarking URLs of the form, \"chrome://*\" " +
+                      "is not allowed.");
+                return;
+            }
 
             // Get the description for the page being
             // bookmarked.
@@ -142,41 +177,48 @@ export function addBookmark(btn) {
                                              }, (results) => {
                 try {
                     // Should be the description of the page.
-                    usableD = results[0];
+                    const result = results[0];
+                    let usableD  = result;
 
                     console.log("title = " + usableT + "\n" +
                                 "url = " + usableU + "\n" +
                                 "description = " + usableD);
 
-                    // Prepare the description for storing.
-                    let obj = {};
+                    // Get ready to store the description for the
+                    // unique tab id being bookmarked.
+                    let obj   = {};
                     const key = "_" + tabId;
-                    obj[key] = usableD;
+                    obj[key]  = usableD;
+
                     console.log("obj." + key + " = " + obj[key]);
 
-                    // Got the description.
+                    // The description wasn't null, so it exists
+                    // and this is the first time we've injected
+                    // the code in our executeScript(...) call.
                     if (usableD) {
                         chrome.storage.sync.set(obj);
                     }
-                    // Description was null, so either it
-                    // doesn't exist or we gotta get it
-                    // from storage.
+                    // Description was null, so either it doesn't
+                    // exist for the given page, or we've already
+                    // gotten it and it's in storage.
                     else {
                         chrome.storage.sync.get([key], (result) => {
-                            const description = result[key];
+                            usableD = result[key];
 
                             console.log("description was null in " +
                                         "executeScript in " +
                                         "add_new_bookmark.js...");
                             console.log("result[" + key + "]: " +
-                                        description);
-
-                            usableD = description;
+                                        usableD);
                         });
                     }
-                    // Fill the title and folder fields that
-                    // the user sees on the modal.
-                    autofiller(usableT, usableU, modal, span, btn2);
+
+                    predictCategory(usableT, usableD).then((t) => {
+                        const finalCategory = t;
+                        autofiller(usableT, usableU,
+                                   finalCategory, modal,
+                                   closeSpanBtn, saveBmarkBtn);
+                    });
                 }
                 catch(err) {
                     console.log("Caught error in executeScript callback " +
@@ -188,7 +230,8 @@ export function addBookmark(btn) {
     // Close out the arrow function being returned.
     });
 // Close out addBookmark function
-}</code></pre>
+}
+</code></pre>
         </article>
     </section>
 
@@ -198,13 +241,13 @@ export function addBookmark(btn) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addBookmark">addBookmark</a></li><li><a href="global.html#autofiller">autofiller</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-add_new_bookmark.html">add_new_bookmark</a></li><li><a href="module-add_new_folder.html">add_new_folder</a></li><li><a href="module-predictCategory.html">predictCategory</a></li><li><a href="module-utils.html">utils</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sun Jul 21 2019 19:43:29 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Jul 23 2019 22:38:47 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>
