@@ -14,7 +14,10 @@
  *
  */
 import { predictCategory, preprocess } from './predictCategory.mjs'
-import { addFoldersToSelectionMenu, addBookmarkContent } from './utils.mjs'
+import { addFoldersToSelectionMenu
+       , createBookmark
+       , updateBookmarkDisplay
+       } from './utils.mjs'
 
 /**
 *  Creates a new bookmark given a bookmark title
@@ -69,12 +72,15 @@ function autofiller(title, url, category,
     saveBookmarkBtn.onclick = () => {
         const bookT = document.getElementById("newName").value;
         const ID    = document.getElementById("bmarkDrop").value;
+
         chrome.bookmarks.create({ "parentId" : ID
                                 , "title"    : bookT
                                 , "url"      : url
                                 }, node => {
-            addBookmarkContent();
+            const bmark = createBookmark(node.id, node.title);
+            updateBookmarkDisplay(node.parentId, bmark);
         });
+
         modal.style.display = "none";
     }
 }

@@ -13,8 +13,10 @@
  * @module add_new_folder
  *
  */
-
-import { addFoldersToSelectionMenu, addBookmarkContent } from './utils.mjs'
+import { addFoldersToSelectionMenu
+       , createFolder
+       , updateBookmarkDisplay
+       } from './utils.mjs'
 
 /**
  * Adds all the user's folders to the modal so
@@ -53,11 +55,14 @@ export function addFoldersToModal() {
         const folderT         = document.getElementById("newNameF").value;
         const folderSelection = folderMenu.text;
         const ID              = folderMenu.value;
+
         chrome.bookmarks.create({ "parentId" : ID
                                 , "title"    : folderT
                                 }, node => {
-            addBookmarkContent();
+            const newFolder = createFolder(node.id, node.title);
+            updateBookmarkDisplay(node.parentId, newFolder);
         });
+
         modal.style.display = "none";
     }
 }
