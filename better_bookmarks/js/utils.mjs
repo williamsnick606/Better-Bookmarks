@@ -317,7 +317,10 @@ export function addBookmarkContent() {
     // Get the bookmarkContent div so we can place our
     // folder dropdowns in it.
     bmarkContent = document.getElementById("bookmarkContent");
-    bmarkContent.innerHTML = undefined;
+    while (bmarkContent.firstChild) {
+        bmarkContent.removeChild(bmarkContent.firstChild);
+    }
+
     // Create the necessary HTML and add it to the DOM.
     console.log("-----STARTING BOOKMARK WALK-----");
     chrome.bookmarks.getTree(function(bs) {
