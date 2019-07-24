@@ -147,7 +147,7 @@
     
 
     
-    <h4 class="name" id=".predictCategory"><span class="type-signature">(static) </span>predictCategory<span class="signature">(title, description)</span><span class="type-signature"> &rarr; {int}</span></h4>
+    <h4 class="name" id=".predictCategory"><span class="type-signature">(static) </span>predictCategory<span class="signature">(title, description)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
 
     
@@ -155,8 +155,12 @@
 
 
 <div class="description">
-    Return output of prediction of trained model
-   output means one of categories with art, business, health, society, and sports
+    Returns a number that represents a subject category being used
+ as a folder to house a user's bookmarks matching said category.
+ In order to predict a category, a trained model is used.
+
+ The currently supported categories are art, business, health,
+ society, and sports.
 </div>
 
 
@@ -208,7 +212,7 @@
 
             
 
-            <td class="description last">raw text message as html title</td>
+            <td class="description last">The title grabbed from a webpage's HTML.</td>
         </tr>
 
     
@@ -231,7 +235,8 @@
 
             
 
-            <td class="description last">not used</td>
+            <td class="description last">The description grabbed from a webpage's
+    HTML.</td>
         </tr>
 
     
@@ -267,7 +272,7 @@
         <ul>
             <li>HyunKyu Jung</li>
         
-            <li>Brady McGrath (stylistic edits)</li>
+            <li>Brady McGrath (edits)</li>
         </ul>
     </dd>
     
@@ -281,7 +286,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line153">line 153</a>
+        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line173">line 173</a>
     </li></ul></dd>
     
 
@@ -321,7 +326,7 @@
     </dt>
     <dd>
         
-<span class="param-type">int</span>
+<span class="param-type">number</span>
 
 
     </dd>
@@ -339,7 +344,7 @@
     
 
     
-    <h4 class="name" id=".preprocess"><span class="type-signature">(static) </span>preprocess<span class="signature">(str)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".preprocess"><span class="type-signature">(static) </span>preprocess<span class="signature">(str)</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span></h4>
     
 
     
@@ -347,8 +352,8 @@
 
 
 <div class="description">
-    Return 15 length integer list
-   with above preprocessing sequences
+    Returns an array of 15 integers that has been processed
+ using the above functions.
 </div>
 
 
@@ -400,7 +405,8 @@
 
             
 
-            <td class="description last">raw text message either can be title or description of html file</td>
+            <td class="description last">This is either the title or description
+    grabbed from a website's HTML.</td>
         </tr>
 
     
@@ -435,6 +441,8 @@
     <dd class="tag-author">
         <ul>
             <li>HyunKyu Jung</li>
+        
+            <li>Brady McGrath (edits)</li>
         </ul>
     </dd>
     
@@ -448,7 +456,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line137">line 137</a>
+        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line152">line 152</a>
     </li></ul></dd>
     
 
@@ -476,7 +484,23 @@
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    limited into length 15 integer list.
+</div>
 
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;number></span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -490,7 +514,7 @@
     
 
     
-    <h4 class="name" id="~is_dumy"><span class="type-signature">(inner) </span>is_dumy<span class="signature">(c)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    <h4 class="name" id="~isDumy"><span class="type-signature">(inner) </span>isDumy<span class="signature">(c)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
     
 
     
@@ -498,8 +522,15 @@
 
 
 <div class="description">
-    Returns false if the character is dummy message like coma, plus, etc.
-Otherwise, true.
+    Returns false if the character is dummy message
+like coma, plus, etc.  Otherwise, true.
+
+NOTE:  The logic here, by HyunKyu Jung, is off; based
+    one the name of the function, it should return true
+    if the character is a dummy character, and false
+    otherwise.  However, HyunKyu Jung is using the
+    opposite logic, which makes the function name
+    misleading.
 </div>
 
 
@@ -541,7 +572,7 @@ Otherwise, true.
             <td class="type">
             
                 
-<span class="param-type">character</span>
+<span class="param-type">char</span>
 
 
             
@@ -551,7 +582,7 @@ Otherwise, true.
 
             
 
-            <td class="description last">the 1byte character</td>
+            <td class="description last">The character to test for "dumminess."</td>
         </tr>
 
     
@@ -587,7 +618,7 @@ Otherwise, true.
         <ul>
             <li>HyunKyu Jung</li>
         
-            <li>Brady McGrath (stylistic edits)</li>
+            <li>Brady McGrath (edits)</li>
         </ul>
     </dd>
     
@@ -601,7 +632,7 @@ Otherwise, true.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line36">line 36</a>
+        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line44">line 44</a>
     </li></ul></dd>
     
 
@@ -630,7 +661,8 @@ Otherwise, true.
 
         
 <div class="param-desc">
-    whether the character is dummy or not
+    false if the character is a dummy,
+    true otherwise.
 </div>
 
 
@@ -641,7 +673,7 @@ Otherwise, true.
     </dt>
     <dd>
         
-<span class="param-type">Boolean</span>
+<span class="param-type">boolean</span>
 
 
     </dd>
@@ -659,7 +691,7 @@ Otherwise, true.
     
 
     
-    <h4 class="name" id="~pad_seq"><span class="type-signature">(inner) </span>pad_seq<span class="signature">(seq)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~padSeq"><span class="type-signature">(inner) </span>padSeq<span class="signature">(seq)</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span></h4>
     
 
     
@@ -667,9 +699,10 @@ Otherwise, true.
 
 
 <div class="description">
-    Return 15 length integer list
-   if input list length is smaller than 15 it pad with 0s
-   if input list length is larger than 16 it only use last 15 elements.
+    Returns an array of 15 integers such that if the given
+ sequence length is less than 15, then the returned array
+ is padded with 0s.  If given sequence's length is greater
+ than 16, then it only use last 15 elements.
 </div>
 
 
@@ -710,13 +743,18 @@ Otherwise, true.
 
             <td class="type">
             
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
             </td>
 
             
 
             
 
-            <td class="description last"></td>
+            <td class="description last">An array of integers containing word information?</td>
         </tr>
 
     
@@ -752,7 +790,7 @@ Otherwise, true.
         <ul>
             <li>HyunKyu Jung</li>
         
-            <li>Brady McGrath (stylistic edits)</li>
+            <li>Brady McGrath (edits)</li>
         </ul>
     </dd>
     
@@ -766,7 +804,7 @@ Otherwise, true.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line112">line 112</a>
+        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line125">line 125</a>
     </li></ul></dd>
     
 
@@ -794,7 +832,24 @@ Otherwise, true.
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    An array of 15 integers that's potentially benn
+    padded with zeros.
+</div>
 
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;number></span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -808,7 +863,7 @@ Otherwise, true.
     
 
     
-    <h4 class="name" id="~remove_dummy"><span class="type-signature">(inner) </span>remove_dummy<span class="signature">(a)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name" id="~removeDummy"><span class="type-signature">(inner) </span>removeDummy<span class="signature">(a)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
     
@@ -816,9 +871,8 @@ Otherwise, true.
 
 
 <div class="description">
-    Get text input and remove dummy message like coma, plus, etc.
- Also lowercase the alphabet
- Returns valid text
+    Returns a valid string, in lower case, by removing any
+ "dummy" characters found in it.
 </div>
 
 
@@ -870,7 +924,8 @@ Otherwise, true.
 
             
 
-            <td class="description last">raw text message either can be title or description of html file</td>
+            <td class="description last">Raw text message either can
+    be title or description of html file.</td>
         </tr>
 
     
@@ -906,7 +961,7 @@ Otherwise, true.
         <ul>
             <li>HyunKyu Jung</li>
         
-            <li>Brady McGrath (stylistic edits)</li>
+            <li>Brady McGrath (edits)</li>
         </ul>
     </dd>
     
@@ -920,7 +975,7 @@ Otherwise, true.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line62">line 62</a>
+        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line71">line 71</a>
     </li></ul></dd>
     
 
@@ -949,7 +1004,8 @@ Otherwise, true.
 
         
 <div class="param-desc">
-    lowercased and valid text message
+    Lower case string message that's been
+    validated.
 </div>
 
 
@@ -978,7 +1034,7 @@ Otherwise, true.
     
 
     
-    <h4 class="name" id="~text_to_seq"><span class="type-signature">(inner) </span>text_to_seq<span class="signature">(text_token)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~textToSeq"><span class="type-signature">(inner) </span>textToSeq<span class="signature">(textToken)</span><span class="type-signature"> &rarr; {Array.&lt;number>}</span></h4>
     
 
     
@@ -986,7 +1042,8 @@ Otherwise, true.
 
 
 <div class="description">
-    Get text message as string list and return as integer list.
+    Returns an array of integers determined through processing
+ the given text token.
 </div>
 
 
@@ -1022,10 +1079,15 @@ Otherwise, true.
 
         <tr>
             
-                <td class="name"><code>text_token</code></td>
+                <td class="name"><code>textToken</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
             
             </td>
 
@@ -1033,7 +1095,8 @@ Otherwise, true.
 
             
 
-            <td class="description last"></td>
+            <td class="description last">English text splitted by space
+    as string array.</td>
         </tr>
 
     
@@ -1069,7 +1132,7 @@ Otherwise, true.
         <ul>
             <li>HyunKyu Jung</li>
         
-            <li>Brady McGrath (stylistic edits)</li>
+            <li>Brady McGrath (edits)</li>
         </ul>
     </dd>
     
@@ -1083,7 +1146,7 @@ Otherwise, true.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line88">line 88</a>
+        <a href="predictCategory.js.html">predictCategory.js</a>, <a href="predictCategory.js.html#line99">line 99</a>
     </li></ul></dd>
     
 
@@ -1111,7 +1174,23 @@ Otherwise, true.
 <h5>Returns:</h5>
 
         
+<div class="param-desc">
+    Convert to integer array with tokenixed object.
+</div>
 
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;number></span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -1141,7 +1220,7 @@ Otherwise, true.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Jul 23 2019 22:38:47 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Jul 24 2019 02:37:57 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>
