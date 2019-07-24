@@ -5,6 +5,7 @@
  * exports     : [ createTag/1
  *               , createDropdown/1
  *               , createFolder/2
+ *               , createBookmark/2
  *               , addFoldersToSelectionMenu/1
  *               , addBookmarkContent/0
  *               ]
@@ -63,11 +64,11 @@ export function createTag(data) {
  *
  */
 export function createDropdown(parentId) {
-    return createTag({ tag: "div"
-                     , attrs: { id: "folderDropdown" +
-                                    parentId
-                              }
-                     , classes: ["panel"]
+    return createTag({ tag     : "div"
+                     , attrs   :  { id: "folderDropdown" +
+                                        parentId
+                                  }
+                     , classes : ["panel"]
                      });
 }
 
@@ -83,7 +84,7 @@ export function createDropdown(parentId) {
  * @return {Object} a bookmark HTML element.
  *
  */
-function createBookmark(bookmarkId, bookmarkTitle) {
+export function createBookmark(bookmarkId, bookmarkTitle) {
     const bookmark = createTag({ tag: "a"
                                , id: "bookmark" + bookmarkId
                                , attrs: { href: "#" }
@@ -172,6 +173,37 @@ export function addFoldersToSelectionMenu(selectionMenu) {
         });
     }
     go("0");
+}
+
+/**
+ * Updates the bookmark display tree by adding the
+ * given HTML object corresponding to the given
+ * BookmarkTreeNode.
+ *
+ * @author Brady McGrath
+ *
+ * @param {string} parentId - The parentId for the BookmarkTreeNode
+ *     that was just created and is being added to the display tree.
+ * @param {Object} htmlObject - The HTML object to be added
+ *     to the current display tree.
+ * @return {undefined}
+ *
+ */
+export function updateBookmarkDisplay(parentId, htmlObject) {
+    const dropdownDiv = document.getElementById("folderDropdown" +
+                                                parentId);
+    if (dropdownDiv) {
+        dropdownDiv.appendChild(htmlObject);
+    }
+    else {
+        const parentFolder   =
+            document.getElementById("folder" + parentId);
+        const newDropdownDiv =
+            createDropdown(parentId);
+
+        newDropdownDiv.appendChild(htmlObject);
+        parentFolder.appendChild(newDropdownDiv);
+    }
 }
 
 /**
@@ -317,9 +349,6 @@ export function addBookmarkContent() {
     // Get the bookmarkContent div so we can place our
     // folder dropdowns in it.
     bmarkContent = document.getElementById("bookmarkContent");
-    while (bmarkContent.firstChild) {
-        bmarkContent.removeChild(bmarkContent.firstChild);
-    }
 
     // Create the necessary HTML and add it to the DOM.
     console.log("-----STARTING BOOKMARK WALK-----");
