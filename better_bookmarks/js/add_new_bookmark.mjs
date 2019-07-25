@@ -43,12 +43,18 @@ function autofiller(title, url, category,
 
         let categoriesDict = result.categoriesMap;
         const key          = categoriesDict[category];
+        console.log("key " + key + " gotten from category object.");
 
-        chrome.storage.sync.get([key], (result) => {
-            console.log("Setting bmarkDrop value to " + result[key]);
-            document.getElementById("bmarkDrop")
-                    .value = result[key];
-        });
+        if (key) {
+            chrome.storage.sync.get([key], (result) => {
+                const recommendedFolder = result[key];
+                console.log("Setting bmarkDrop value to " + recommendedFolder);
+                if (recommendedFolder) {
+                    document.getElementById("bmarkDrop")
+                            .value = recommendedFolder;
+                }
+            });
+        }
     });
 
     // Display the modal and set the
@@ -148,9 +154,9 @@ export function addBookmark(btn) {
             let   usableD;
 
             if (usableU.search("chrome://") !== -1) {
-                const bookmarksBarCategory = 0;
+                const noCategory = -1;
                 autofiller(usableT, usableU,
-                           bookmarksBarCategory, modal,
+                           noCategory, modal,
                            closeSpanBtn, saveBmarkBtn);
                 return;
             }
