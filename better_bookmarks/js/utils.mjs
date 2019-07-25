@@ -78,16 +78,16 @@ export function createDropdown(parentId) {
  *
  * @author Brady McGrath
  *
- * @param {string} bookmarkId    - the numeric ID of the bookmark
+ * @param {string} bookmarkId    - The numeric ID of the bookmark
  *     node as a string.
- * @param {string} bookmarkTitle - the bookmark's title.
+ * @param {string} bookmarkTitle - The bookmark's title.
  * @return {Object} a bookmark HTML element.
  *
  */
 export function createBookmark(bookmarkId, bookmarkTitle) {
-    const bookmark = createTag({ tag: "a"
-                               , id: "bookmark" + bookmarkId
-                               , attrs: { href: "#" }
+    const bookmark = createTag({ tag   : "a"
+                               , id    : "bookmark" + bookmarkId
+                               , attrs : { href : "#" }
                                });
     const linkIcon = createTag({ tag     : "i"
                                , attrs   : { id        : "linkIcon"
