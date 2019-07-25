@@ -188,7 +188,7 @@ export async function predictCategory(title, description) {
 
     for (let i = 0; i < predict.length; i++) {
         if (predict[i] > maxValue) {
-            ret       = i;
+            ret      = i;
             maxValue = predict[i];
         }
     }
