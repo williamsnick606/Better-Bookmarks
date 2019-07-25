@@ -55,8 +55,8 @@ function autofiller(title, url, category,
     // default title name.
     modal.style.display = "block";
     document.getElementById("newName")
-            .value = title;
-    closeBtn.onclick = () => {
+            .value      = title;
+    closeBtn.onclick    = () => {
         modal.style.display = "none";
     }
 
@@ -78,6 +78,9 @@ function autofiller(title, url, category,
                                 , "url"      : url
                                 }, node => {
             const bmark = createBookmark(node.id, node.title);
+            bmark.addEventListener("click", () => {
+                chrome.tabs.create({ url: node.url });
+            });
             updateBookmarkDisplay(node.parentId, bmark);
         });
 
@@ -145,8 +148,10 @@ export function addBookmark(btn) {
             let   usableD;
 
             if (usableU.search("chrome://") !== -1) {
-                alert("Bookmarking URLs of the form, \"chrome://*\" " +
-                      "is not allowed.");
+                const bookmarksBarCategory = 0;
+                autofiller(usableT, usableU,
+                           bookmarksBarCategory, modal,
+                           closeSpanBtn, saveBmarkBtn);
                 return;
             }
 
