@@ -1,6 +1,8 @@
 /*
  * file        : on_removed.js
- * description :
+ * description : This file contains code that set the "createdCategories"
+ *               value in storage to false if the user deletes any of the
+ *               category folders created during install.
  *
  */
 
@@ -10,14 +12,42 @@ chrome.bookmarks.onRemoved.addListener((id, removeInfo) => {
     const node = removeInfo.node;
     console.log("Bookmark or Folder removed has title " +
                 node.title);
-    chrome.storage.sync.get([ "categories" ], (results) => {
+
+    chrome.storage.sync.get([ "categories"
+                            , "categoriesMap"
+                            , "deletedCategories"
+                            ], results => {
         const categoriesArray = results.categories;
+        const categoriesDict  = results.categoriesMap;
+        const categoryIndex   = categoriesArray.indexOf(node.title);
+
         console.log("categoriesArray.indexOf(node.title) = " +
-            categoriesArray.indexOf(node.title));
+            categoryIndex);
+
         if (categoriesArray &&
-            (categoriesArray.indexOf(node.title) !== -1)) {
-            chrome.storage.sync.set({ createdCategories : false });
-            console.log("Set createdCategories to false.");
+            categoryIndex !== -1) {
+            delete categoriesDict[categoryIndex];
+            const newCategories =
+                categoriesArray.filter(val => { return val !== node.title });
+
+
+            console.log("Deleted " + node.title + " from categoriesArray.");
+            console.log("newCategoriesArray = " + newCategories);
+
+            if (newCategories.length === 0) {
+                chrome.storage.sync.set({ createdCategories : false
+                                        , categories        : null
+                                        , categoriesMap     : null
+                                        });
+
+                console.log("Set createdCategories to false.");
+                console.log("Set categories to null.");
+                console.log("Set categoriesMap to null.");
+            }
+
+            chrome.storage.sync.set({ categories        : newCategories
+                                    , categoriesMap     : categoriesDict
+                                    });
         }
     });
 });
