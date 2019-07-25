@@ -25,16 +25,17 @@ chrome.runtime.onInstalled.addListener((details) => {
     chrome.storage.sync.get(["createdCategories"], (result) => {
         if (!result.createdCategories) {
             const categoriesArray = [ "Art"
-                                  , "Business"
-                                  , "Health"
-                                  , "Society"
-                                  , "Sports"
-                                  ];
-            const categoriesDict  = { 0 : "Art"
-                                    , 1 : "Business"
-                                    , 2 : "Health"
-                                    , 3 : "Society"
-                                    , 4 : "Sports"
+                                    , "Business"
+                                    , "Health"
+                                    , "Society"
+                                    , "Sports"
+                                    ];
+            const categoriesDict  = { 0 : "Bookmarks bar"
+                                    , 1 : "Art"
+                                    , 2 : "Business"
+                                    , 3 : "Health"
+                                    , 4 : "Society"
+                                    , 5 : "Sports"
                                     }
             console.log("Creating folder categories in response " +
                         "to chrome.runtime.onInstalled event...");
@@ -42,7 +43,7 @@ chrome.runtime.onInstalled.addListener((details) => {
                 createCategoryFolder(category, "1");
             }
             chrome.storage.sync.set({ createdCategories : true
-                                    , categories       : categoriesArray
+                                    , categories        : categoriesArray
                                     , categoriesMap     : categoriesDict
                                     });
             console.log("Set categoriesMap to " + categoriesDict);
