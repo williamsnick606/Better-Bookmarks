@@ -23,6 +23,11 @@ function createCategoryFolder(categoryTitle, categoryParentId) {
 // been already.
 chrome.runtime.onInstalled.addListener((details) => {
     chrome.storage.sync.get(["createdCategories"], (result) => {
+        // Need to setup something to add only those categories
+        // that have been deleted.
+
+        // If all categories have been deleted,
+        // then create them again.
         if (!result.createdCategories) {
             const categoriesArray = [ "Art"
                                     , "Business"
@@ -30,12 +35,11 @@ chrome.runtime.onInstalled.addListener((details) => {
                                     , "Society"
                                     , "Sports"
                                     ];
-            const categoriesDict  = { 0 : "Bookmarks bar"
-                                    , 1 : "Art"
-                                    , 2 : "Business"
-                                    , 3 : "Health"
-                                    , 4 : "Society"
-                                    , 5 : "Sports"
+            const categoriesDict  = { 0 : "Art"
+                                    , 1 : "Business"
+                                    , 2 : "Health"
+                                    , 3 : "Society"
+                                    , 4 : "Sports"
                                     }
             console.log("Creating folder categories in response " +
                         "to chrome.runtime.onInstalled event...");
