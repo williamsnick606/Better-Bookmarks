@@ -1,18 +1,23 @@
+/*
+ * file        : add_new_bookmarks.mjs
+ * description : This file contains code for manipulating the modal,
+ *               i.e., popup, that displays when a user clicks the
+ *               "add bookmark" button in the primary extension popup.
+ *
+ */
 /**
  * @file This file contains code for manipulating the modal,
  *     i.e., popup, that displays when a user clicks the
  *     "add bookmark" button in the primary extension popup.
  *
+ * @module add_new_bookmark
+ *
  */
-
-import {predictCategory, preprocess} from './predictCategory.mjs'
-
-/* The only way to add a bookmark to a certain folder is by knowing
- * the bookmarkID of the folder you want it added to. These variables
- * will keep track of the bookmarkID's of the folders our ML function
- * can recommend.
- */
-var art, business, health, society, sports;
+import { predictCategory, preprocess } from './predictCategory.mjs'
+import { addFoldersToSelectionMenu
+       , createBookmark
+       , updateBookmarkDisplay
+       } from './utils.mjs'
 
 /**
 *  Creates a new bookmark given a bookmark title
@@ -29,45 +34,62 @@ var art, business, health, society, sports;
 *
 */
 function autofiller(title, url, category,
-                    modal, span, save) {
+                    modal, closeBtn, saveBookmarkBtn) {
     console.log("Entering autofiller in add_new_bookmark.js...");
-    // When the user clicks the 'Bookmark' button,
-    // Display the modal
 
-    if(category == 0) {
-        document.getElementById("bmarkDrop").value = art;
-    } else if (category == 1) {
-        document.getElementById("bmarkDrop").value = business;
-    } else if (category == 2) {
-        document.getElementById("bmarkDrop").value = health;
-    } else if (category == 3) {
-        document.getElementById("bmarkDrop").value = society;
-    } else if (category == 4) {
-        document.getElementById("bmarkDrop").value = sports;
-    }
+    chrome.storage.sync.get(["categoriesMap"], (result) => {
+        console.log("Fetching categoriesMap...result = " + result);
+        console.log("result.categoriesMap = " + result.categoriesMap);
 
+        let categoriesDict = result.categoriesMap;
+        const key          = categoriesDict[category];
+        console.log("key " + key + " gotten from category object.");
+
+        if (key) {
+            chrome.storage.sync.get([key], (result) => {
+                const recommendedFolder = result[key];
+                console.log("Setting bmarkDrop value to " + recommendedFolder);
+                if (recommendedFolder) {
+                    document.getElementById("bmarkDrop")
+                            .value = recommendedFolder;
+                }
+            });
+        }
+    });
+
+    // Display the modal and set the
+    // default title name.
     modal.style.display = "block";
-    // Autofill the site Title as the bookmark name
-    document.getElementById("newName").value = title;
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
+    document.getElementById("newName")
+            .value      = title;
+    closeBtn.onclick    = () => {
         modal.style.display = "none";
     }
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
+
+    // Close the modal if there are any clicks outside
+    // its boundaries.
+    window.onclick = (event) => {
         if (event.target === modal) {
             modal.style.display = "none";
         }
     }
-    const bookURL = document.getElementById("newName");
-    // When a user clicks the Create button, save a new bookmark
-    save.onclick = function() {
-        var bookT = document.getElementById("newName").value;
-        var ID = document.getElementById("bmarkDrop").value;
+
+    const bookURL           = document.getElementById("newName");
+    saveBookmarkBtn.onclick = () => {
+        const bookT = document.getElementById("newName").value;
+        const ID    = document.getElementById("bmarkDrop").value;
+
         chrome.bookmarks.create({ "parentId" : ID
                                 , "title"    : bookT
                                 , "url"      : url
-                                });
+                                }, node => {
+            const bmark = createBookmark(node.id, node.title);
+            bmark.addEventListener("click", () => {
+                chrome.tabs.create({ url: node.url });
+            });
+            updateBookmarkDisplay(node.parentId, bmark);
+        });
+
         modal.style.display = "none";
     }
 }
@@ -88,44 +110,12 @@ function autofiller(title, url, category,
 export function addBookmark(btn) {
     return ( () => {
         // All of the buttons/fields in the modal
-        const modal  = document.getElementById("bmarkModal");
-        const save   = document.getElementById("saveBmark");
-        const span   = document.getElementById("bmarkSpan");
-        const select = document.getElementById("bmarkDrop");
-
-        /*
-         * Description: This function goes through the user's bookmark tree, adding
-         *              their folders as options to our folder dropdown, so that they
-         *              can save a bookmark to any bookmark folder they want.
-         * Inputs:      "id" == a number corresponding to the bookmarkID of the node
-         *              whose children you want added to the dropdown list.
-         * Output:      None.
-         */
-        grabFolders('0');
-        function grabFolders(id) {
-            chrome.bookmarks.getChildren(id, function(children) {
-                children.forEach(function(bookmark) { 
-                    if(bookmark.url == null){
-                        var option = document.createElement('option');
-                        option.value = bookmark.id;
-                        option.text = bookmark.title;
-                        if(option.text == "Art") {
-                            art = option.value;
-                        } else if(option.text == "Business") {
-                            business = option.value;
-                        } else if(option.text == "Health") {
-                            health = option.value;
-                        } else if(option.text == "Society") {
-                            society = option.value;
-                        } else if(option.text == "Sports") {
-                            sports = option.value;
-                        }
-                        select.appendChild(option);
-                    }
-                    grabFolders(bookmark.id);
-                });
-            });
-        }
+        const modal          = document.getElementById("bmarkModal");
+        const saveBmarkBtn   = document.getElementById("saveBmark");
+        const closeSpanBtn   = document.getElementById("bmarkSpan");
+        const selectMenu     = document.getElementById("bmarkDrop");
+        
+        addFoldersToSelectionMenu(selectMenu);
 
         /* 
         * Since executeScript doesn't seem to like when
@@ -141,23 +131,17 @@ export function addBookmark(btn) {
         *       i.e., your homepage.
         */
         const codeToExecute =
-            //"const pageTitle = document.getElementsByTagName(\"title\")[0].innerText;\n" +
-            //"const pageURL   = document.URL;\n" +
-            "const metas     = document.getElementsByTagName('meta');\n" +
+            "const metas = document.getElementsByTagName('meta');\n" +
             "let pageDescription;\n" +
             "for (let i = 0; i < metas.length; i++) {\n" +
             "    const meta = metas[i];\n" +
                 // Some websites don't conform to the norm,
                 // thus requiring toLowerCase().
-            "    if (meta.name.toLowerCase() === 'description'){\n" +
+            "    if (meta.name.toLowerCase() === \"description\"){\n" +
             "        pageDescription = meta.content;\n" +
             "    }\n" +
             "}\n" +
-            //"const pageData = {title: pageTitle, description: pageDescription, url: pageURL};\n" +
-            //"pageData;";
-            //"alert(\"desc = \" + pageDescription);\n" +
             "pageDescription";
-
 
         // Get the current tab's ID, title, and URL.
         // After getting that information, call
@@ -168,43 +152,63 @@ export function addBookmark(btn) {
             const usableT = tab.title;
             const usableU = tab.url;
             let   usableD;
-            //alert("codeToExecute =\n" + codeToExecute);
-            // Collect the relevant page information for the
-            // tab that "add bookmark" was clicked on.
+
+            if (usableU.search("chrome://") !== -1) {
+                const noCategory = -1;
+                autofiller(usableT, usableU,
+                           noCategory, modal,
+                           closeSpanBtn, saveBmarkBtn);
+                return;
+            }
+
+            // Get the description for the page being
+            // bookmarked.
             chrome.tabs.executeScript(tabId, { code  : codeToExecute
                                              , runAt : "document_start"
                                              }, (results) => {
                 try {
+                    // Should be the description of the page.
                     const result = results[0];
-                    //let usableD  = result.description;
                     let usableD  = result;
-
 
                     console.log("title = " + usableT + "\n" +
                                 "url = " + usableU + "\n" +
                                 "description = " + usableD);
 
-                    let obj = {};
+                    // Get ready to store the description for the
+                    // unique tab id being bookmarked.
+                    let obj   = {};
                     const key = "_" + tabId;
-                    obj[key] = usableD;
+                    obj[key]  = usableD;
+
                     console.log("obj." + key + " = " + obj[key]);
 
+                    // The description wasn't null, so it exists
+                    // and this is the first time we've injected
+                    // the code in our executeScript(...) call.
                     if (usableD) {
                         chrome.storage.sync.set(obj);
                     }
-
+                    // Description was null, so either it doesn't
+                    // exist for the given page, or we've already
+                    // gotten it and it's in storage.
                     else {
-                        chrome.storage.sync.get([key], (getResult) => {
+                        chrome.storage.sync.get([key], (result) => {
+                            usableD = result[key];
+
                             console.log("description was null in " +
                                         "executeScript in " +
                                         "add_new_bookmark.js...");
-                            console.log("getResult[" + key + "]: " +
-                                        getResult[key]);
+                            console.log("result[" + key + "]: " +
+                                        usableD);
                         });
                     }
-                    predictCategory(usableT, usableD).then(function(t) {
-                        var finalCategory = t;
-                        autofiller(usableT, usableU, finalCategory, modal, span, save);
+
+                    predictCategory(usableT, usableD).then((t) => {
+                        const finalCategory = t;
+                        autofiller(usableT, usableU,
+                                   finalCategory, modal,
+                                   closeSpanBtn, saveBmarkBtn);
                     });
                 }
                 catch(err) {

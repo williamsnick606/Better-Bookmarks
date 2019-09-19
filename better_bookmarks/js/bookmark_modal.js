@@ -1,5 +1,5 @@
-/**
- * file        : modal.js
+/*
+ * file        : bookmark_modal.js
  * description : This file contains code for manipulating the modal,
  *               i.e., popup, that displays when a user clicks the
  *               "add bookmark" button in the primary extension popup.
@@ -8,5 +8,5 @@
 import {addBookmark} from './add_new_bookmark.mjs'
 
 // Get the "add bookmark" button that opens the modal
-const addBmarkbtn = document.getElementById("newBmark");
+const addBmarkbtn = document.getElementById("addNewBookmarkBtn");
 addBmarkbtn.addEventListener("click", addBookmark(addBmarkbtn));

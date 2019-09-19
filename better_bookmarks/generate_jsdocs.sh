@@ -9,7 +9,11 @@
 dest="./docs"
 
 # JS modules.
-modules=("js/utils.mjs" "js/add_new_bookmark.mjs")
+modules=("js/utils.mjs"
+         "js/add_new_bookmark.mjs"
+         "js/add_new_folder.mjs"
+         "js/predictCategory.mjs"
+        )
 
 # Regular JS files.
 jsFiles=()
